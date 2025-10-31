@@ -4,10 +4,13 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import ServiceForm from "@/components/ServiceForm";
+import { ServiceData } from "@/lib/formSubmission";
 
 const PPCCalculator = () => {
   const [adSpendBudget, setAdSpendBudget] = useState<string>("2k");
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["LinkedIn Ads"]);
+  const [formOpen, setFormOpen] = useState(false);
 
   const setupFee = 350;
   
@@ -39,8 +42,37 @@ const PPCCalculator = () => {
   };
 
   const monthlyFeePerPlatform = getMonthlyFee(adSpendBudget);
-  const totalMonthlyFee = monthlyFeePerPlatform * selectedPlatforms.length;
+  
+  // Calculate management fees with multi-platform discount
+  const getManagementFeeWithDiscounts = () => {
+    if (selectedPlatforms.length === 0) return 0;
+    if (selectedPlatforms.length === 1) return monthlyFeePerPlatform;
+    
+    // First platform full price, each additional platform gets $50 discount
+    const firstPlatformFee = monthlyFeePerPlatform;
+    const additionalPlatformsFee = (selectedPlatforms.length - 1) * (monthlyFeePerPlatform - 50);
+    return firstPlatformFee + additionalPlatformsFee;
+  };
+  
+  const totalMonthlyFee = getManagementFeeWithDiscounts();
   const totalSetupFee = setupFee * selectedPlatforms.length;
+  const multiPlatformDiscount = selectedPlatforms.length > 1 
+    ? (selectedPlatforms.length - 1) * 50 
+    : 0;
+
+  const handleGetStarted = () => {
+    const serviceData: ServiceData = {
+      serviceType: "PPC Management",
+      platforms: selectedPlatforms.join(","),
+      platformCount: selectedPlatforms.length,
+      adSpendBudget: adSpendBudget,
+      setupFee: totalSetupFee,
+      monthlyTotal: totalMonthlyFee,
+      baseManagementFee: monthlyFeePerPlatform * selectedPlatforms.length,
+      multiPlatformDiscount: multiPlatformDiscount,
+    };
+    setFormOpen(true);
+  };
 
   return (
     <section id="ppc" className="py-20 bg-secondary/30">
@@ -100,27 +132,47 @@ const PPCCalculator = () => {
                     <span className="font-semibold">${totalSetupFee.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Monthly Management Fee:</span>
-                    <span className="font-semibold">${totalMonthlyFee.toLocaleString()}/month</span>
+                    <span className="text-muted-foreground">Base Management Fee:</span>
+                    <span className="font-semibold">
+                      ${(monthlyFeePerPlatform * selectedPlatforms.length).toLocaleString()}/month
+                    </span>
                   </div>
+                  {multiPlatformDiscount > 0 && (
+                    <div className="flex justify-between items-center text-accent">
+                      <span>Multi-Platform Discount:</span>
+                      <span className="font-semibold">-${multiPlatformDiscount}/month</span>
+                    </div>
+                  )}
                   <div className="border-t pt-3 mt-3">
                     <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold">First Month Total:</span>
+                      <span className="text-lg font-bold">Monthly Total:</span>
                       <span className="text-2xl font-bold text-accent">
-                        ${(totalSetupFee + totalMonthlyFee).toLocaleString()}
+                        ${totalMonthlyFee.toLocaleString()}/month
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <Button variant="hero" size="lg" className="w-full">
+              <Button variant="hero" size="lg" className="w-full" onClick={handleGetStarted}>
                 Get Started with PPC
               </Button>
             </CardContent>
           </Card>
         </div>
       </div>
+      
+      <ServiceForm
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        serviceData={{
+          serviceType: "PPC Management",
+          platforms: selectedPlatforms.join(","),
+          platformCount: selectedPlatforms.length,
+          setupFee: totalSetupFee,
+          monthlyTotal: totalMonthlyFee,
+        }}
+      />
     </section>
   );
 };

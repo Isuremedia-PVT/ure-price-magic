@@ -3,10 +3,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
+import ServiceForm from "@/components/ServiceForm";
+import { ServiceData } from "@/lib/formSubmission";
 
 const SEOCalculator = () => {
   const [keywords, setKeywords] = useState(8);
   const [blogPosts, setBlogPosts] = useState(0);
+  const [formOpen, setFormOpen] = useState(false);
 
   const basePrice = 350;
   const keywordPrice = 25;
@@ -133,13 +136,25 @@ const SEOCalculator = () => {
                 </div>
               </div>
 
-              <Button variant="hero" size="lg" className="w-full">
+              <Button variant="hero" size="lg" className="w-full" onClick={() => setFormOpen(true)}>
                 Get Started with SEO
               </Button>
             </CardContent>
           </Card>
         </div>
       </div>
+      
+      <ServiceForm
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        serviceData={{
+          serviceType: "SEO Services",
+          basePackage: basePrice,
+          keywords: keywords,
+          blogPosts: blogPosts,
+          monthlyTotal: totalPrice,
+        }}
+      />
     </section>
   );
 };

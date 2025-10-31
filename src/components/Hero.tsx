@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import CertificationBadges from "./CertificationBadges";
 
 const Hero = () => {
   const scrollToServices = () => {
@@ -18,10 +19,16 @@ const Hero = () => {
           />
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Transparent Pricing for Your Digital Growth
+            B2B White Label Digital Marketing Agency
           </h1>
           
-          <p className="text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-2xl">
+          <p className="text-lg md:text-xl text-primary-foreground/80 mb-6 max-w-2xl">
+            Transparent, Flexible Pricing for Growing Agencies
+          </p>
+          
+          <CertificationBadges />
+          
+          <p className="text-md text-primary-foreground/70 mb-10 max-w-2xl">
             Customize your package and see pricing in real-time. No hidden fees, no surprises—just clear, honest pricing for exceptional digital marketing services.
           </p>
           

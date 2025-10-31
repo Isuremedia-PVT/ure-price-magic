@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Facebook, Linkedin, Instagram } from "lucide-react";
 
 const Footer = () => {
   const scrollToSection = (id: string) => {
@@ -100,11 +101,41 @@ const Footer = () => {
             </p>
             <Button
               variant="accent"
-              onClick={() => scrollToSection("custom")}
-              className="w-full"
+              onClick={() => scrollToSection("booking")}
+              className="w-full mb-6"
             >
               Schedule Consultation
             </Button>
+            
+            <div className="flex gap-4 justify-center">
+              <a
+                href="https://facebook.com/isuremedia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-foreground hover:text-accent transition-smooth"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-6 h-6" />
+              </a>
+              <a
+                href="https://linkedin.com/company/isuremedia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-foreground hover:text-accent transition-smooth"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-6 h-6" />
+              </a>
+              <a
+                href="https://instagram.com/isuremedia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-foreground hover:text-accent transition-smooth"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-6 h-6" />
+              </a>
+            </div>
           </div>
         </div>
 

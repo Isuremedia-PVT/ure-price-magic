@@ -133,4 +133,15 @@ All colors MUST be HSL.
   .transition-smooth {
     transition: var(--transition-smooth);
   }
+  
+  /* Hide Lovable branding */
+  .lovable-badge,
+  .lovable-watermark,
+  [class*="lovable-edit"],
+  [data-lovable-badge],
+  [data-radix-portal] [class*="lovable"] {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
 }

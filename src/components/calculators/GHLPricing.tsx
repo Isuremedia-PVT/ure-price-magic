@@ -144,14 +144,14 @@ const GHLPricing = () => {
             </div>
           </div>
 
-          {/* Onboarding Services */}
+          {/* Client Onboarding Services */}
           <div className="mb-16">
-            <h3 className="text-2xl font-bold text-center mb-8">Onboarding Services</h3>
+            <h3 className="text-2xl font-bold text-center mb-8">GHL Client Onboarding Services</h3>
             <Card className="shadow-medium max-w-3xl mx-auto">
               <CardHeader>
-                <CardTitle>GHL Onboarding Sessions</CardTitle>
+                <CardTitle>Client Onboarding</CardTitle>
                 <CardDescription>
-                  Expert guidance to get you started with GoHighLevel
+                  Personalized onboarding experience for your clients
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -160,7 +160,7 @@ const GHLPricing = () => {
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start">
                       <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
-                      Two 1:1 consultation calls
+                      Two 1:1 consultation calls with your client
                     </li>
                     <li className="flex items-start">
                       <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
@@ -174,15 +174,21 @@ const GHLPricing = () => {
                       <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
                       Best practices training
                     </li>
+                    <li className="flex items-start">
+                      <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
+                      Personalized onboarding experience
+                    </li>
                   </ul>
                 </div>
 
                 <div>
                   <div className="flex justify-between items-center mb-3">
                     <Label htmlFor="onboarding" className="text-base">
-                      Number of Sessions
+                      Number of Client Onboardings
                     </Label>
-                    <span className="text-sm font-semibold">{onboardingSessions} sessions</span>
+                    <span className="text-sm font-semibold">
+                      {onboardingSessions} Client Onboarding{onboardingSessions > 1 ? 's' : ''}
+                    </span>
                   </div>
                   <Slider
                     id="onboarding"
@@ -194,7 +200,7 @@ const GHLPricing = () => {
                     className="w-full"
                   />
                   <p className="text-xs text-muted-foreground mt-2">
-                    $50 per session • Includes two 1:1 calls with client
+                    $50 per Client Onboarding • Includes two 1:1 calls with client
                   </p>
                 </div>
 
@@ -210,7 +216,7 @@ const GHLPricing = () => {
                 </div>
 
                 <Button variant="hero" size="lg" className="w-full">
-                  Book Onboarding Sessions
+                  Book Client Onboarding
                 </Button>
               </CardContent>
             </Card>

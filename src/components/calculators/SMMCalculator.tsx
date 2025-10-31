@@ -5,6 +5,8 @@ import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import ServiceForm from "@/components/ServiceForm";
+import { ServiceData } from "@/lib/formSubmission";
 
 const SMMCalculator = () => {
   const [postsPerWeek, setPostsPerWeek] = useState(2);
@@ -13,6 +15,7 @@ const SMMCalculator = () => {
   const [longVideos, setLongVideos] = useState(0);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["Instagram", "Facebook", "YouTube"]);
   const [includeGMB, setIncludeGMB] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
 
   const basePrice = 500;
   const basePosts = 2;
@@ -72,6 +75,22 @@ const SMMCalculator = () => {
   const longVideosAddOn = getLongVideosCost();
   const gmbAddOn = includeGMB ? gmbPrice : 0;
   const totalPrice = basePrice + contentAddOns + platformAddOns + longVideosAddOn + gmbAddOn;
+
+  const handleGetStarted = () => {
+    const serviceData: ServiceData = {
+      serviceType: "Social Media Management",
+      basePackage: basePrice,
+      platforms: selectedPlatforms.join(","),
+      platformCount: selectedPlatforms.length,
+      postsPerWeek: postsPerWeek,
+      reelsPerWeek: carouselsPerWeek,
+      storiesPerWeek: storiesPerWeek,
+      longVideos: longVideos,
+      gmbAddon: includeGMB,
+      monthlyTotal: totalPrice,
+    };
+    setFormOpen(true);
+  };
 
   return (
     <section id="smm" className="py-20">
@@ -290,13 +309,24 @@ const SMMCalculator = () => {
                 </div>
               </div>
 
-              <Button variant="hero" size="lg" className="w-full">
+              <Button variant="hero" size="lg" className="w-full" onClick={handleGetStarted}>
                 Get Started with Social Media
               </Button>
             </CardContent>
           </Card>
         </div>
       </div>
+      
+      <ServiceForm
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        serviceData={{
+          serviceType: "Social Media Management",
+          basePackage: basePrice,
+          platforms: selectedPlatforms.join(","),
+          monthlyTotal: totalPrice,
+        }}
+      />
     </section>
   );
 };
