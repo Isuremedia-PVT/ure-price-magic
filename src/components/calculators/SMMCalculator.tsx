@@ -11,6 +11,7 @@ const SMMCalculator = () => {
   const [carouselsPerWeek, setCarouselsPerWeek] = useState(2);
   const [storiesPerWeek, setStoriesPerWeek] = useState(4);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["Instagram", "Facebook"]);
+  const [includeGMB, setIncludeGMB] = useState(false);
 
   const basePrice = 800;
   const additionalPlatformPrice = 150;
@@ -56,7 +57,8 @@ const SMMCalculator = () => {
   
   const contentAddOns = getPostsCost() + getCarouselsCost() + getStoriesCost();
   const platformAddOns = additionalPlatforms * additionalPlatformPrice;
-  const totalPrice = basePrice + contentAddOns + platformAddOns;
+  const gmbAddOn = includeGMB ? 100 : 0;
+  const totalPrice = basePrice + contentAddOns + platformAddOns + gmbAddOn;
 
   return (
     <section id="smm" className="py-20">
@@ -101,6 +103,30 @@ const SMMCalculator = () => {
                       </label>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              <div className="border-t pt-6 mt-6">
+                <div className="flex items-start space-x-3 p-4 border rounded-lg bg-secondary/20">
+                  <Checkbox
+                    id="gmb"
+                    checked={includeGMB}
+                    onCheckedChange={(checked) => setIncludeGMB(checked as boolean)}
+                  />
+                  <div className="flex-1">
+                    <label
+                      htmlFor="gmb"
+                      className="text-base font-semibold leading-none cursor-pointer flex items-center gap-2"
+                    >
+                      📍 Google My Business (GMB) Optimization
+                      <Badge variant="secondary" className="bg-accent/10 text-accent">
+                        +$100/mo
+                      </Badge>
+                    </label>
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Complete GMB profile optimization, reputation management, review responses, and monthly reporting
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -177,6 +203,12 @@ const SMMCalculator = () => {
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Additional Platforms:</span>
                       <span className="font-semibold">+${platformAddOns}</span>
+                    </div>
+                  )}
+                  {gmbAddOn > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">GMB Optimization:</span>
+                      <span className="font-semibold">+${gmbAddOn}</span>
                     </div>
                   )}
                   <div className="border-t pt-3 mt-3">

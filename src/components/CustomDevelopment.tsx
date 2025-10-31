@@ -13,27 +13,47 @@ const CustomDevelopment = () => {
     name: "",
     email: "",
     phone: "",
+    company: "",
+    website: "",
+    clientType: "",
     serviceType: "",
     timeline: "",
     budget: "",
     description: "",
+    loomVideo: "",
   });
+  const [files, setFiles] = useState<File[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
       title: "Quote Request Submitted!",
-      description: "We'll get back to you within 24 hours with a custom quote.",
+      description: "Thanks! We'll review your requirements and get back to you within 24 hours.",
     });
     setFormData({
       name: "",
       email: "",
       phone: "",
+      company: "",
+      website: "",
+      clientType: "",
       serviceType: "",
       timeline: "",
       budget: "",
       description: "",
+      loomVideo: "",
     });
+    setFiles([]);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setFiles(Array.from(e.target.files));
+    }
+  };
+
+  const removeFile = (index: number) => {
+    setFiles(files.filter((_, i) => i !== index));
   };
 
   return (
@@ -55,8 +75,195 @@ const CustomDevelopment = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-8">
+                {/* Step 1: Client Type */}
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">
+                    Are you an agency or need help with a single account? *
+                  </Label>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <div
+                      onClick={() => setFormData({ ...formData, clientType: "agency" })}
+                      className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
+                        formData.clientType === "agency"
+                          ? "border-accent bg-accent/10"
+                          : "border-border hover:border-accent/50"
+                      }`}
+                    >
+                      <div className="font-semibold">Agency</div>
+                      <div className="text-sm text-muted-foreground">Managing multiple clients</div>
+                    </div>
+                    <div
+                      onClick={() => setFormData({ ...formData, clientType: "single" })}
+                      className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
+                        formData.clientType === "single"
+                          ? "border-accent bg-accent/10"
+                          : "border-border hover:border-accent/50"
+                      }`}
+                    >
+                      <div className="font-semibold">Single Business/Account</div>
+                      <div className="text-sm text-muted-foreground">One account setup</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 2: Service Type */}
+                <div>
+                  <Label htmlFor="service-type" className="text-base font-semibold">
+                    What type of custom work do you need? *
+                  </Label>
+                  <Select
+                    required
+                    value={formData.serviceType}
+                    onValueChange={(value) => setFormData({ ...formData, serviceType: value })}
+                  >
+                    <SelectTrigger id="service-type" className="mt-2">
+                      <SelectValue placeholder="Select a service" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-popover">
+                      <SelectItem value="website">Website Development</SelectItem>
+                      <SelectItem value="webapp">Custom Web Application</SelectItem>
+                      <SelectItem value="shopify">Shopify Development/Customization</SelectItem>
+                      <SelectItem value="ghl-api">GHL API Integration</SelectItem>
+                      <SelectItem value="ghl-whitelabel">GHL White Label Support</SelectItem>
+                      <SelectItem value="ghl-b2b">GHL Agency B2B Services</SelectItem>
+                      <SelectItem value="automation">Custom Automation/Workflow</SelectItem>
+                      <SelectItem value="integration">Third-party Integration</SelectItem>
+                      <SelectItem value="other">Other (please specify)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Step 3: Project Details */}
+                <div>
+                  <Label htmlFor="description" className="text-base font-semibold">
+                    Project Description *
+                  </Label>
+                  <Textarea
+                    id="description"
+                    required
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="Describe your project requirements, goals, and any specific features needed..."
+                    rows={6}
+                    className="mt-2"
+                  />
+                </div>
+
+                {/* File Upload */}
+                <div>
+                  <Label htmlFor="file-upload" className="text-base font-semibold">
+                    Upload Files (Optional)
+                  </Label>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Briefs, mockups, documents (PDF, DOC, DOCX, PNG, JPG, ZIP • Max 25MB per file)
+                  </p>
+                  <Input
+                    id="file-upload"
+                    type="file"
+                    multiple
+                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.zip"
+                    onChange={handleFileChange}
+                    className="cursor-pointer"
+                  />
+                  {files.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      {files.map((file, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center justify-between p-2 bg-secondary/30 rounded"
+                        >
+                          <span className="text-sm truncate">{file.name}</span>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeFile(index)}
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Loom Video */}
+                <div>
+                  <Label htmlFor="loom-video" className="text-base font-semibold">
+                    Loom Video (Optional but Recommended)
+                  </Label>
+                  <p className="text-sm text-muted-foreground mb-2">
+                    📹 Record a quick Loom video walking us through your needs - this helps us understand
+                    your vision better!
+                  </p>
+                  <Input
+                    id="loom-video"
+                    type="url"
+                    value={formData.loomVideo}
+                    onChange={(e) => setFormData({ ...formData, loomVideo: e.target.value })}
+                    placeholder="https://www.loom.com/share/..."
+                  />
+                  <a
+                    href="https://www.loom.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-accent hover:underline mt-1 inline-block"
+                  >
+                    Don't have Loom? Get it free →
+                  </a>
+                </div>
+
+                {/* Step 4: Timeline & Budget */}
                 <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="timeline" className="text-base font-semibold">
+                      Estimated Timeline *
+                    </Label>
+                    <Select
+                      required
+                      value={formData.timeline}
+                      onValueChange={(value) => setFormData({ ...formData, timeline: value })}
+                    >
+                      <SelectTrigger id="timeline" className="mt-2">
+                        <SelectValue placeholder="Select timeline" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-popover">
+                        <SelectItem value="rush">Rush (1-2 weeks)</SelectItem>
+                        <SelectItem value="standard">Standard (3-4 weeks)</SelectItem>
+                        <SelectItem value="flexible">Flexible (5+ weeks)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="budget" className="text-base font-semibold">
+                      Budget Range *
+                    </Label>
+                    <Select
+                      required
+                      value={formData.budget}
+                      onValueChange={(value) => setFormData({ ...formData, budget: value })}
+                    >
+                      <SelectTrigger id="budget" className="mt-2">
+                        <SelectValue placeholder="Select budget" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-popover">
+                        <SelectItem value="under-1k">Under $1,000</SelectItem>
+                        <SelectItem value="1k-2.5k">$1,000 - $2,500</SelectItem>
+                        <SelectItem value="2.5k-5k">$2,500 - $5,000</SelectItem>
+                        <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
+                        <SelectItem value="10k+">$10,000+</SelectItem>
+                        <SelectItem value="unsure">Not sure / Need consultation</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Step 5: Contact Information */}
+                <div className="border-t pt-6">
+                  <h3 className="text-base font-semibold mb-4">Contact Information</h3>
+                  <div className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="name">Full Name *</Label>
                     <Input
@@ -80,85 +287,39 @@ const CustomDevelopment = () => {
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+1 (555) 000-0000"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="service-type">Service Type *</Label>
-                  <Select
-                    required
-                    value={formData.serviceType}
-                    onValueChange={(value) => setFormData({ ...formData, serviceType: value })}
-                  >
-                    <SelectTrigger id="service-type">
-                      <SelectValue placeholder="Select a service" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-popover">
-                      <SelectItem value="api">Custom API Integration</SelectItem>
-                      <SelectItem value="shopify">Shopify Development</SelectItem>
-                      <SelectItem value="website">Website Development</SelectItem>
-                      <SelectItem value="other">Other Custom Work</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="timeline">Estimated Timeline *</Label>
-                    <Select
-                      required
-                      value={formData.timeline}
-                      onValueChange={(value) => setFormData({ ...formData, timeline: value })}
-                    >
-                      <SelectTrigger id="timeline">
-                        <SelectValue placeholder="Select timeline" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-popover">
-                        <SelectItem value="urgent">ASAP (1-2 weeks)</SelectItem>
-                        <SelectItem value="normal">Normal (3-4 weeks)</SelectItem>
-                        <SelectItem value="flexible">Flexible (1-2 months)</SelectItem>
-                        <SelectItem value="planning">Just Planning</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <div>
+                      <Label htmlFor="phone">Phone Number *</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="+1 (555) 000-0000"
+                      />
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="company">Company Name</Label>
+                        <Input
+                          id="company"
+                          value={formData.company}
+                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                          placeholder="Your Company"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="website">Website (if applicable)</Label>
+                        <Input
+                          id="website"
+                          type="url"
+                          value={formData.website}
+                          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                          placeholder="https://yourwebsite.com"
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="budget">Budget Range *</Label>
-                    <Select
-                      required
-                      value={formData.budget}
-                      onValueChange={(value) => setFormData({ ...formData, budget: value })}
-                    >
-                      <SelectTrigger id="budget">
-                        <SelectValue placeholder="Select budget" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-popover">
-                        <SelectItem value="1k-5k">$1,000 - $5,000</SelectItem>
-                        <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
-                        <SelectItem value="10k-25k">$10,000 - $25,000</SelectItem>
-                        <SelectItem value="25k+">$25,000+</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="description">Project Description *</Label>
-                  <Textarea
-                    id="description"
-                    required
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Tell us about your project, goals, and any specific requirements..."
-                    rows={6}
-                  />
                 </div>
 
                 <Button type="submit" variant="hero" size="lg" className="w-full">
