@@ -7,37 +7,49 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const SMMCalculator = () => {
-  const [postsPerWeek, setPostsPerWeek] = useState(4);
-  const [carouselsPerWeek, setCarouselsPerWeek] = useState(2);
-  const [storiesPerWeek, setStoriesPerWeek] = useState(4);
-  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["Instagram", "Facebook"]);
+  const [postsPerWeek, setPostsPerWeek] = useState(2);
+  const [carouselsPerWeek, setCarouselsPerWeek] = useState(1);
+  const [storiesPerWeek, setStoriesPerWeek] = useState(2);
+  const [longVideos, setLongVideos] = useState(0);
+  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["Instagram", "Facebook", "YouTube"]);
   const [includeGMB, setIncludeGMB] = useState(false);
 
-  const basePrice = 800;
-  const additionalPlatformPrice = 150;
+  const basePrice = 500;
+  const basePosts = 2;
+  const baseCarousels = 1;
+  const baseStories = 2;
+  const additionalPlatformPrice = 100;
+  const gmbPrice = 100;
+  const longVideoPrice = 75;
   
   const getPostsCost = () => {
-    const extraPosts = Math.max(0, postsPerWeek - 5);
-    return extraPosts * 50;
+    const extraPosts = Math.max(0, postsPerWeek - basePosts);
+    return extraPosts * 40;
   };
   
   const getCarouselsCost = () => {
-    const extraCarousels = Math.max(0, carouselsPerWeek - 2);
-    return extraCarousels * 75;
+    const extraCarousels = Math.max(0, carouselsPerWeek - baseCarousels);
+    return extraCarousels * 60;
   };
   
   const getStoriesCost = () => {
-    const extraStories = Math.max(0, storiesPerWeek - 4);
-    return extraStories * 25;
+    const extraStories = Math.max(0, storiesPerWeek - baseStories);
+    return extraStories * 20;
+  };
+
+  const getLongVideosCost = () => {
+    return longVideos * longVideoPrice;
   };
 
   const platforms = [
     { id: "Instagram", name: "Instagram", included: true },
     { id: "Facebook", name: "Facebook/Meta", included: true },
-    { id: "YouTube", name: "YouTube", included: false },
+    { id: "YouTube", name: "YouTube", included: true },
     { id: "Twitter", name: "Twitter/X", included: false },
     { id: "LinkedIn", name: "LinkedIn", included: false },
     { id: "TikTok", name: "TikTok", included: false },
+    { id: "Pinterest", name: "Pinterest", included: false },
+    { id: "Threads", name: "Threads", included: false },
   ];
 
   const togglePlatform = (platformId: string, included: boolean) => {
@@ -57,8 +69,9 @@ const SMMCalculator = () => {
   
   const contentAddOns = getPostsCost() + getCarouselsCost() + getStoriesCost();
   const platformAddOns = additionalPlatforms * additionalPlatformPrice;
-  const gmbAddOn = includeGMB ? 100 : 0;
-  const totalPrice = basePrice + contentAddOns + platformAddOns + gmbAddOn;
+  const longVideosAddOn = getLongVideosCost();
+  const gmbAddOn = includeGMB ? gmbPrice : 0;
+  const totalPrice = basePrice + contentAddOns + platformAddOns + longVideosAddOn + gmbAddOn;
 
   return (
     <section id="smm" className="py-20">
@@ -75,8 +88,20 @@ const SMMCalculator = () => {
             <CardHeader>
               <CardTitle>Customize Your SMM Package</CardTitle>
               <CardDescription>
-                Base package starts at $800/month (Instagram + Facebook)
+                Starting at $500/month
               </CardDescription>
+              <div className="p-4 bg-muted/30 rounded-lg mt-4">
+                <div className="text-sm font-medium mb-2">Base Package Includes:</div>
+                <ul className="text-sm text-muted-foreground space-y-1">
+                  <li>✓ 3 Platforms (Instagram, Facebook, YouTube)</li>
+                  <li>✓ 2 Posts per week</li>
+                  <li>✓ 1 Carousel/Reel per week</li>
+                  <li>✓ 2 Stories per week</li>
+                  <li>✓ Content creation and scheduling</li>
+                  <li>✓ Community management</li>
+                  <li>✓ Monthly performance reports</li>
+                </ul>
+              </div>
             </CardHeader>
             <CardContent className="space-y-8">
               <div>
@@ -133,11 +158,13 @@ const SMMCalculator = () => {
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <Label htmlFor="posts" className="text-base">Posts per Week</Label>
-                  <span className="text-sm font-semibold">{postsPerWeek}</span>
+                  <span className="text-sm font-semibold">
+                    {postsPerWeek} {postsPerWeek > basePosts && <span className="text-accent">(+{postsPerWeek - basePosts})</span>}
+                  </span>
                 </div>
                 <Slider
                   id="posts"
-                  min={3}
+                  min={2}
                   max={10}
                   step={1}
                   value={[postsPerWeek]}
@@ -145,14 +172,16 @@ const SMMCalculator = () => {
                   className="w-full"
                 />
                 <p className="text-xs text-muted-foreground mt-2">
-                  Base: 3-5 posts • +$50 per additional post/week
+                  Base: 2 posts included • +$40 per additional post/week
                 </p>
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <Label htmlFor="carousels" className="text-base">Carousel/Reels per Week</Label>
-                  <span className="text-sm font-semibold">{carouselsPerWeek}</span>
+                  <span className="text-sm font-semibold">
+                    {carouselsPerWeek} {carouselsPerWeek > baseCarousels && <span className="text-accent">(+{carouselsPerWeek - baseCarousels})</span>}
+                  </span>
                 </div>
                 <Slider
                   id="carousels"
@@ -164,18 +193,20 @@ const SMMCalculator = () => {
                   className="w-full"
                 />
                 <p className="text-xs text-muted-foreground mt-2">
-                  Base: 1-2 posts • +$75 per additional carousel/week
+                  Base: 1 carousel included • +$60 per additional carousel/week
                 </p>
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <Label htmlFor="stories" className="text-base">Stories per Week</Label>
-                  <span className="text-sm font-semibold">{storiesPerWeek}</span>
+                  <span className="text-sm font-semibold">
+                    {storiesPerWeek} {storiesPerWeek > baseStories && <span className="text-accent">(+{storiesPerWeek - baseStories})</span>}
+                  </span>
                 </div>
                 <Slider
                   id="stories"
-                  min={3}
+                  min={2}
                   max={15}
                   step={1}
                   value={[storiesPerWeek]}
@@ -183,31 +214,68 @@ const SMMCalculator = () => {
                   className="w-full"
                 />
                 <p className="text-xs text-muted-foreground mt-2">
-                  Base: 3-4 stories • +$25 per additional story/week
+                  Base: 2 stories included • +$20 per additional story/week
+                </p>
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-3">
+                  <Label htmlFor="longVideos" className="text-base">YouTube Long Videos (up to 3 min)</Label>
+                  <span className="text-sm font-semibold">{longVideos} videos</span>
+                </div>
+                <Slider
+                  id="longVideos"
+                  min={0}
+                  max={12}
+                  step={1}
+                  value={[longVideos]}
+                  onValueChange={(value) => setLongVideos(value[0])}
+                  className="w-full"
+                />
+                <p className="text-xs text-muted-foreground mt-2">
+                  $75 per video • Includes basic editing, intro/outro
                 </p>
               </div>
 
               <div className="border-t pt-6 mt-6">
                 <div className="bg-secondary/50 rounded-lg p-6 space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Base Package:</span>
+                    <span className="text-muted-foreground">Base Package (3 platforms, standard content)</span>
                     <span className="font-semibold">${basePrice}</span>
                   </div>
-                  {contentAddOns > 0 && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Content Add-ons:</span>
-                      <span className="font-semibold">+${contentAddOns}</span>
-                    </div>
-                  )}
                   {platformAddOns > 0 && (
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Additional Platforms:</span>
+                      <span className="text-muted-foreground">Additional Platforms ({additionalPlatforms} × $100)</span>
                       <span className="font-semibold">+${platformAddOns}</span>
+                    </div>
+                  )}
+                  {getPostsCost() > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Extra Posts ({postsPerWeek - basePosts} × $40/week)</span>
+                      <span className="font-semibold">+${getPostsCost()}</span>
+                    </div>
+                  )}
+                  {getCarouselsCost() > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Extra Reels/Carousels ({carouselsPerWeek - baseCarousels} × $60/week)</span>
+                      <span className="font-semibold">+${getCarouselsCost()}</span>
+                    </div>
+                  )}
+                  {getStoriesCost() > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Extra Stories ({storiesPerWeek - baseStories} × $20/week)</span>
+                      <span className="font-semibold">+${getStoriesCost()}</span>
+                    </div>
+                  )}
+                  {longVideosAddOn > 0 && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Long-Form Videos ({longVideos} × $75)</span>
+                      <span className="font-semibold">+${longVideosAddOn}</span>
                     </div>
                   )}
                   {gmbAddOn > 0 && (
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">GMB Optimization:</span>
+                      <span className="text-muted-foreground">GMB Optimization & Reputation Management</span>
                       <span className="font-semibold">+${gmbAddOn}</span>
                     </div>
                   )}
