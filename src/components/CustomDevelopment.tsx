@@ -21,6 +21,10 @@ const CustomDevelopment = () => {
     budget: "",
     description: "",
     loomVideo: "",
+    designType: "",
+    videoType: "",
+    deliverables: "",
+    references: "",
   });
   const [files, setFiles] = useState<File[]>([]);
 
@@ -42,6 +46,10 @@ const CustomDevelopment = () => {
       budget: "",
       description: "",
       loomVideo: "",
+      designType: "",
+      videoType: "",
+      deliverables: "",
+      references: "",
     });
     setFiles([]);
   };
@@ -61,9 +69,9 @@ const CustomDevelopment = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Custom Development Services</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Custom Development & Creative Services</h2>
             <p className="text-lg text-muted-foreground">
-              Need something unique? We provide custom API integrations, Shopify development, and bespoke web solutions.
+              Need something unique? We provide custom development, graphics design, video editing, and bespoke solutions.
             </p>
           </div>
 
@@ -124,6 +132,8 @@ const CustomDevelopment = () => {
                       <SelectItem value="website">Website Development</SelectItem>
                       <SelectItem value="webapp">Custom Web Application</SelectItem>
                       <SelectItem value="shopify">Shopify Development/Customization</SelectItem>
+                      <SelectItem value="graphics">Graphics Design Services</SelectItem>
+                      <SelectItem value="video">Video Editing Services</SelectItem>
                       <SelectItem value="ghl-api">GHL API Integration</SelectItem>
                       <SelectItem value="ghl-whitelabel">GHL White Label Support</SelectItem>
                       <SelectItem value="ghl-b2b">GHL Agency B2B Services</SelectItem>
@@ -133,6 +143,95 @@ const CustomDevelopment = () => {
                     </SelectContent>
                   </Select>
                 </div>
+
+                {/* Conditional: Graphics Design Type */}
+                {formData.serviceType === "graphics" && (
+                  <div>
+                    <Label htmlFor="design-type" className="text-base font-semibold">
+                      What type of design work do you need? *
+                    </Label>
+                    <Select
+                      required
+                      value={formData.designType}
+                      onValueChange={(value) => setFormData({ ...formData, designType: value })}
+                    >
+                      <SelectTrigger id="design-type" className="mt-2">
+                        <SelectValue placeholder="Select design type" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-popover">
+                        <SelectItem value="logo">Logo Design</SelectItem>
+                        <SelectItem value="brand-identity">Brand Identity Package</SelectItem>
+                        <SelectItem value="social-media">Social Media Graphics</SelectItem>
+                        <SelectItem value="marketing-materials">Marketing Materials (Brochures, Flyers)</SelectItem>
+                        <SelectItem value="presentation">Presentation Design</SelectItem>
+                        <SelectItem value="infographics">Infographics</SelectItem>
+                        <SelectItem value="ui-design">Website/App UI Design</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                {/* Conditional: Video Editing Type */}
+                {formData.serviceType === "video" && (
+                  <div>
+                    <Label htmlFor="video-type" className="text-base font-semibold">
+                      What type of video editing do you need? *
+                    </Label>
+                    <Select
+                      required
+                      value={formData.videoType}
+                      onValueChange={(value) => setFormData({ ...formData, videoType: value })}
+                    >
+                      <SelectTrigger id="video-type" className="mt-2">
+                        <SelectValue placeholder="Select video type" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-popover">
+                        <SelectItem value="social-media-short">Social Media Videos (Short-form)</SelectItem>
+                        <SelectItem value="youtube-long">YouTube Videos (Long-form)</SelectItem>
+                        <SelectItem value="marketing">Marketing/Promotional Videos</SelectItem>
+                        <SelectItem value="product-demo">Product Demo Videos</SelectItem>
+                        <SelectItem value="testimonial">Testimonial Videos</SelectItem>
+                        <SelectItem value="video-ads">Video Ads</SelectItem>
+                        <SelectItem value="podcast">Podcast Editing</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                {/* Additional fields for Graphics/Video */}
+                {(formData.serviceType === "graphics" || formData.serviceType === "video") && (
+                  <>
+                    <div>
+                      <Label htmlFor="deliverables" className="text-base font-semibold">
+                        Number of deliverables needed
+                      </Label>
+                      <Input
+                        id="deliverables"
+                        type="number"
+                        min="1"
+                        value={formData.deliverables}
+                        onChange={(e) => setFormData({ ...formData, deliverables: e.target.value })}
+                        placeholder="e.g., 5"
+                        className="mt-2"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="references" className="text-base font-semibold">
+                        Reference/Inspiration Links
+                      </Label>
+                      <Textarea
+                        id="references"
+                        value={formData.references}
+                        onChange={(e) => setFormData({ ...formData, references: e.target.value })}
+                        placeholder="Share links to designs/videos you like or that inspire your project..."
+                        rows={3}
+                        className="mt-2"
+                      />
+                    </div>
+                  </>
+                )}
 
                 {/* Step 3: Project Details */}
                 <div>
@@ -218,7 +317,9 @@ const CustomDevelopment = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="timeline" className="text-base font-semibold">
-                      Estimated Timeline *
+                      {formData.serviceType === "graphics" || formData.serviceType === "video" 
+                        ? "Turnaround Time Preference *" 
+                        : "Estimated Timeline *"}
                     </Label>
                     <Select
                       required

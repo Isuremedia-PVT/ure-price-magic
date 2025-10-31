@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Facebook, Linkedin, Instagram } from "lucide-react";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -65,36 +64,6 @@ const Navigation = () => {
             >
               Custom Dev
             </button>
-            
-            <div className="flex items-center gap-3 ml-2">
-              <a
-                href="https://facebook.com/isuremedia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground hover:text-accent transition-smooth"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a
-                href="https://linkedin.com/company/isuremedia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground hover:text-accent transition-smooth"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="https://instagram.com/isuremedia"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground hover:text-accent transition-smooth"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-            </div>
             
             <Button
               onClick={() => scrollToSection("booking")}

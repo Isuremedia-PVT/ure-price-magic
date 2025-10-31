@@ -6,14 +6,14 @@ const CertificationBadges = () => {
       </p>
       <div className="flex items-center justify-center gap-6 md:gap-8">
         <img
-          src="https://gohighlevelexpertservice.com/hire/wp-content/uploads/2025/10/Certified-Badges-scaled.webp"
-          alt="GoHighLevel Certified Administrator"
-          className="h-16 md:h-20 object-contain drop-shadow-md"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRio7GoabFYaWgbkgnANx3SCnoxzeZuf1dTFQ&s"
+          alt="GoHighLevel Certified Administrators"
+          className="h-20 md:h-24 object-contain drop-shadow-md transition-transform hover:scale-105"
         />
         <img
-          src="https://gohighlevelexpertservice.com/hire/wp-content/uploads/2025/10/Certified-Badges-scaled.webp"
-          alt="Upwork Top Rated Agency"
-          className="h-16 md:h-20 object-contain drop-shadow-md"
+          src="https://www.netforthtech.com/assets/img/upwork.png"
+          alt="Upwork Top Rated Plus Agency"
+          className="h-20 md:h-24 object-contain drop-shadow-md transition-transform hover:scale-105"
         />
       </div>
     </div>
