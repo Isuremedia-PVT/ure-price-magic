@@ -1,12 +1,25 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Navigation from "@/components/Navigation";
+import Hero from "@/components/Hero";
+import PPCCalculator from "@/components/calculators/PPCCalculator";
+import SMMCalculator from "@/components/calculators/SMMCalculator";
+import SEOCalculator from "@/components/calculators/SEOCalculator";
+import GHLPricing from "@/components/calculators/GHLPricing";
+import CustomDevelopment from "@/components/CustomDevelopment";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen">
+      <Navigation />
+      <main id="services">
+        <Hero />
+        <PPCCalculator />
+        <SMMCalculator />
+        <SEOCalculator />
+        <GHLPricing />
+        <CustomDevelopment />
+      </main>
+      <Footer />
     </div>
   );
 };
