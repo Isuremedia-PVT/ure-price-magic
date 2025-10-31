@@ -10,7 +10,7 @@ const SEOCalculator = () => {
 
   const basePrice = 350;
   const keywordPrice = 25;
-  const blogPostPrice = 150;
+  const blogPostPrice = 80;
 
   const additionalKeywords = Math.max(0, keywords - 8);
   const keywordCost = additionalKeywords * keywordPrice;
@@ -57,7 +57,7 @@ const SEOCalculator = () => {
 
               <div>
                 <div className="flex justify-between items-center mb-3">
-                  <Label htmlFor="blogs" className="text-base">Blog Posts per Month</Label>
+                  <Label htmlFor="blogs" className="text-base">Monthly Blog Posts (300-500 words each)</Label>
                   <span className="text-sm font-semibold">{blogPosts} posts</span>
                 </div>
                 <Slider
@@ -70,7 +70,7 @@ const SEOCalculator = () => {
                   className="w-full"
                 />
                 <p className="text-xs text-muted-foreground mt-2">
-                  $150 per blog post • SEO-optimized content
+                  300-500 words each • $80/post • SEO-optimized content
                 </p>
               </div>
 
