@@ -25,14 +25,70 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate a brief loading state before redirect
-    setTimeout(() => {
-      redirectToCheckout(formData, serviceData);
-    }, 500);
+    try {
+      // Build the JSON payload
+      const timestamp = new Date().toISOString();
+      const payload = {
+        // Service Details
+        service_type: serviceData.serviceType,
+        plan_name: serviceData.planName || null,
+        quantity: serviceData.quantity || null,
+        price_monthly: serviceData.monthlyTotal || null,
+        price_one_time: serviceData.setupFee || null,
+        total: serviceData.monthlyTotal,
+        regular_price: serviceData.regularPrice || null,
+        savings: serviceData.savings || null,
+        
+        // Specific Service Data
+        hours_included: serviceData.hoursIncluded || serviceData.hours || null,
+        hourly_rate: serviceData.hourlyRate || null,
+        ad_spend: serviceData.adSpend || null,
+        platform: serviceData.platforms || null,
+        platform_count: serviceData.platformCount || null,
+        sub_account_count: serviceData.subAccountCount || null,
+        paid_onboardings: serviceData.paidOnboardings || null,
+        free_onboardings: serviceData.freeOnboardings || null,
+        
+        // Contact Info
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        company_name: formData.company || null,
+        project_start: formData.startDate || null,
+        additional_notes: formData.notes || null,
+        
+        // Tracking
+        timestamp: timestamp,
+        page_source: "marketplace.isuremedia.com"
+      };
+
+      // Submit to webhook
+      const response = await fetch('https://n8n.srv871295.hstgr.cloud/webhook/response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        // Redirect to thank you page with service type
+        window.location.href = `/thank-you?service=${encodeURIComponent(serviceData.serviceType)}`;
+      } else {
+        console.error('Webhook submission failed');
+        alert('Something went wrong. Please try again or contact us at hello@isuremedia.com');
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Connection error. Please check your internet and try again.');
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
