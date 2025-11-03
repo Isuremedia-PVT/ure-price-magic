@@ -114,7 +114,8 @@ const GHLPricing = () => {
       savings: 101,
       features: [
         "20 hours for GHL tasks per month",
-        "Hours don't carry over",
+        "⚠️ Hours DON'T carry over to next month",
+        "🎁 FREE: 20 sub-account ticket support",
         "White label support & onboarding",
         "GHL technical support",
         "Email, Zoom, Slack, MS Teams",
@@ -139,6 +140,8 @@ const GHLPricing = () => {
       popular: true,
       features: [
         "80 hours per month",
+        "⚠️ Hours DON'T carry over to next month",
+        "🎁 FREE: 20 sub-account ticket support",
         "4 hours daily dedicated VA",
         "5 days per week coverage",
         "Dedicated Project Manager",
@@ -146,7 +149,7 @@ const GHLPricing = () => {
         "Zapier integrations",
         "Closebot setup & management",
         "3rd party API integrations",
-        "Priority response times",
+        "Priority response times (12 hours)",
         "Direct PM access",
         "Weekly strategy calls"
       ]
@@ -160,6 +163,8 @@ const GHLPricing = () => {
       savings: 2601,
       features: [
         "160 hours per month (full-time)",
+        "⚠️ Hours DON'T carry over to next month",
+        "🎁 FREE: 20 sub-account ticket support",
         "8 hours daily dedicated VA",
         "5 days per week coverage",
         "Dedicated Project Manager",
@@ -170,6 +175,7 @@ const GHLPricing = () => {
         "WordPress to GHL migration",
         "Multi-platform support (Kajabi, ClickFunnels, Kartra)",
         "Course/membership migrations",
+        "Priority response time (6 hours)",
         "Complete white label support"
       ]
     },
@@ -278,89 +284,64 @@ const GHLPricing = () => {
             {/* Tab 1: Sub-Account Support Only */}
             <TabsContent value="sub-accounts" className="space-y-8">
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold mb-2">📊 Ticket-Based Support for Your GHL Sub-Accounts</h3>
-                <p className="text-muted-foreground">Choose how many sub-accounts you need support for</p>
+                <h3 className="text-2xl font-bold mb-2">Ticket-Based Support for Your GHL Sub-Accounts</h3>
+                <p className="text-muted-foreground">Choose the plan that fits your agency size</p>
               </div>
-
-              <Card className="max-w-2xl mx-auto mb-8">
-                <CardHeader>
-                  <CardTitle>Select Your Plan</CardTitle>
-                  <CardDescription>Choose the number of sub-accounts you need support for</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Select value={selectedSubAccountPlan} onValueChange={setSelectedSubAccountPlan}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select Number of Sub-Accounts" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {subAccountPlans.map((plan) => (
-                        <SelectItem key={plan.value} value={plan.value}>
-                          {plan.subAccounts} Sub-Accounts - ${plan.specialPrice}/month (Save ${plan.savings})
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </CardContent>
-              </Card>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {subAccountPlans.map((plan) => (
                   <Card
                     key={plan.name}
                     className={`relative ${
-                      plan.popular ? "border-accent shadow-medium" : "shadow-soft"
+                      plan.name === "Unlimited" ? "border-primary shadow-medium" : "shadow-soft"
                     }`}
                   >
-                    {plan.popular && (
+                    {plan.name === "Unlimited" && (
                       <div className="absolute -top-4 left-0 right-0 flex justify-center">
-                        <Badge variant="default" className="bg-accent">
-                          Most Popular
+                        <Badge variant="default">
+                          🔥 BEST VALUE
                         </Badge>
                       </div>
                     )}
                     <CardHeader>
-                      <CardTitle>🚀 {plan.name}</CardTitle>
-                      <CardDescription className="text-lg font-semibold">
-                        {plan.subAccounts} Sub-Accounts
-                      </CardDescription>
+                      <CardTitle className="text-lg">{plan.name.toUpperCase()}</CardTitle>
+                      <div className="space-y-1">
+                        <p className="text-3xl font-bold">${plan.specialPrice}</p>
+                        <p className="text-sm text-muted-foreground line-through">~~${plan.regularPrice}~~</p>
+                        <Badge variant="secondary" className="text-xs">SAVE ${plan.savings}</Badge>
+                      </div>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="text-2xl font-bold text-accent">
-                            ${plan.specialPrice}/mo
-                          </span>
-                        </div>
-                        <div className="text-sm text-muted-foreground line-through">
-                          Regular: ${plan.regularPrice}
-                        </div>
-                        <Badge variant="secondary" className="bg-accent/10 text-accent mt-2">
-                          💰 SAVE ${plan.savings}/MONTH
-                        </Badge>
-                      </div>
-
-                      <div className="space-y-2 text-sm">
-                        <p className="font-semibold">✅ What's Included:</p>
-                        <ul className="space-y-1 text-muted-foreground">
-                          <li>• Ticket-based support</li>
-                          <li>• 24-hour response time</li>
-                          <li>• Account setup assistance</li>
-                          <li>• Basic troubleshooting</li>
-                          <li>• Platform guidance</li>
-                          <li>• Month-to-month, no contracts</li>
+                        <p className="font-semibold mb-2">{plan.subAccounts} Sub-Account{plan.subAccounts !== "∞" && "s"}</p>
+                        <ul className="text-sm space-y-2 text-muted-foreground">
+                          <li>✅ Gray Label Support</li>
+                          <li>✅ {plan.name === "Scale" || plan.name === "Unlimited" ? `Priority ${plan.name === "Unlimited" ? "6hr" : "12hr"} response` : "24hr response"}</li>
+                          <li>✅ {plan.name === "Unlimited" ? "Email + Phone + Slack" : plan.name === "Scale" ? "Email + Phone" : "Email ticketing"}</li>
+                          <li>✅ Month-to-month</li>
                         </ul>
                       </div>
-
                       <Button
-                        variant={plan.popular ? "hero" : "outline"}
+                        variant={plan.name === "Unlimited" ? "default" : "outline"}
                         className="w-full"
                         onClick={() => handleSubAccountSelect(plan)}
                       >
-                        Get Started - ${plan.specialPrice}/mo
+                        Select
                       </Button>
                     </CardContent>
                   </Card>
                 ))}
+              </div>
+
+              <div className="bg-secondary/20 border rounded-lg p-4 mt-6">
+                <p className="text-sm font-semibold mb-2">All Plans Include:</p>
+                <ul className="text-xs space-y-1 text-muted-foreground">
+                  <li>✅ Gray Label ticket support (support@clienthelpdesks.com)</li>
+                  <li>✅ No third-party branding</li>
+                  <li>✅ Month-to-month, no long-term contracts</li>
+                  <li>✅ Cancel anytime</li>
+                  <li>✅ 7-day money-back guarantee</li>
+                </ul>
               </div>
             </TabsContent>
 
@@ -372,6 +353,7 @@ const GHLPricing = () => {
                   <Badge variant="secondary" className="px-4 py-2">🏆 Certified GHL Administrators</Badge>
                   <Badge variant="secondary" className="px-4 py-2">📅 Month-to-Month (No Commitment)</Badge>
                   <Badge variant="secondary" className="px-4 py-2">💰 7-Day Money-Back Guarantee</Badge>
+                  <Badge variant="default" className="px-4 py-2">🎁 FREE: 20 Sub-Account Support Included</Badge>
                 </div>
               </div>
 
