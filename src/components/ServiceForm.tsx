@@ -140,13 +140,82 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Complete Your Package Details</DialogTitle>
           <DialogDescription>
-            Fill out your information to get started with {serviceData.serviceType}
+            Review your package summary and fill out your information below
           </DialogDescription>
         </DialogHeader>
+
+        {/* Package Summary at the Top */}
+        {serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown && (
+          <div className="bg-secondary/20 border-2 rounded-lg p-5 mb-4" style={{ borderColor: '#faa033' }}>
+            <h3 className="text-xl font-bold mb-4" style={{ color: '#000047' }}>
+              📦 Package Summary
+            </h3>
+            <div className="space-y-4">
+              {(() => {
+                try {
+                  const breakdown = typeof serviceData.platformBreakdown === 'string' 
+                    ? JSON.parse(serviceData.platformBreakdown) 
+                    : serviceData.platformBreakdown;
+                  
+                  return breakdown.map((platform: any, index: number) => (
+                    <div key={index} className="border-b pb-3 last:border-b-0" style={{ borderColor: '#e5e5e5' }}>
+                      <div className="font-semibold text-base mb-2" style={{ color: '#000047' }}>
+                        {platform.platform}:
+                      </div>
+                      <div className="ml-4 space-y-1 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Ad Spend:</span>
+                          <span className="font-medium">${platform.adSpend?.toLocaleString()}/month</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Management Fee:</span>
+                          <span className="font-medium">
+                            ${platform.managementFee?.toLocaleString()}/month {platform.percentage && `(${platform.percentage})`}
+                          </span>
+                        </div>
+                        <div className="flex justify-between font-semibold pt-1 border-t mt-1" style={{ borderColor: '#e5e5e5' }}>
+                          <span>Subtotal:</span>
+                          <span>${((platform.adSpend || 0) + (platform.managementFee || 0)).toLocaleString()}/month</span>
+                        </div>
+                      </div>
+                    </div>
+                  ));
+                } catch (e) {
+                  return null;
+                }
+              })()}
+              
+              <div className="border-t-2 pt-4 mt-4 space-y-2" style={{ borderColor: '#000047' }}>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Total Setup Fee:</span>
+                  <span className="font-semibold">${serviceData.setupFee?.toLocaleString() || 0}</span>
+                </div>
+                {serviceData.multiPlatformDiscount && typeof serviceData.multiPlatformDiscount === 'number' && serviceData.multiPlatformDiscount > 0 && (
+                  <div className="flex justify-between text-sm font-semibold" style={{ color: '#faa033' }}>
+                    <span>Multi-Platform Discount:</span>
+                    <span>-${serviceData.multiPlatformDiscount}/month</span>
+                  </div>
+                )}
+                <div className="flex justify-between text-lg font-bold pt-2 border-t" style={{ borderColor: '#e5e5e5' }}>
+                  <span style={{ color: '#000047' }}>💰 First Month Total:</span>
+                  <span style={{ color: '#faa033' }}>
+                    ${((serviceData.setupFee || 0) + (serviceData.monthlyTotal || 0)).toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between text-lg font-bold">
+                  <span style={{ color: '#000047' }}>💰 Monthly Ongoing:</span>
+                  <span style={{ color: '#faa033' }}>
+                    ${(serviceData.monthlyTotal || 0).toLocaleString()}/month
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
@@ -253,77 +322,32 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
             />
           </div>
 
-          <div className="bg-secondary/30 rounded-lg p-4">
-            <h4 className="font-semibold mb-3">Package Summary:</h4>
-            <div className="text-sm space-y-3">
-              {serviceData.platformBreakdown && typeof serviceData.platformBreakdown === 'string' ? (
-                // PPC Calculator with platform breakdown
-                <>
-                  {(() => {
-                    try {
-                      const platforms = JSON.parse(serviceData.platformBreakdown as string);
-                      return platforms.map((platform: any, index: number) => (
-                        <div key={index} className="border-b border-muted pb-2 last:border-0">
-                          <div className="font-semibold text-base mb-1">{platform.platform}:</div>
-                          <div className="ml-3 space-y-1">
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Ad Spend:</span>
-                              <span>${platform.adSpend?.toLocaleString() || 'N/A'}/month</span>
-                            </div>
-                            <div className="flex justify-between">
-                              <span className="text-muted-foreground">Management:</span>
-                              <span>
-                                ${platform.managementFee?.toLocaleString() || 'N/A'}/month 
-                                {platform.percentage && ` (~${platform.percentage})`}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      ));
-                    } catch (e) {
-                      return null;
-                    }
-                  })()}
-                  <div className="border-t pt-2 mt-2">
-                    <div className="flex justify-between font-semibold">
-                      <span>Total Monthly Management:</span>
-                      <span className="text-accent">
-                        ${serviceData.monthlyTotal.toLocaleString()}/month
-                      </span>
-                    </div>
-                    {serviceData.setupFee && serviceData.setupFee > 0 && (
-                      <div className="flex justify-between mt-1">
-                        <span className="text-muted-foreground">Total Setup Fee:</span>
-                        <span>${serviceData.setupFee.toLocaleString()}</span>
-                      </div>
-                    )}
-                  </div>
-                </>
-              ) : (
-                // Other services - standard summary
-                <>
+          {/* Only show simple summary for non-PPC services */}
+          {serviceData.serviceType !== "PPC Management" && (
+            <div className="bg-secondary/30 rounded-lg p-4">
+              <h4 className="font-semibold mb-3">Package Summary:</h4>
+              <div className="text-sm space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Service:</span>
+                  <span className="font-medium">{serviceData.serviceType}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Monthly Total:</span>
+                  <span className="font-semibold text-accent">
+                    ${serviceData.monthlyTotal.toLocaleString()}/month
+                  </span>
+                </div>
+                {serviceData.setupFee && typeof serviceData.setupFee === 'number' && serviceData.setupFee > 0 && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Service:</span>
-                    <span className="font-medium">{serviceData.serviceType}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Monthly Total:</span>
-                    <span className="font-semibold text-accent">
-                      ${serviceData.monthlyTotal.toLocaleString()}/month
+                    <span className="text-muted-foreground">Setup Fee:</span>
+                    <span className="font-medium">
+                      ${serviceData.setupFee.toLocaleString()}
                     </span>
                   </div>
-                  {serviceData.setupFee && serviceData.setupFee > 0 && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Setup Fee:</span>
-                      <span className="font-medium">
-                        ${serviceData.setupFee.toLocaleString()}
-                      </span>
-                    </div>
-                  )}
-                </>
-              )}
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           <Button
             type="submit"

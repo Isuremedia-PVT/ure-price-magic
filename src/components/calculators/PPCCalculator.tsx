@@ -9,8 +9,8 @@ import { ServiceData } from "@/lib/formSubmission";
 
 const PPCCalculator = () => {
   const [adSpend, setAdSpend] = useState<number>(5000);
-  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["Google Ads"]);
-  const [activePlatform, setActivePlatform] = useState<string | null>("Google Ads");
+  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  const [activePlatform, setActivePlatform] = useState<string | null>(null);
   const [budgetType, setBudgetType] = useState<"single" | "separate" | "combined">("single");
   const [platformBudgets, setPlatformBudgets] = useState<{[key: string]: number}>({});
   const [formOpen, setFormOpen] = useState(false);
@@ -70,23 +70,26 @@ const PPCCalculator = () => {
 
   const togglePlatform = (platform: string) => {
     if (selectedPlatforms.includes(platform)) {
-      if (selectedPlatforms.length > 1) {
-        const newPlatforms = selectedPlatforms.filter(p => p !== platform);
-        setSelectedPlatforms(newPlatforms);
-        // Remove budget for this platform
-        const newBudgets = {...platformBudgets};
-        delete newBudgets[platform];
-        setPlatformBudgets(newBudgets);
-        // Update active platform if we removed the active one
-        if (activePlatform === platform) {
-          setActivePlatform(newPlatforms[0]);
-        }
-        // Reset to single budget if only one platform left
-        if (newPlatforms.length === 1) {
+      // If clicking on the active platform, toggle it between active and selected
+      if (activePlatform === platform) {
+        // If only one platform selected, deselect it completely
+        if (selectedPlatforms.length === 1) {
+          setSelectedPlatforms([]);
+          setActivePlatform(null);
+          const newBudgets = {...platformBudgets};
+          delete newBudgets[platform];
+          setPlatformBudgets(newBudgets);
           setBudgetType("single");
+        } else {
+          // Multiple platforms: just deactivate this one
+          setActivePlatform(null);
         }
+      } else {
+        // Clicking on a selected but inactive platform - make it active
+        setActivePlatform(platform);
       }
     } else {
+      // Adding a new platform
       const newPlatforms = [...selectedPlatforms, platform];
       setSelectedPlatforms(newPlatforms);
       // Initialize budget for new platform
@@ -463,7 +466,13 @@ const PPCCalculator = () => {
                 </div>
               )}
 
-              <Button variant="hero" size="lg" className="w-full" onClick={handleGetStarted}>
+              <Button 
+                variant="hero" 
+                size="lg" 
+                className="w-full" 
+                onClick={handleGetStarted}
+                disabled={selectedPlatforms.length === 0}
+              >
                 Get Started with PPC
               </Button>
             </CardContent>
