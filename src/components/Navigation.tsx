@@ -75,17 +75,10 @@ const Navigation = () => {
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">
-                <Menu className="h-8 w-8" style={{ color: isScrolled ? "#000047" : "#ffffff" }} />
+                <Menu className="h-10 w-10" style={{ color: isScrolled ? "#000047" : "#ffffff" }} />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
-              <button 
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="absolute top-4 right-4 p-2"
-                aria-label="Close menu"
-              >
-                <X className="h-8 w-8" />
-              </button>
               <div className="flex flex-col gap-6 mt-8">
                 {navItems.map((item) => (
                   <button

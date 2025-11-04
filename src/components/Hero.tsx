@@ -3,9 +3,9 @@ import { ArrowRight } from "lucide-react";
 import CertificationBadges from "./CertificationBadges";
 
 const Hero = () => {
-  const scrollToServices = () => {
-    const servicesSection = document.getElementById("services");
-    servicesSection?.scrollIntoView({ behavior: "smooth" });
+  const scrollToGHL = () => {
+    const ghlSection = document.getElementById("ghl");
+    ghlSection?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -28,10 +28,10 @@ const Hero = () => {
           </p>
 
           <Button 
-            onClick={scrollToServices} 
+            onClick={scrollToGHL} 
             variant="accent" 
             size="lg" 
-            className="text-base md:text-lg px-6 py-5 md:px-10 md:py-7 h-auto w-full md:w-auto max-w-xs md:max-w-none shadow-lg hover:shadow-xl transition-all"
+            className="text-base md:text-lg px-8 py-6 h-auto w-full max-w-xs shadow-lg hover:shadow-xl transition-all"
           >
             Explore Services
             <ArrowRight className="ml-2 h-5 w-5" />
