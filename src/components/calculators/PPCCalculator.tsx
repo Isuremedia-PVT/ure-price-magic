@@ -70,24 +70,8 @@ const PPCCalculator = () => {
 
   const togglePlatform = (platform: string) => {
     if (selectedPlatforms.includes(platform)) {
-      // If clicking on the active platform, toggle it between active and selected
-      if (activePlatform === platform) {
-        // If only one platform selected, deselect it completely
-        if (selectedPlatforms.length === 1) {
-          setSelectedPlatforms([]);
-          setActivePlatform(null);
-          const newBudgets = {...platformBudgets};
-          delete newBudgets[platform];
-          setPlatformBudgets(newBudgets);
-          setBudgetType("single");
-        } else {
-          // Multiple platforms: just deactivate this one
-          setActivePlatform(null);
-        }
-      } else {
-        // Clicking on a selected but inactive platform - make it active
-        setActivePlatform(platform);
-      }
+      // Clicking on a selected platform - make it active
+      setActivePlatform(platform);
     } else {
       // Adding a new platform
       const newPlatforms = [...selectedPlatforms, platform];
@@ -100,6 +84,27 @@ const PPCCalculator = () => {
       if (newPlatforms.length >= 2 && budgetType === "single") {
         setBudgetType("separate");
       }
+    }
+  };
+
+  const removePlatform = (platform: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    const newPlatforms = selectedPlatforms.filter(p => p !== platform);
+    setSelectedPlatforms(newPlatforms);
+    
+    const newBudgets = {...platformBudgets};
+    delete newBudgets[platform];
+    setPlatformBudgets(newBudgets);
+    
+    // If we removed the active platform, set another as active or null
+    if (activePlatform === platform) {
+      setActivePlatform(newPlatforms.length > 0 ? newPlatforms[0] : null);
+    }
+    
+    // If only one platform left, switch to single mode
+    if (newPlatforms.length <= 1) {
+      setBudgetType("single");
     }
   };
 
@@ -250,16 +255,20 @@ const PPCCalculator = () => {
                     return (
                       <button
                         key={platform}
-                        className="cursor-pointer px-4 py-2 text-sm transition-all hover:scale-105 rounded-full border-2 font-medium"
+                        className="relative cursor-pointer px-4 py-2 text-sm transition-all hover:scale-105 rounded-full border-2 font-medium"
                         style={buttonStyle}
-                        onClick={() => {
-                          togglePlatform(platform);
-                          if (isSelected) {
-                            setActivePlatform(platform);
-                          }
-                        }}
+                        onClick={() => togglePlatform(platform)}
                       >
                         {platform}
+                        {isSelected && (
+                          <span
+                            className="ml-2 inline-flex items-center justify-center w-4 h-4 rounded-full hover:opacity-80"
+                            style={{ backgroundColor: isActive ? '#ffffff' : '#faa033', color: isActive ? '#faa033' : '#ffffff' }}
+                            onClick={(e) => removePlatform(platform, e)}
+                          >
+                            ×
+                          </span>
+                        )}
                       </button>
                     );
                   })}
@@ -296,64 +305,89 @@ const PPCCalculator = () => {
                 </div>
               )}
 
-              {selectedPlatforms.length === 1 || budgetType === "single" || budgetType === "combined" ? (
+              {/* Budget Configuration - Always show when there's an active platform */}
+              {activePlatform && (
                 <div>
-                  <div className="flex justify-between items-center mb-3">
-                    <Label htmlFor="ad-spend" className="text-base">
-                      {selectedPlatforms.length >= 2 && budgetType === "combined" 
-                        ? "Total Monthly Ad Spend Budget"
-                        : "What's Your Monthly Ad Spend Budget?"}
-                    </Label>
-                    <span className="text-sm font-semibold">
-                      ${adSpend.toLocaleString()}/month
-                    </span>
-                  </div>
-                  <Slider
-                    id="ad-spend"
-                    min={1000}
-                    max={150000}
-                    step={1000}
-                    value={[adSpend]}
-                    onValueChange={(value) => setAdSpend(value[0])}
-                    className="w-full"
-                  />
-                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                    <span>$1K</span>
-                    <span>$150K+</span>
-                  </div>
-                  {selectedPlatforms.length >= 2 && budgetType === "combined" && (
-                    <p className="text-xs text-muted-foreground mt-2">
-                      We'll optimize allocation across {selectedPlatforms.length} platforms based on performance
-                    </p>
+                  {budgetType === "combined" && selectedPlatforms.length >= 2 ? (
+                    <div>
+                      <div className="flex justify-between items-center mb-3">
+                        <Label htmlFor="ad-spend" className="text-base">
+                          Total Monthly Ad Spend Budget
+                        </Label>
+                        <span className="text-sm font-semibold">
+                          ${adSpend.toLocaleString()}/month
+                        </span>
+                      </div>
+                      <Slider
+                        id="ad-spend"
+                        min={1000}
+                        max={150000}
+                        step={1000}
+                        value={[adSpend]}
+                        onValueChange={(value) => setAdSpend(value[0])}
+                        className="w-full"
+                      />
+                      <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                        <span>$1K</span>
+                        <span>$150K+</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        We'll optimize allocation across {selectedPlatforms.length} platforms based on performance
+                      </p>
+                    </div>
+                  ) : budgetType === "separate" && selectedPlatforms.length >= 2 ? (
+                    <div className="space-y-4">
+                      <Label className="text-base block">Budget Configuration for {activePlatform}</Label>
+                      <div className="border rounded-lg p-4 bg-secondary/10">
+                        <div className="flex justify-between items-center mb-3">
+                          <Label className="font-medium">{activePlatform}</Label>
+                          <span className="text-sm font-semibold">
+                            ${(platformBudgets[activePlatform] || 5000).toLocaleString()}/month
+                          </span>
+                        </div>
+                        <Slider
+                          min={1000}
+                          max={150000}
+                          step={1000}
+                          value={[platformBudgets[activePlatform] || 5000]}
+                          onValueChange={(value) => setPlatformBudget(activePlatform, value[0])}
+                          className="w-full"
+                        />
+                        <div className="flex justify-between items-center text-xs text-muted-foreground mt-2">
+                          <span>$1K</span>
+                          <span>Management: ${calculatePPCFee(platformBudgets[activePlatform] || 5000).managementFee}/month</span>
+                          <span>$150K+</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Click on other platform buttons above to configure their budgets
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex justify-between items-center mb-3">
+                        <Label htmlFor="ad-spend" className="text-base">
+                          What's Your Monthly Ad Spend Budget?
+                        </Label>
+                        <span className="text-sm font-semibold">
+                          ${adSpend.toLocaleString()}/month
+                        </span>
+                      </div>
+                      <Slider
+                        id="ad-spend"
+                        min={1000}
+                        max={150000}
+                        step={1000}
+                        value={[adSpend]}
+                        onValueChange={(value) => setAdSpend(value[0])}
+                        className="w-full"
+                      />
+                      <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                        <span>$1K</span>
+                        <span>$150K+</span>
+                      </div>
+                    </div>
                   )}
-                </div>
-              ) : budgetType === "separate" && activePlatform && (
-                <div className="space-y-4">
-                  <Label className="text-base block">Budget Configuration for {activePlatform}</Label>
-                  <div className="border rounded-lg p-4 bg-secondary/10">
-                    <div className="flex justify-between items-center mb-3">
-                      <Label className="font-medium">{activePlatform}</Label>
-                      <span className="text-sm font-semibold">
-                        ${(platformBudgets[activePlatform] || 5000).toLocaleString()}/month
-                      </span>
-                    </div>
-                    <Slider
-                      min={1000}
-                      max={150000}
-                      step={1000}
-                      value={[platformBudgets[activePlatform] || 5000]}
-                      onValueChange={(value) => setPlatformBudget(activePlatform, value[0])}
-                      className="w-full"
-                    />
-                    <div className="flex justify-between items-center text-xs text-muted-foreground mt-2">
-                      <span>$1K</span>
-                      <span>Management: ${calculatePPCFee(platformBudgets[activePlatform] || 5000).managementFee}/month</span>
-                      <span>$150K+</span>
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Click on other platform buttons above to configure their budgets
-                  </p>
                 </div>
               )}
 
