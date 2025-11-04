@@ -12,10 +12,10 @@ const CalendarBooking = () => {
             </p>
           </div>
 
-          <div className="bg-card rounded-lg shadow-medium p-4 md:p-8">
+          <div className="bg-card rounded-lg shadow-medium p-4 md:p-8 min-h-[900px]">
             <iframe 
               src="https://crm.isuremedia.com/widget/booking/NSq50To86cmaAFjyIwrN" 
-              style={{ width: "100%", border: "none", overflow: "hidden", minHeight: "700px" }} 
+              style={{ width: "100%", border: "none", overflow: "hidden", minHeight: "850px", height: "850px" }} 
               scrolling="no" 
               id="NSq50To86cmaAFjyIwrN_1761930562551"
               title="Schedule a Consultation"

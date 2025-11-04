@@ -20,6 +20,8 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
     email: "",
     phone: "",
     company: "",
+    billingAddress: "",
+    zipCode: "",
     startDate: "",
     notes: "",
   });
@@ -59,6 +61,8 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
         email: formData.email,
         phone: formData.phone,
         company_name: formData.company || null,
+        billing_address: formData.billingAddress || null,
+        zip_code: formData.zipCode || null,
         project_start: formData.startDate || null,
         additional_notes: formData.notes || null,
         
@@ -164,6 +168,30 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
               id="company"
               name="company"
               value={formData.company}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="billingAddress">Billing Address *</Label>
+            <Input
+              id="billingAddress"
+              name="billingAddress"
+              required
+              placeholder="123 Main St, City, State"
+              value={formData.billingAddress}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="zipCode">Zip Code *</Label>
+            <Input
+              id="zipCode"
+              name="zipCode"
+              required
+              placeholder="12345"
+              value={formData.zipCode}
               onChange={handleChange}
             />
           </div>

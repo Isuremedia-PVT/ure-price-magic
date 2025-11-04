@@ -4,6 +4,8 @@ export interface FormData {
   email: string;
   phone: string;
   company?: string;
+  billingAddress?: string;
+  zipCode?: string;
   startDate?: string;
   notes?: string;
 }

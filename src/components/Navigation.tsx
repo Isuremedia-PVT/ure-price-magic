@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,7 +18,16 @@ const Navigation = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
+    setIsMobileMenuOpen(false);
   };
+
+  const navItems = [
+    { id: "ppc", label: "PPC" },
+    { id: "smm", label: "Social Media" },
+    { id: "seo", label: "SEO" },
+    { id: "ghl", label: "GoHighLevel" },
+    { id: "custom", label: "Custom Dev" },
+  ];
 
   return (
     <nav
@@ -28,42 +40,26 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <img
-            src="https://isuremedia.com/wp-content/uploads/2022/07/Isuremedia-logo.webp"
+            src={
+              isScrolled
+                ? "https://storage.googleapis.com/msgsndr/jnLK3WXibjhfqnyON1Ru/media/6909d04aaa138d222aa92e78.webp"
+                : "https://storage.googleapis.com/msgsndr/jnLK3WXibjhfqnyON1Ru/media/6909c977119a8222889c10da.png"
+            }
             alt="iSure Media"
             className="h-10 md:h-12"
           />
           
           <div className="hidden md:flex items-center gap-6">
-            <button
-              onClick={() => scrollToSection("ppc")}
-              className="text-sm font-medium hover:text-accent transition-smooth"
-            >
-              PPC
-            </button>
-            <button
-              onClick={() => scrollToSection("smm")}
-              className="text-sm font-medium hover:text-accent transition-smooth"
-            >
-              Social Media
-            </button>
-            <button
-              onClick={() => scrollToSection("seo")}
-              className="text-sm font-medium hover:text-accent transition-smooth"
-            >
-              SEO
-            </button>
-            <button
-              onClick={() => scrollToSection("ghl")}
-              className="text-sm font-medium hover:text-accent transition-smooth"
-            >
-              GoHighLevel
-            </button>
-            <button
-              onClick={() => scrollToSection("custom")}
-              className="text-sm font-medium hover:text-accent transition-smooth"
-            >
-              Custom Dev
-            </button>
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="text-sm font-medium hover:text-accent transition-smooth"
+                style={{ color: isScrolled ? "#000047" : "#ffffff" }}
+              >
+                {item.label}
+              </button>
+            ))}
             
             <Button
               onClick={() => scrollToSection("booking")}
@@ -73,6 +69,34 @@ const Navigation = () => {
               Get Started
             </Button>
           </div>
+
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" style={{ color: isScrolled ? "#000047" : "#ffffff" }} />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px]">
+              <div className="flex flex-col gap-6 mt-8">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-lg font-medium text-left hover:text-accent transition-smooth"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                <Button
+                  onClick={() => scrollToSection("booking")}
+                  variant="hero"
+                  className="w-full"
+                >
+                  Get Started
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </nav>

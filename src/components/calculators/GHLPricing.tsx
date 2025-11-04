@@ -115,7 +115,7 @@ const GHLPricing = () => {
       features: [
         "20 hours for GHL tasks per month",
         "⚠️ Hours DON'T carry over to next month",
-        "🎁 FREE: 20 sub-account ticket support",
+        "🎁 FREE: 40 sub-account ticket support",
         "White label support & onboarding",
         "GHL technical support",
         "Email, Zoom, Slack, MS Teams",
@@ -141,7 +141,7 @@ const GHLPricing = () => {
       features: [
         "80 hours per month",
         "⚠️ Hours DON'T carry over to next month",
-        "🎁 FREE: 20 sub-account ticket support",
+        "🎁 FREE: 40 sub-account ticket support",
         "4 hours daily dedicated VA",
         "5 days per week coverage",
         "Dedicated Project Manager",
@@ -164,7 +164,7 @@ const GHLPricing = () => {
       features: [
         "160 hours per month (full-time)",
         "⚠️ Hours DON'T carry over to next month",
-        "🎁 FREE: 20 sub-account ticket support",
+        "🎁 FREE: unlimited sub-account ticket support",
         "8 hours daily dedicated VA",
         "5 days per week coverage",
         "Dedicated Project Manager",
@@ -353,7 +353,7 @@ const GHLPricing = () => {
                   <Badge variant="secondary" className="px-4 py-2">🏆 Certified GHL Administrators</Badge>
                   <Badge variant="secondary" className="px-4 py-2">📅 Month-to-Month (No Commitment)</Badge>
                   <Badge variant="secondary" className="px-4 py-2">💰 7-Day Money-Back Guarantee</Badge>
-                  <Badge variant="default" className="px-4 py-2">🎁 FREE: 20 Sub-Account Support Included</Badge>
+                  <Badge variant="default" className="px-4 py-2">🎁 FREE: 40 Sub-Account Support Included</Badge>
                 </div>
               </div>
 
