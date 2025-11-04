@@ -10,24 +10,29 @@ const Hero = () => {
 
   return (
     <section className="relative overflow-hidden gradient-hero text-primary-foreground">
-      <div className="container mx-auto px-4 py-20 md:py-32">
+      <div className="container mx-auto px-4 py-12 md:py-24 lg:py-28">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight mt-16 md:mt-0">
             B2B White Label Digital Marketing Agency
           </h1>
 
-          <p className="text-lg md:text-xl text-primary-foreground/80 mb-6 max-w-2xl">
+          <p className="text-base md:text-lg lg:text-xl text-primary-foreground/80 mb-4 md:mb-6 max-w-2xl">
             Transparent, Flexible Pricing for Growing Agencies
           </p>
 
           <CertificationBadges />
 
-          <p className="text-md text-primary-foreground/70 mb-10 max-w-2xl">
+          <p className="text-sm md:text-base text-primary-foreground/70 mb-6 md:mb-8 max-w-2xl">
             Customize your package and see pricing in real-time. No hidden fees, no surprises—just clear, honest pricing
             for exceptional digital marketing services.
           </p>
 
-          <Button onClick={scrollToServices} variant="accent" size="lg" className="text-lg px-8 py-6 h-auto">
+          <Button 
+            onClick={scrollToServices} 
+            variant="accent" 
+            size="lg" 
+            className="text-base md:text-lg px-6 py-5 md:px-10 md:py-7 h-auto w-full md:w-auto max-w-xs md:max-w-none shadow-lg hover:shadow-xl transition-all"
+          >
             Explore Services
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>

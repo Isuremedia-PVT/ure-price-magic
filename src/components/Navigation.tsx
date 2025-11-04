@@ -39,15 +39,17 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <img
-            src={
-              isScrolled
-                ? "https://storage.googleapis.com/msgsndr/jnLK3WXibjhfqnyON1Ru/media/6909d04aaa138d222aa92e78.webp"
-                : "https://storage.googleapis.com/msgsndr/jnLK3WXibjhfqnyON1Ru/media/6909c977119a8222889c10da.png"
-            }
-            alt="iSure Media"
-            className="h-10 md:h-12"
-          />
+          <a href="/" className="cursor-pointer">
+            <img
+              src={
+                isScrolled
+                  ? "https://storage.googleapis.com/msgsndr/jnLK3WXibjhfqnyON1Ru/media/6909d04aaa138d222aa92e78.webp"
+                  : "https://storage.googleapis.com/msgsndr/jnLK3WXibjhfqnyON1Ru/media/6909c977119a8222889c10da.png"
+              }
+              alt="iSure Media"
+              className="h-10 md:h-12"
+            />
+          </a>
           
           <div className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
@@ -73,10 +75,17 @@ const Navigation = () => {
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" style={{ color: isScrolled ? "#000047" : "#ffffff" }} />
+                <Menu className="h-8 w-8" style={{ color: isScrolled ? "#000047" : "#ffffff" }} />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="absolute top-4 right-4 p-2"
+                aria-label="Close menu"
+              >
+                <X className="h-8 w-8" />
+              </button>
               <div className="flex flex-col gap-6 mt-8">
                 {navItems.map((item) => (
                   <button
