@@ -278,7 +278,7 @@ const PPCCalculator = () => {
                 </p>
               </div>
 
-              {selectedPlatforms.length >= 2 && (
+              {selectedPlatforms.length >= 1 && (
                 <div className="border rounded-lg p-4 bg-secondary/20">
                   <Label className="text-base mb-3 block">Budget Configuration</Label>
                   <p className="text-sm text-muted-foreground mb-3">
