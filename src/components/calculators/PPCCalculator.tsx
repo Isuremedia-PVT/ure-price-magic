@@ -513,7 +513,7 @@ const PPCCalculator = () => {
                 onClick={handleGetStarted}
                 disabled={selectedPlatforms.length === 0}
               >
-                Get Started with PPC
+                Get Started with Advertisement
               </Button>
             </CardContent>
           </Card>
