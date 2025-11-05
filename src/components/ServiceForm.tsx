@@ -320,8 +320,8 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
               </div>
 
               {/* Billing Address (70%) & Zip Code (30%) - Side by Side */}
-              <div className="grid grid-cols-1 md:grid-cols-[70%_30%] gap-4">
-                <div>
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4">
+                <div className="min-w-0">
                   <Label htmlFor="billingAddress">Billing Address *</Label>
                   <Input
                     id="billingAddress"
@@ -330,9 +330,10 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                     placeholder="123 Main St, City, State"
                     value={formData.billingAddress}
                     onChange={handleChange}
+                    className="w-full"
                   />
                 </div>
-                <div>
+                <div className="md:w-[120px]">
                   <Label htmlFor="zipCode">Zip Code *</Label>
                   <Input
                     id="zipCode"
@@ -341,6 +342,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                     placeholder="12345"
                     value={formData.zipCode}
                     onChange={handleChange}
+                    className="w-full"
                   />
                 </div>
               </div>

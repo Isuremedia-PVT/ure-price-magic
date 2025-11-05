@@ -80,8 +80,10 @@ const PPCCalculator = () => {
       setPlatformBudgets({...platformBudgets, [platform]: 5000});
       // Set this as the active platform
       setActivePlatform(platform);
-      // Show budget type selector if we now have 2+ platforms
-      if (newPlatforms.length >= 2 && budgetType === "single") {
+      // Set default budget type when first platform is selected
+      if (newPlatforms.length === 1) {
+        setBudgetType("combined");
+      } else if (newPlatforms.length >= 2 && budgetType === "single") {
         setBudgetType("separate");
       }
     }
@@ -530,6 +532,11 @@ const PPCCalculator = () => {
           adSpend: adSpend,
           setupFee: totalSetupFee,
           monthlyTotal: totalMonthlyFee,
+          baseManagementFee: baseManagementFee,
+          multiPlatformDiscount: multiPlatformDiscount,
+          managementPercentage: pricing.percentage || calculatePPCFee(adSpend).percentage,
+          budgetType: budgetType,
+          platformBreakdown: JSON.stringify(pricing.platformBreakdown)
         }}
       />
     </section>
