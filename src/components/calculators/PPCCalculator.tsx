@@ -307,7 +307,8 @@ const PPCCalculator = () => {
 
               {/* Budget Configuration - Always show when there's an active platform */}
               {activePlatform && (
-                <div>
+                <div className="border rounded-lg p-4 bg-secondary/20">
+                  <Label className="text-base mb-3 block">Budget Configuration for {activePlatform}</Label>
                   {budgetType === "combined" && selectedPlatforms.length >= 2 ? (
                     <div>
                       <div className="flex justify-between items-center mb-3">
@@ -337,7 +338,6 @@ const PPCCalculator = () => {
                     </div>
                   ) : budgetType === "separate" && selectedPlatforms.length >= 2 ? (
                     <div className="space-y-4">
-                      <Label className="text-base block">Budget Configuration for {activePlatform}</Label>
                       <div className="border rounded-lg p-4 bg-secondary/10">
                         <div className="flex justify-between items-center mb-3">
                           <Label className="font-medium">{activePlatform}</Label>
@@ -393,11 +393,16 @@ const PPCCalculator = () => {
 
               <div className="border rounded-lg p-6 bg-accent/5">
                 <h4 className="font-semibold mb-4">📊 YOUR PRICING BREAKDOWN</h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-muted-foreground">Selected Platform{selectedPlatforms.length > 1 ? 's' : ''}:</span>
-                    <span className="font-medium">{selectedPlatforms.join(", ")}</span>
+                {selectedPlatforms.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">Please select a platform to see pricing</p>
                   </div>
+                ) : (
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">Selected Platform(s):</span>
+                      <span className="font-medium">{selectedPlatforms.join(", ")}</span>
+                    </div>
                   
                   {budgetType === "separate" && selectedPlatforms.length >= 2 ? (
                     <div className="space-y-3 border-t pt-3">
@@ -486,7 +491,8 @@ const PPCCalculator = () => {
                       </p>
                     )}
                   </div>
-                </div>
+                  </div>
+                )}
               </div>
 
               {multiPlatformDiscount > 0 && (
