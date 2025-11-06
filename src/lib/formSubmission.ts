@@ -15,7 +15,22 @@ export interface ServiceData {
   monthlyTotal: number;
   setupFee?: number;
   basePackage?: number;
-  [key: string]: string | number | boolean | undefined;
+  smmBreakdown?: {
+    basePrice: number;
+    postsPerWeek: number;
+    postsCost: number;
+    carouselsPerWeek: number;
+    carouselsCost: number;
+    storiesPerWeek: number;
+    storiesCost: number;
+    longVideos: number;
+    longVideosCost: number;
+    platformAddOns: number;
+    additionalPlatforms: number;
+    gmbAddOn: number;
+    includeGMB: boolean;
+  };
+  [key: string]: string | number | boolean | undefined | object;
 }
 
 export const generateUniqueCode = (): string => {

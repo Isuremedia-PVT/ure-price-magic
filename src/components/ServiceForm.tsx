@@ -143,12 +143,16 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
       <DialogContent className="sm:max-w-[1000px] max-h-[90vh] overflow-hidden p-0">
         <div className="flex flex-col md:flex-row max-h-[90vh]">
           {/* LEFT SECTION: Package Summary (40% width on desktop) */}
-          {serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown && (
+          {(serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown) || 
+           (serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown) ? (
             <div className="md:w-[40%] bg-[#FFF9F0] border-r border-border overflow-y-auto p-6">
               <h3 className="text-xl font-bold mb-4" style={{ color: '#000047' }}>
                 📊 YOUR PRICING BREAKDOWN
               </h3>
               
+              {/* PPC Management Breakdown */}
+              {serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown && (
+                <>
               {/* Selected Platforms List */}
               <div className="mb-4">
                 <p className="text-sm font-semibold mb-2" style={{ color: '#000047' }}>
@@ -209,7 +213,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                   <span className="text-muted-foreground">Total Setup Fee:</span>
                   <span className="font-semibold">${serviceData.setupFee?.toLocaleString() || 0}</span>
                 </div>
-                {serviceData.baseManagementFee && (
+                {serviceData.baseManagementFee && typeof serviceData.baseManagementFee === 'number' && (
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Base Management:</span>
                     <span className="font-semibold">${serviceData.baseManagementFee}/month</span>
@@ -239,17 +243,131 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                     ${(serviceData.monthlyTotal || 0).toLocaleString()}/month
                   </span>
                 </div>
-                {serviceData.managementPercentage && (
+                {serviceData.managementPercentage && typeof serviceData.managementPercentage === 'string' && (
                   <p className="text-xs text-muted-foreground italic mt-2">
                     Management rate: {serviceData.managementPercentage} of ad spend
                   </p>
                 )}
               </div>
-            </div>
-          )}
+              </>
+              )}
 
-          {/* RIGHT SECTION: Form Fields (60% width on desktop) */}
-          <div className="md:w-[60%] bg-white overflow-y-auto p-6">
+              {/* SMM Breakdown */}
+              {serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown && (
+                <>
+                  {/* Selected Platforms List */}
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#000047' }}>
+                      Selected Platform(s):
+                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: '#000047' }}>
+                      {typeof serviceData.platforms === 'string' ? serviceData.platforms : ''}
+                    </p>
+                  </div>
+
+                  <div className="border-t border-border my-4"></div>
+
+                  {/* Base Package */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      Base Package Includes:
+                    </p>
+                    <div className="space-y-1 ml-2 text-sm" style={{ color: '#000047' }}>
+                      <div>• {typeof serviceData.platformCount === 'number' ? serviceData.platformCount : 3} Platforms (Instagram, Facebook, YouTube)</div>
+                      <div>• 2 Posts per week</div>
+                      <div>• 1 Carousel/Reel per week</div>
+                      <div>• 2 Stories per week</div>
+                      <div>• Content creation and scheduling</div>
+                      <div>• Community management</div>
+                      <div>• Monthly performance reports</div>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-border my-4"></div>
+
+                  {/* Content Breakdown */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      Your Content Package:
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span style={{ color: '#000047' }}>Posts per week: {serviceData.smmBreakdown.postsPerWeek}</span>
+                        {serviceData.smmBreakdown.postsCost > 0 && (
+                          <span className="font-semibold" style={{ color: '#faa033' }}>
+                            +${serviceData.smmBreakdown.postsCost}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span style={{ color: '#000047' }}>Reels/Carousels per week: {serviceData.smmBreakdown.carouselsPerWeek}</span>
+                        {serviceData.smmBreakdown.carouselsCost > 0 && (
+                          <span className="font-semibold" style={{ color: '#faa033' }}>
+                            +${serviceData.smmBreakdown.carouselsCost}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span style={{ color: '#000047' }}>Stories per week: {serviceData.smmBreakdown.storiesPerWeek}</span>
+                        {serviceData.smmBreakdown.storiesCost > 0 && (
+                          <span className="font-semibold" style={{ color: '#faa033' }}>
+                            +${serviceData.smmBreakdown.storiesCost}
+                          </span>
+                        )}
+                      </div>
+                      {serviceData.smmBreakdown.longVideos > 0 && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>YouTube Long Videos: {serviceData.smmBreakdown.longVideos}</span>
+                          <span className="font-semibold" style={{ color: '#faa033' }}>
+                            +${serviceData.smmBreakdown.longVideosCost}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="border-t border-border my-4"></div>
+
+                  {/* Fees Breakdown */}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Base Package:</span>
+                      <span className="font-semibold">${serviceData.smmBreakdown.basePrice}</span>
+                    </div>
+                    {serviceData.smmBreakdown.platformAddOns > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Additional Platforms ({serviceData.smmBreakdown.additionalPlatforms}):</span>
+                        <span className="font-semibold">+${serviceData.smmBreakdown.platformAddOns}</span>
+                      </div>
+                    )}
+                    {serviceData.smmBreakdown.includeGMB && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">GMB Optimization:</span>
+                        <span className="font-semibold">+${serviceData.smmBreakdown.gmbAddOn}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* Totals */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-lg font-bold">
+                      <span style={{ color: '#000047' }}>💰 Monthly Total:</span>
+                      <span style={{ color: '#faa033' }}>
+                        ${serviceData.monthlyTotal.toLocaleString()}/month
+                      </span>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : null}
+
+          {/* RIGHT SECTION: Form Fields (60% or full width on desktop) */}
+          <div className={`${(serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown) || 
+                              (serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown) 
+                              ? "md:w-[60%]" : "w-full"} bg-white overflow-y-auto p-6`}>
             <DialogHeader className="mb-6">
               <DialogTitle>Complete Your Package Details</DialogTitle>
               <DialogDescription>
@@ -372,8 +490,8 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                 />
               </div>
 
-              {/* Only show simple summary for non-PPC services */}
-              {serviceData.serviceType !== "PPC Management" && (
+              {/* Only show simple summary for services without detailed breakdown */}
+              {serviceData.serviceType !== "PPC Management" && serviceData.serviceType !== "Social Media Management" && (
                 <div className="bg-secondary/30 rounded-lg p-4">
                   <h4 className="font-semibold mb-3">Package Summary:</h4>
                   <div className="text-sm space-y-3">

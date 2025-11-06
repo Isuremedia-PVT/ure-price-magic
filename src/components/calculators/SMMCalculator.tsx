@@ -88,6 +88,21 @@ const SMMCalculator = () => {
       longVideos: longVideos,
       gmbAddon: includeGMB,
       monthlyTotal: totalPrice,
+      smmBreakdown: {
+        basePrice,
+        postsPerWeek,
+        postsCost: getPostsCost(),
+        carouselsPerWeek,
+        carouselsCost: getCarouselsCost(),
+        storiesPerWeek,
+        storiesCost: getStoriesCost(),
+        longVideos,
+        longVideosCost: getLongVideosCost(),
+        platformAddOns,
+        additionalPlatforms,
+        gmbAddOn,
+        includeGMB,
+      },
     };
     setFormOpen(true);
   };
