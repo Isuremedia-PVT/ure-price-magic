@@ -287,7 +287,7 @@ const SMMCalculator = () => {
 
                 {/* RIGHT SECTION - Sticky Pricing Summary */}
                 <div className="lg:sticky lg:top-6 lg:self-start">
-                  <div className="bg-secondary/50 rounded-lg p-6 space-y-3 border mt-10">
+                  <div className="bg-secondary/50 rounded-lg p-6 space-y-3 border">
                     <h3 className="text-lg font-bold mb-4">Package Summary</h3>
                     
                     <div className="flex justify-between items-center text-sm">
