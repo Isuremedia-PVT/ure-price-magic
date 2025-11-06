@@ -422,7 +422,7 @@ const GHLPricing = () => {
                 <p className="text-muted-foreground">Perfect for one-time projects or testing our services</p>
               </div>
 
-              <Card className="max-w-3xl mx-auto">
+              <Card className="max-w-full">
                 <CardHeader>
                   <CardTitle>⚡ Flexible Hourly Rate</CardTitle>
                   <CardDescription>
@@ -432,86 +432,113 @@ const GHLPricing = () => {
                     </div>
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="bg-secondary/30 rounded-lg p-6">
-                    <h4 className="font-semibold mb-3">Services We Provide (Hourly):</h4>
-                    <div className="grid md:grid-cols-2 gap-2 text-sm">
-                      {[
-                        "Funnel Building",
-                        "Complex Workflow Automation",
-                        "Troubleshooting & Bug Fixes",
-                        "Website Building (GHL)",
-                        "Website Migration to GHL",
-                        "Graphic Design",
-                        "Video Editing",
-                        "Email Templates",
-                        "Custom GHL Integrations",
-                        "N8N Workflow Automation",
-                        "Make.com & Zapier Integrations"
-                      ].map((service) => (
-                        <div key={service} className="flex items-start">
-                          <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
-                          <span>{service}</span>
+                <CardContent>
+                  {/* Split-screen layout for hourly tab */}
+                  <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-6">
+                    {/* LEFT: Services and Hour Slider */}
+                    <div className="space-y-6">
+                      <div className="bg-secondary/30 rounded-lg p-6">
+                        <h4 className="font-semibold mb-3">Services We Provide (Hourly):</h4>
+                        <div className="grid md:grid-cols-2 gap-2 text-sm">
+                          {[
+                            "Funnel Building",
+                            "Complex Workflow Automation",
+                            "Troubleshooting & Bug Fixes",
+                            "Website Building (GHL)",
+                            "Website Migration to GHL",
+                            "Graphic Design",
+                            "Video Editing",
+                            "Email Templates",
+                            "Custom GHL Integrations",
+                            "N8N Workflow Automation",
+                            "Make.com & Zapier Integrations"
+                          ].map((service) => (
+                            <div key={service} className="flex items-start">
+                              <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
+                              <span>{service}</span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex justify-between items-center mb-3">
-                      <Label htmlFor="hours" className="text-base">
-                        📊 Hour Calculator
-                      </Label>
-                      <span className="text-sm font-semibold">{buildoutHours} hours</span>
-                    </div>
-                    <Slider
-                      id="hours"
-                      min={10}
-                      max={100}
-                      step={5}
-                      value={[buildoutHours]}
-                      onValueChange={(value) => setBuildoutHours(value[0])}
-                      className="w-full"
-                    />
-                    <p className="text-xs text-muted-foreground mt-2">
-                      Minimum 10 hours • 5-hour increments
-                    </p>
-                  </div>
-
-                  <div className="bg-secondary/50 rounded-lg p-6">
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold">Total Cost:</span>
-                      <span className="text-2xl font-bold text-accent">
-                        ${buildoutCost.toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="bg-accent/5 rounded-lg p-4">
-                    <p className="font-semibold mb-2">Typical Project Estimates:</p>
-                    <div className="space-y-1 text-sm text-muted-foreground">
-                      <div className="flex justify-between">
-                        <span>Simple Funnel:</span>
-                        <span>5-10 hours ($175-350)</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span>Complex Funnel:</span>
-                        <span>15-25 hours ($525-875)</span>
+
+                      <div>
+                        <div className="flex justify-between items-center mb-3">
+                          <Label htmlFor="hours" className="text-base font-semibold">
+                            📊 Hour Calculator
+                          </Label>
+                          <span className="text-sm font-semibold">{buildoutHours} hours</span>
+                        </div>
+                        <Slider
+                          id="hours"
+                          min={10}
+                          max={100}
+                          step={5}
+                          value={[buildoutHours]}
+                          onValueChange={(value) => setBuildoutHours(value[0])}
+                          className="w-full"
+                        />
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Minimum 10 hours • 5-hour increments
+                        </p>
                       </div>
-                      <div className="flex justify-between">
-                        <span>Website Build:</span>
-                        <span>20-40 hours ($700-1,400)</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Advanced Automation:</span>
-                        <span>10-20 hours ($350-700)</span>
+
+                      <div className="bg-accent/5 rounded-lg p-4">
+                        <p className="font-semibold mb-2 text-sm">Typical Project Estimates:</p>
+                        <div className="space-y-1 text-xs text-muted-foreground">
+                          <div className="flex justify-between">
+                            <span>Simple Funnel:</span>
+                            <span>5-10 hours ($175-350)</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Complex Funnel:</span>
+                            <span>15-25 hours ($525-875)</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Website Build:</span>
+                            <span>20-40 hours ($700-1,400)</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Advanced Automation:</span>
+                            <span>10-20 hours ($350-700)</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <Button variant="hero" size="lg" className="w-full" onClick={handleHourlySubmit}>
-                    Get Started
-                  </Button>
+                    {/* RIGHT: Pricing Summary */}
+                    <div className="lg:sticky lg:top-6 lg:self-start">
+                      <Card className="border-2">
+                        <CardContent className="p-6 space-y-4">
+                          <h3 className="text-lg font-bold text-primary-dark mb-4">Project Summary</h3>
+                          
+                          <div className="space-y-3">
+                            <div className="flex justify-between items-center pb-3 border-b">
+                              <span className="text-sm">Hourly Rate</span>
+                              <span className="font-semibold text-primary-dark">$35/hr</span>
+                            </div>
+                            
+                            <div className="flex justify-between items-center pb-3 border-b">
+                              <span className="text-sm">Selected Hours</span>
+                              <span className="font-semibold text-primary-dark">{buildoutHours} hrs</span>
+                            </div>
+                          </div>
+                          
+                          <div className="border-t-2 pt-4 mt-6">
+                            <div className="flex justify-between items-center mb-6">
+                              <span className="text-base font-semibold">Total Cost:</span>
+                              <span className="text-3xl font-bold text-accent">
+                                ${buildoutCost.toLocaleString()}
+                              </span>
+                            </div>
+
+                            <Button variant="hero" size="lg" className="w-full" onClick={handleHourlySubmit}>
+                              Get Started
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

@@ -120,39 +120,39 @@ const SMMCalculator = () => {
             </p>
           </div>
 
-          <Card className="shadow-medium">
-            <CardHeader>
-              <CardTitle>Customize Your SMM Package</CardTitle>
-              <CardDescription>
-                Starting at $500/month
-              </CardDescription>
-              <div className="p-4 bg-muted/30 rounded-lg mt-4">
-                <div className="text-sm font-medium mb-2">Base Package Includes:</div>
-                <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>✓ 3 Platforms (Instagram, Facebook, YouTube)</li>
-                  <li>✓ 2 Posts per week</li>
-                  <li>✓ 1 Carousel/Reel per week</li>
-                  <li>✓ 2 Stories per week</li>
-                  <li>✓ Content creation and scheduling</li>
-                  <li>✓ Community management</li>
-                  <li>✓ Monthly performance reports</li>
-                </ul>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {/* Two-column layout: Form on left, Summary on right */}
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
-                {/* LEFT SECTION - Form Controls */}
+          {/* Split-screen layout: 70% left controls + 30% right summary */}
+          <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 max-w-[1400px] mx-auto">
+            {/* LEFT SECTION - Calculator Controls (70%) */}
+            <Card className="shadow-medium">
+              <CardHeader>
+                <CardTitle className="text-3xl font-bold">Customize Your SMM Package</CardTitle>
+                <CardDescription className="text-base">
+                  Starting at $500/month
+                </CardDescription>
+                <div className="p-6 bg-secondary/20 rounded-lg mt-6">
+                  <div className="text-base font-semibold mb-3">Base Package Includes:</div>
+                  <ul className="text-sm space-y-2">
+                    <li className="flex items-start"><span className="mr-2">✓</span>3 Platforms (Instagram, Facebook, YouTube)</li>
+                    <li className="flex items-start"><span className="mr-2">✓</span>2 Posts per week</li>
+                    <li className="flex items-start"><span className="mr-2">✓</span>1 Carousel/Reel per week</li>
+                    <li className="flex items-start"><span className="mr-2">✓</span>2 Stories per week</li>
+                    <li className="flex items-start"><span className="mr-2">✓</span>Content creation and scheduling</li>
+                    <li className="flex items-start"><span className="mr-2">✓</span>Community management</li>
+                    <li className="flex items-start"><span className="mr-2">✓</span>Monthly performance reports</li>
+                  </ul>
+                </div>
+              </CardHeader>
+              <CardContent>
                 <div className="space-y-6">
                   <div>
-                    <Label className="text-base mb-4 block">Select Platforms</Label>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    <Label className="text-base mb-4 block font-semibold">Select Platforms</Label>
+                    <div className="grid grid-cols-2 gap-3">
                       {platforms.map((platform) => (
                         <label 
                           key={platform.id} 
                           htmlFor={platform.id}
-                          className={`flex items-center space-x-2 p-3 border rounded-lg cursor-pointer transition-colors hover:bg-muted/50 ${
-                            selectedPlatforms.includes(platform.id) ? 'bg-muted/30 border-primary' : ''
+                          className={`flex items-center space-x-2 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                            selectedPlatforms.includes(platform.id) ? 'bg-secondary/30 border-accent' : 'hover:bg-secondary/10'
                           } ${platform.included ? 'cursor-not-allowed opacity-70' : ''}`}
                         >
                           <Checkbox
@@ -177,7 +177,7 @@ const SMMCalculator = () => {
                   <div className="border-t pt-6">
                     <label
                       htmlFor="gmb"
-                      className="flex items-start space-x-3 p-4 border rounded-lg bg-secondary/20 cursor-pointer hover:bg-secondary/30 transition-colors"
+                      className="flex items-start space-x-3 p-4 border-2 rounded-lg bg-secondary/20 cursor-pointer hover:bg-secondary/30 transition-colors"
                     >
                       <Checkbox
                         id="gmb"
@@ -200,7 +200,7 @@ const SMMCalculator = () => {
 
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <Label htmlFor="posts" className="text-base">Posts per Week</Label>
+                      <Label htmlFor="posts" className="text-base font-semibold">Posts per Week</Label>
                       <span className="text-sm font-semibold">
                         {postsPerWeek} {postsPerWeek > basePosts && <span className="text-accent">(+{postsPerWeek - basePosts})</span>}
                       </span>
@@ -221,7 +221,7 @@ const SMMCalculator = () => {
 
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <Label htmlFor="carousels" className="text-base">Carousel/Reels per Week</Label>
+                      <Label htmlFor="carousels" className="text-base font-semibold">Carousel/Reels per Week</Label>
                       <span className="text-sm font-semibold">
                         {carouselsPerWeek} {carouselsPerWeek > baseCarousels && <span className="text-accent">(+{carouselsPerWeek - baseCarousels})</span>}
                       </span>
@@ -242,7 +242,7 @@ const SMMCalculator = () => {
 
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <Label htmlFor="stories" className="text-base">Stories per Week</Label>
+                      <Label htmlFor="stories" className="text-base font-semibold">Stories per Week</Label>
                       <span className="text-sm font-semibold">
                         {storiesPerWeek} {storiesPerWeek > baseStories && <span className="text-accent">(+{storiesPerWeek - baseStories})</span>}
                       </span>
@@ -263,7 +263,7 @@ const SMMCalculator = () => {
 
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <Label htmlFor="longVideos" className="text-base">YouTube Long Videos (up to 3 min)</Label>
+                      <Label htmlFor="longVideos" className="text-base font-semibold">YouTube Long Videos (up to 3 min)</Label>
                       <span className="text-sm font-semibold">{longVideos} videos</span>
                     </div>
                     <Slider
@@ -279,81 +279,81 @@ const SMMCalculator = () => {
                       $75 per video • Includes basic editing, intro/outro
                     </p>
                   </div>
-
-                  <Button variant="hero" size="lg" className="w-full lg:hidden" onClick={handleGetStarted}>
-                    Get Started with Social Media
-                  </Button>
                 </div>
+              </CardContent>
+            </Card>
 
-                {/* RIGHT SECTION - Sticky Pricing Summary */}
-                <div className="lg:sticky lg:top-6 lg:self-start">
-                  <div className="bg-secondary/50 rounded-lg p-6 space-y-3 border mt-10">
-                    <h3 className="text-lg font-bold mb-4">Package Summary</h3>
-                    
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-muted-foreground">Base Package</span>
-                      <span className="font-semibold">${basePrice}</span>
+            {/* RIGHT SECTION - Sticky Package Summary (30%) */}
+            <div className="lg:sticky lg:top-24 lg:self-start h-fit">
+              <Card className="shadow-medium border-2">
+                <CardContent className="p-6 space-y-4">
+                  <h3 className="text-xl font-bold text-primary-dark mb-6">Package Summary</h3>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center pb-3 border-b">
+                      <span className="text-sm">Base Package</span>
+                      <span className="font-semibold text-primary-dark">${basePrice}</span>
                     </div>
                     
                     {platformAddOns > 0 && (
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">Additional Platforms ({additionalPlatforms})</span>
-                        <span className="font-semibold">+${platformAddOns}</span>
+                      <div className="flex justify-between items-center pb-3 border-b">
+                        <span className="text-sm">Additional Platforms ({additionalPlatforms})</span>
+                        <span className="font-semibold text-accent">+${platformAddOns}</span>
                       </div>
                     )}
                     
                     {getPostsCost() > 0 && (
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">Extra Posts</span>
-                        <span className="font-semibold">+${getPostsCost()}</span>
+                      <div className="flex justify-between items-center pb-3 border-b">
+                        <span className="text-sm">Extra Posts</span>
+                        <span className="font-semibold text-accent">+${getPostsCost()}</span>
                       </div>
                     )}
                     
                     {getCarouselsCost() > 0 && (
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">Extra Reels/Carousels</span>
-                        <span className="font-semibold">+${getCarouselsCost()}</span>
+                      <div className="flex justify-between items-center pb-3 border-b">
+                        <span className="text-sm">Extra Reels/Carousels</span>
+                        <span className="font-semibold text-accent">+${getCarouselsCost()}</span>
                       </div>
                     )}
                     
                     {getStoriesCost() > 0 && (
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">Extra Stories</span>
-                        <span className="font-semibold">+${getStoriesCost()}</span>
+                      <div className="flex justify-between items-center pb-3 border-b">
+                        <span className="text-sm">Extra Stories</span>
+                        <span className="font-semibold text-accent">+${getStoriesCost()}</span>
                       </div>
                     )}
                     
                     {longVideosAddOn > 0 && (
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">Long-Form Videos ({longVideos})</span>
-                        <span className="font-semibold">+${longVideosAddOn}</span>
+                      <div className="flex justify-between items-center pb-3 border-b">
+                        <span className="text-sm">Long-Form Videos ({longVideos})</span>
+                        <span className="font-semibold text-accent">+${longVideosAddOn}</span>
                       </div>
                     )}
                     
                     {gmbAddOn > 0 && (
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">GMB Optimization</span>
-                        <span className="font-semibold">+${gmbAddOn}</span>
+                      <div className="flex justify-between items-center pb-3 border-b">
+                        <span className="text-sm">GMB Optimization</span>
+                        <span className="font-semibold text-accent">+${gmbAddOn}</span>
                       </div>
                     )}
-                    
-                    <div className="border-t pt-3 mt-3">
-                      <div className="flex justify-between items-center">
-                        <span className="text-lg font-bold">Total Monthly:</span>
-                        <span className="text-2xl font-bold text-accent">
-                          ${totalPrice.toLocaleString()}/mo
-                        </span>
-                      </div>
+                  </div>
+                  
+                  <div className="border-t-2 pt-4 mt-6">
+                    <div className="flex justify-between items-center mb-6">
+                      <span className="text-base font-semibold">Total Monthly:</span>
+                      <span className="text-3xl font-bold text-accent">
+                        ${totalPrice.toLocaleString()}/mo
+                      </span>
                     </div>
 
-                    <Button variant="hero" size="lg" className="w-full hidden lg:block" onClick={handleGetStarted}>
+                    <Button variant="hero" size="lg" className="w-full" onClick={handleGetStarted}>
                       Get Started with Social Media
                     </Button>
                   </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
       
