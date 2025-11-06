@@ -131,7 +131,7 @@ const SMMCalculator = () => {
                 </CardDescription>
                 <div className="p-6 bg-secondary/20 rounded-lg mt-6">
                   <div className="text-base font-semibold mb-3">Base Package Includes:</div>
-                  <ul className="text-sm space-y-2">
+                  <ul className="text-sm grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
                     <li className="flex items-start"><span className="mr-2">✓</span>3 Platforms (Instagram, Facebook, YouTube)</li>
                     <li className="flex items-start"><span className="mr-2">✓</span>2 Posts per week</li>
                     <li className="flex items-start"><span className="mr-2">✓</span>1 Carousel/Reel per week</li>
