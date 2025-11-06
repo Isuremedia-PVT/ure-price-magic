@@ -144,10 +144,15 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
         <div className="flex flex-col md:flex-row max-h-[90vh]">
           {/* LEFT SECTION: Package Summary (40% width on desktop) */}
           {(serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown) || 
-           (serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown) ? (
+           (serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown) ||
+           serviceData.serviceType === "SEO Services" ||
+           serviceData.serviceType === "GHL Client Onboarding" ||
+           serviceData.serviceType === "GHL Hourly Buildout" ||
+           serviceData.serviceType === "GHL Sub-Account Support" ||
+           serviceData.serviceType === "GHL Monthly Retainer" ? (
             <div className="md:w-[40%] bg-[#FFF9F0] border-r border-border overflow-y-auto p-6">
               <h3 className="text-xl font-bold mb-4" style={{ color: '#000047' }}>
-                📊 YOUR PRICING BREAKDOWN
+                📊 YOUR {serviceData.serviceType.toUpperCase()} BREAKDOWN
               </h3>
               
               {/* PPC Management Breakdown */}
@@ -361,12 +366,466 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                   </div>
                 </>
               )}
+
+              {/* SEO Services Breakdown */}
+              {serviceData.serviceType === "SEO Services" && (
+                <>
+                  {/* Selected Services Section */}
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#000047' }}>
+                      Selected SEO Service:
+                    </p>
+                    <p className="text-sm" style={{ color: '#000047' }}>
+                      SEO Services Package
+                    </p>
+                  </div>
+
+                  <div className="border-t border-border my-4"></div>
+
+                  {/* Service Details */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      • SEO Services Package:
+                    </p>
+                    <div className="ml-4 space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span style={{ color: '#000047' }}>Base Package (8 keywords):</span>
+                        <span className="font-semibold" style={{ color: '#faa033' }}>
+                          ${typeof serviceData.basePackage === 'number' ? serviceData.basePackage : 350}/month
+                        </span>
+                      </div>
+                      {typeof serviceData.keywords === 'number' && serviceData.keywords > 8 && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>Additional Keywords ({serviceData.keywords - 8}):</span>
+                          <span className="font-semibold" style={{ color: '#faa033' }}>
+                            +${(serviceData.keywords - 8) * 25}/month
+                          </span>
+                        </div>
+                      )}
+                      {typeof serviceData.blogPosts === 'number' && serviceData.blogPosts > 0 && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>Blog Posts ({serviceData.blogPosts}):</span>
+                          <span className="font-semibold" style={{ color: '#faa033' }}>
+                            +${serviceData.blogPosts * 80}/month
+                          </span>
+                        </div>
+                      )}
+                      <div className="border-t border-border my-2"></div>
+                      <div className="flex justify-between text-sm font-semibold">
+                        <span style={{ color: '#000047' }}>Service Subtotal:</span>
+                        <span style={{ color: '#faa033' }}>
+                          ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}/month
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* Base Package Includes */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      What's Included:
+                    </p>
+                    <div className="ml-2 space-y-1 text-sm" style={{ color: '#000047' }}>
+                      <div>✓ Keyword research and optimization</div>
+                      <div>✓ On-page SEO improvements</div>
+                      <div>✓ Technical SEO audit and fixes</div>
+                      <div>✓ Monthly performance reports</div>
+                      <div>✓ Competitor analysis</div>
+                      {typeof serviceData.keywords === 'number' && (
+                        <div>✓ {serviceData.keywords} Keywords tracked</div>
+                      )}
+                      {typeof serviceData.blogPosts === 'number' && serviceData.blogPosts > 0 && (
+                        <div>✓ {serviceData.blogPosts} SEO-optimized blog posts/month</div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* Totals */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-lg font-bold">
+                      <span style={{ color: '#000047' }}>💰 Monthly Total:</span>
+                      <span style={{ color: '#faa033' }}>
+                        ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}/month
+                      </span>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* GHL Client Onboarding Breakdown */}
+              {serviceData.serviceType === "GHL Client Onboarding" && (
+                <>
+                  {/* Selected Services Section */}
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#000047' }}>
+                      Selected Onboarding Service:
+                    </p>
+                    <p className="text-sm" style={{ color: '#000047' }}>
+                      GoHighLevel Client Onboarding
+                    </p>
+                  </div>
+
+                  <div className="border-t border-border my-4"></div>
+
+                  {/* Service Details */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      • Client Onboarding Package:
+                    </p>
+                    <div className="ml-4 space-y-2">
+                      {typeof serviceData.quantity === 'number' && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>Quantity:</span>
+                          <span className="font-semibold" style={{ color: '#000047' }}>
+                            {serviceData.quantity} onboarding{serviceData.quantity > 1 ? 's' : ''}
+                          </span>
+                        </div>
+                      )}
+                      {typeof serviceData.paidOnboardings === 'number' && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>Paid Onboardings:</span>
+                          <span className="font-semibold" style={{ color: '#faa033' }}>
+                            {serviceData.paidOnboardings} × $50 = ${serviceData.paidOnboardings * 50}
+                          </span>
+                        </div>
+                      )}
+                      {typeof serviceData.freeOnboardings === 'number' && serviceData.freeOnboardings > 0 && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>🎁 Free Onboardings:</span>
+                          <span className="font-semibold" style={{ color: '#10b981' }}>
+                            {serviceData.freeOnboardings} (FREE!)
+                          </span>
+                        </div>
+                      )}
+                      {typeof serviceData.savings === 'number' && serviceData.savings > 0 && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>Multi-Purchase Discount:</span>
+                          <span className="font-semibold" style={{ color: '#10b981' }}>
+                            -${serviceData.savings}
+                          </span>
+                        </div>
+                      )}
+                      <div className="border-t border-border my-2"></div>
+                      <div className="flex justify-between text-sm font-semibold">
+                        <span style={{ color: '#000047' }}>Total:</span>
+                        <span style={{ color: '#faa033' }}>
+                          ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}
+                        </span>
+                      </div>
+                      {typeof serviceData.regularPrice === 'number' && typeof serviceData.monthlyTotal === 'number' && serviceData.regularPrice > serviceData.monthlyTotal && (
+                        <div className="text-xs text-muted-foreground">
+                          Regular Price: ${serviceData.regularPrice} • You Save: ${serviceData.regularPrice - serviceData.monthlyTotal}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* What's Included */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      Each Onboarding Includes:
+                    </p>
+                    <div className="ml-2 space-y-1 text-sm" style={{ color: '#000047' }}>
+                      <div>✓ Complete GHL account setup</div>
+                      <div>✓ Pipeline configuration</div>
+                      <div>✓ User training session</div>
+                      <div>✓ Email integration setup</div>
+                      <div>✓ Custom workflow creation</div>
+                      <div>✓ Gray label support email</div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* Totals */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-lg font-bold">
+                      <span style={{ color: '#000047' }}>💰 Total Project Cost:</span>
+                      <span style={{ color: '#faa033' }}>
+                        ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}
+                      </span>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* GHL Hourly Buildout Breakdown */}
+              {serviceData.serviceType === "GHL Hourly Buildout" && (
+                <>
+                  {/* Selected Services Section */}
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#000047' }}>
+                      Selected Service:
+                    </p>
+                    <p className="text-sm" style={{ color: '#000047' }}>
+                      Flexible Hourly Projects
+                    </p>
+                  </div>
+
+                  <div className="border-t border-border my-4"></div>
+
+                  {/* Hourly Rate & Estimate */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      Hourly Rate & Estimate:
+                    </p>
+                    <div className="ml-2 space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span style={{ color: '#000047' }}>Hourly Rate:</span>
+                        <span className="font-semibold" style={{ color: '#faa033' }}>
+                          ${typeof serviceData.hourlyRate === 'number' ? serviceData.hourlyRate : 35}/hour
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span style={{ color: '#000047' }}>Estimated Hours:</span>
+                        <span className="font-semibold" style={{ color: '#000047' }}>
+                          {typeof serviceData.hours === 'number' ? serviceData.hours : 0} hours
+                        </span>
+                      </div>
+                      <div className="border-t border-border my-2"></div>
+                      <div className="flex justify-between text-sm font-semibold">
+                        <span style={{ color: '#000047' }}>Total Estimated Cost:</span>
+                        <span style={{ color: '#faa033' }}>
+                          ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* Service Details */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      What You Get:
+                    </p>
+                    <div className="ml-2 space-y-1 text-sm" style={{ color: '#000047' }}>
+                      <div>✓ Custom GHL buildout work</div>
+                      <div>✓ Workflow automation setup</div>
+                      <div>✓ Integration configuration</div>
+                      <div>✓ Technical support</div>
+                      <div>✓ Testing & quality assurance</div>
+                      <div>✓ Documentation included</div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* Totals */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-lg font-bold">
+                      <span style={{ color: '#000047' }}>💰 Project Estimate:</span>
+                      <span style={{ color: '#faa033' }}>
+                        ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span style={{ color: '#000047' }}>Hourly Rate:</span>
+                      <span style={{ color: '#000047' }}>
+                        ${typeof serviceData.hourlyRate === 'number' ? serviceData.hourlyRate : 35}/hour
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground italic mt-2">
+                      Note: Final cost based on actual hours worked
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {/* GHL Sub-Account Support Breakdown */}
+              {serviceData.serviceType === "GHL Sub-Account Support" && (
+                <>
+                  {/* Selected Services Section */}
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#000047' }}>
+                      Selected Plan:
+                    </p>
+                    <p className="text-sm font-bold" style={{ color: '#000047' }}>
+                      {typeof serviceData.planName === 'string' ? serviceData.planName : 'Sub-Account Support Plan'}
+                    </p>
+                  </div>
+
+                  <div className="border-t border-border my-4"></div>
+
+                  {/* Service Details */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      • {typeof serviceData.planName === 'string' ? serviceData.planName : 'Support Plan'}:
+                    </p>
+                    <div className="ml-4 space-y-2">
+                      {typeof serviceData.subAccountCount === 'string' && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>Sub-Accounts Supported:</span>
+                          <span className="font-semibold" style={{ color: '#000047' }}>
+                            {serviceData.subAccountCount}
+                          </span>
+                        </div>
+                      )}
+                      {typeof serviceData.regularPrice === 'number' && (
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground line-through">Regular Price:</span>
+                          <span className="text-muted-foreground line-through">${serviceData.regularPrice}/month</span>
+                        </div>
+                      )}
+                      {typeof serviceData.savings === 'number' && serviceData.savings > 0 && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#10b981' }}>💰 You Save:</span>
+                          <span className="font-semibold" style={{ color: '#10b981' }}>
+                            ${serviceData.savings}/month
+                          </span>
+                        </div>
+                      )}
+                      <div className="border-t border-border my-2"></div>
+                      <div className="flex justify-between text-sm font-semibold">
+                        <span style={{ color: '#000047' }}>Special Price:</span>
+                        <span style={{ color: '#faa033' }}>
+                          ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}/month
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* What's Included */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      All Plans Include:
+                    </p>
+                    <div className="ml-2 space-y-1 text-sm" style={{ color: '#000047' }}>
+                      <div>✓ Gray Label ticket support</div>
+                      <div>✓ No third-party branding</div>
+                      <div>✓ Month-to-month billing</div>
+                      <div>✓ Cancel anytime</div>
+                      <div>✓ 7-day money-back guarantee</div>
+                      <div>✓ Professional response times</div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* Totals */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-lg font-bold">
+                      <span style={{ color: '#000047' }}>💰 Monthly Total:</span>
+                      <span style={{ color: '#faa033' }}>
+                        ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}/month
+                      </span>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* GHL Monthly Retainer Breakdown */}
+              {serviceData.serviceType === "GHL Monthly Retainer" && (
+                <>
+                  {/* Selected Services Section */}
+                  <div className="mb-4">
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#000047' }}>
+                      Selected Retainer Plan:
+                    </p>
+                    <p className="text-sm font-bold" style={{ color: '#000047' }}>
+                      {typeof serviceData.planName === 'string' ? serviceData.planName : 'Monthly Retainer'}
+                    </p>
+                  </div>
+
+                  <div className="border-t border-border my-4"></div>
+
+                  {/* Service Details */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      • {typeof serviceData.planName === 'string' ? serviceData.planName : 'Retainer'} Plan:
+                    </p>
+                    <div className="ml-4 space-y-2">
+                      {typeof serviceData.hoursIncluded === 'number' && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>Hours Included:</span>
+                          <span className="font-semibold" style={{ color: '#000047' }}>
+                            {serviceData.hoursIncluded} hours/month
+                          </span>
+                        </div>
+                      )}
+                      {typeof serviceData.hourlyRate === 'number' && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#000047' }}>Effective Hourly Rate:</span>
+                          <span className="font-semibold" style={{ color: '#000047' }}>
+                            ${serviceData.hourlyRate}/hour
+                          </span>
+                        </div>
+                      )}
+                      {typeof serviceData.regularPrice === 'number' && (
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Compare to $35/hr:</span>
+                          <span className="text-muted-foreground">${serviceData.regularPrice}/month</span>
+                        </div>
+                      )}
+                      {typeof serviceData.savings === 'number' && serviceData.savings > 0 && (
+                        <div className="flex justify-between text-sm">
+                          <span style={{ color: '#10b981' }}>💰 Monthly Savings:</span>
+                          <span className="font-semibold" style={{ color: '#10b981' }}>
+                            ${serviceData.savings}
+                          </span>
+                        </div>
+                      )}
+                      <div className="border-t border-border my-2"></div>
+                      <div className="flex justify-between text-sm font-semibold">
+                        <span style={{ color: '#000047' }}>Monthly Total:</span>
+                        <span style={{ color: '#faa033' }}>
+                          ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}/month
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* What's Included */}
+                  <div className="mb-4">
+                    <p className="text-base font-bold mb-3" style={{ color: '#000047' }}>
+                      Retainer Includes:
+                    </p>
+                    <div className="ml-2 space-y-1 text-sm" style={{ color: '#000047' }}>
+                      <div>✓ Dedicated GHL support team</div>
+                      <div>✓ 🎁 FREE: 40 sub-account ticket support</div>
+                      <div>✓ Priority response times</div>
+                      <div>✓ Custom workflow automation</div>
+                      <div>✓ Integration setup & management</div>
+                      <div>✓ Monthly strategy meetings</div>
+                      <div>✓ Month-to-month, cancel anytime</div>
+                      <div>✓ 7-day money-back guarantee</div>
+                    </div>
+                  </div>
+
+                  <div className="border-t-2 border-border my-4"></div>
+
+                  {/* Totals */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-lg font-bold">
+                      <span style={{ color: '#000047' }}>💰 Monthly Total:</span>
+                      <span style={{ color: '#faa033' }}>
+                        ${typeof serviceData.monthlyTotal === 'number' ? serviceData.monthlyTotal.toLocaleString() : 0}/month
+                      </span>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           ) : null}
 
           {/* RIGHT SECTION: Form Fields (60% or full width on desktop) */}
           <div className={`${(serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown) || 
-                              (serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown) 
+                              (serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown) ||
+                              serviceData.serviceType === "SEO Services" ||
+                              serviceData.serviceType === "GHL Client Onboarding" ||
+                              serviceData.serviceType === "GHL Hourly Buildout" ||
+                              serviceData.serviceType === "GHL Sub-Account Support" ||
+                              serviceData.serviceType === "GHL Monthly Retainer"
                               ? "md:w-[60%]" : "w-full"} bg-white overflow-y-auto p-6`}>
             <DialogHeader className="mb-6">
               <DialogTitle>Complete Your Package Details</DialogTitle>
@@ -491,7 +950,13 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
               </div>
 
               {/* Only show simple summary for services without detailed breakdown */}
-              {serviceData.serviceType !== "PPC Management" && serviceData.serviceType !== "Social Media Management" && (
+              {serviceData.serviceType !== "PPC Management" && 
+               serviceData.serviceType !== "Social Media Management" &&
+               serviceData.serviceType !== "SEO Services" &&
+               serviceData.serviceType !== "GHL Client Onboarding" &&
+               serviceData.serviceType !== "GHL Hourly Buildout" &&
+               serviceData.serviceType !== "GHL Sub-Account Support" &&
+               serviceData.serviceType !== "GHL Monthly Retainer" && (
                 <div className="bg-secondary/30 rounded-lg p-4">
                   <h4 className="font-semibold mb-3">Package Summary:</h4>
                   <div className="text-sm space-y-3">
