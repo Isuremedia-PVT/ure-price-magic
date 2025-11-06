@@ -547,119 +547,137 @@ const GHLPricing = () => {
           {/* Client Onboarding Section - Always visible below tabs */}
           <div className="mt-16">
             <h3 className="text-2xl font-bold text-center mb-8">GHL Client Onboarding Services</h3>
-            <Card className="shadow-medium max-w-3xl mx-auto">
-              <CardHeader>
-                <CardTitle>Client Onboarding</CardTitle>
-                <CardDescription>
-                  Personalized onboarding experience for your clients - $50 per Client Onboarding
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="bg-secondary/30 rounded-lg p-6">
-                  <h4 className="font-semibold mb-3">What's Included:</h4>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex items-start">
-                      <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
-                      ONE 1:1 consultation call (60 minutes)
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
-                      Account setup guidance
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
-                      Platform walkthrough
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
-                      Best practices training
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
-                      Extra consultation calls: $50 per hour
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="bg-accent/5 border border-accent/20 rounded-lg p-4">
-                  <p className="font-semibold mb-2">💰 Volume Discount:</p>
-                  <ul className="space-y-1 text-sm">
-                    <li>💰 Book 2+ Onboardings: Save $10 total</li>
-                    <li>🎁 Book 5 Onboardings: Get the 6th FREE!</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <div className="flex justify-between items-center mb-3">
-                    <Label htmlFor="onboarding" className="text-base">
-                      Number of Client Onboardings
-                    </Label>
-                    <span className="text-sm font-semibold">
-                      {onboardingSessions} Client Onboarding{onboardingSessions > 1 ? 's' : ''}
-                    </span>
+            
+            {/* Split-screen layout: 70% left controls + 30% right summary */}
+            <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 max-w-[1400px] mx-auto">
+              {/* LEFT SECTION - Calculator Controls (70%) */}
+              <Card className="shadow-medium">
+                <CardHeader>
+                  <CardTitle className="text-3xl font-bold">Customize Your Onboarding Package</CardTitle>
+                  <CardDescription className="text-base">
+                    Starting at $50 per client onboarding
+                  </CardDescription>
+                  <div className="p-6 bg-secondary/20 rounded-lg mt-6">
+                    <div className="text-base font-semibold mb-3">What's Included:</div>
+                    <ul className="text-sm space-y-2">
+                      <li className="flex items-start">
+                        <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>ONE 1:1 consultation call (60 minutes)</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Account setup guidance</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Platform walkthrough</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Best practices training</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
+                        <span>Extra consultation calls: $50 per hour</span>
+                      </li>
+                    </ul>
                   </div>
-                  <Slider
-                    id="onboarding"
-                    min={1}
-                    max={12}
-                    step={1}
-                    value={[onboardingSessions]}
-                    onValueChange={(value) => setOnboardingSessions(value[0])}
-                    className="w-full"
-                  />
-                </div>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="bg-accent/5 border border-accent/20 rounded-lg p-4">
+                    <p className="font-semibold mb-2">💰 Volume Discount:</p>
+                    <ul className="space-y-1 text-sm">
+                      <li>💰 Book 2+ Onboardings: Save $10 total</li>
+                      <li>🎁 Book 5 Onboardings: Get the 6th FREE!</li>
+                    </ul>
+                  </div>
 
-                <div className="border-t pt-6">
-                  <div className="bg-secondary/50 rounded-lg p-6 space-y-3">
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-muted-foreground">Current selection:</span>
-                      <span className="font-medium">{onboardingPricing.quantity} onboardings</span>
-                    </div>
-                    {onboardingPricing.freeOnboardings > 0 && (
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="text-muted-foreground">Free onboardings:</span>
-                        <span className="font-medium text-accent">{onboardingPricing.freeOnboardings}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-muted-foreground">Pricing breakdown:</span>
-                      <span className="font-medium">
-                        {onboardingPricing.paidOnboardings} × $50 = ${onboardingPricing.subtotal}
+                  <div>
+                    <div className="flex justify-between items-center mb-3">
+                      <Label htmlFor="onboarding" className="text-base font-semibold">
+                        Number of Client Onboardings
+                      </Label>
+                      <span className="text-sm font-semibold">
+                        {onboardingSessions} Client Onboarding{onboardingSessions > 1 ? 's' : ''}
                       </span>
                     </div>
-                    {onboardingPricing.discount > 0 && (
-                      <div className="flex justify-between items-center text-sm text-accent">
-                        <span>Volume discount:</span>
-                        <span className="font-semibold">-${onboardingPricing.discount}</span>
-                      </div>
-                    )}
-                    <div className="border-t pt-3 flex justify-between items-center">
-                      <span className="text-lg font-bold">Total:</span>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-accent">${onboardingPricing.total}</div>
-                        {onboardingPricing.savings > 0 && (
-                          <div className="text-sm">
-                            <span className="line-through text-muted-foreground">
-                              ${onboardingPricing.regularPrice}
-                            </span>
-                            <span className="text-accent ml-2">Save ${onboardingPricing.savings}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    {onboardingPricing.upsellMessage && (
-                      <div className="bg-accent/10 text-accent px-4 py-2 rounded text-sm font-medium text-center">
-                        {onboardingPricing.upsellMessage}
-                      </div>
-                    )}
+                    <Slider
+                      id="onboarding"
+                      min={1}
+                      max={12}
+                      step={1}
+                      value={[onboardingSessions]}
+                      onValueChange={(value) => setOnboardingSessions(value[0])}
+                      className="w-full"
+                    />
                   </div>
-                </div>
+                </CardContent>
+              </Card>
 
-                <Button variant="hero" size="lg" className="w-full" onClick={handleOnboardingSubmit}>
-                  Get Started
-                </Button>
-              </CardContent>
-            </Card>
+              {/* RIGHT SECTION - Sticky Package Summary (30%) */}
+              <div className="lg:sticky lg:top-24 lg:self-start h-fit">
+                <Card className="shadow-medium border-2">
+                  <CardContent className="p-6 space-y-4">
+                    <h3 className="text-xl font-bold text-primary-dark mb-6">Onboarding Summary</h3>
+                    
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center pb-3 border-b">
+                        <span className="text-sm">Client Onboardings</span>
+                        <span className="font-semibold text-primary-dark">{onboardingPricing.quantity}</span>
+                      </div>
+                      
+                      {onboardingPricing.freeOnboardings > 0 && (
+                        <div className="flex justify-between items-center pb-3 border-b">
+                          <span className="text-sm">Free Onboardings</span>
+                          <span className="font-semibold text-green-600">{onboardingPricing.freeOnboardings}</span>
+                        </div>
+                      )}
+                      
+                      <div className="flex justify-between items-center pb-3 border-b">
+                        <span className="text-sm">Pricing</span>
+                        <span className="font-semibold text-primary-dark">
+                          {onboardingPricing.paidOnboardings} × $50
+                        </span>
+                      </div>
+                      
+                      {onboardingPricing.discount > 0 && (
+                        <div className="flex justify-between items-center pb-3 border-b">
+                          <span className="text-sm">Volume Discount</span>
+                          <span className="font-semibold text-green-600">-${onboardingPricing.discount}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="border-t-2 pt-4 mt-6">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-base font-semibold">Total:</span>
+                        <span className="text-3xl font-bold text-accent">
+                          ${onboardingPricing.total}
+                        </span>
+                      </div>
+                      {onboardingPricing.savings > 0 && (
+                        <div className="text-right mb-4">
+                          <span className="line-through text-muted-foreground text-sm">
+                            ${onboardingPricing.regularPrice}
+                          </span>
+                          <span className="text-accent ml-2 text-sm font-semibold">Save ${onboardingPricing.savings}</span>
+                        </div>
+                      )}
+                      
+                      {onboardingPricing.upsellMessage && (
+                        <div className="bg-accent/10 text-accent px-3 py-2 rounded text-xs font-medium text-center mb-4">
+                          {onboardingPricing.upsellMessage}
+                        </div>
+                      )}
+
+                      <Button variant="hero" size="lg" className="w-full" onClick={handleOnboardingSubmit}>
+                        Get Started
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
         </div>
       </div>
