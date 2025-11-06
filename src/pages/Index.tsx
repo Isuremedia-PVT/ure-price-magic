@@ -13,7 +13,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      <main id="services">
+      <main id="services" className="pt-20">
         <Hero />
         <Testimonials />
         <PPCCalculator />
