@@ -218,7 +218,7 @@ const PPCCalculator = () => {
           {/* Split-screen layout: 70% left controls + 30% right summary */}
           <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 max-w-[1400px] mx-auto">
             {/* LEFT SECTION - Calculator Controls (70%) */}
-            <Card className="shadow-medium">
+            <Card className="shadow-medium border-2 border-border bg-card">
               <CardHeader>
                 <CardTitle className="text-3xl font-bold">Calculate Your Advertisement Investment</CardTitle>
                 <CardDescription className="text-base">
@@ -400,7 +400,7 @@ const PPCCalculator = () => {
 
             {/* RIGHT SECTION - Sticky Package Summary (30%) */}
             <div className="lg:sticky lg:top-24 lg:self-start h-fit">
-              <Card className="shadow-medium border-2">
+              <Card className="shadow-medium border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5">
                 <CardContent className="p-6 space-y-4">
                   <h3 className="text-xl font-bold text-primary-dark mb-6">📊 Your Pricing Breakdown</h3>
                   

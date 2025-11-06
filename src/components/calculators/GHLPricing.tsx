@@ -234,7 +234,7 @@ const GHLPricing = () => {
   };
 
   return (
-    <section id="ghl" className="py-20">
+    <section id="ghl" className="py-20 bg-secondary/30">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
@@ -507,7 +507,7 @@ const GHLPricing = () => {
 
                     {/* RIGHT: Pricing Summary */}
                     <div className="lg:sticky lg:top-6 lg:self-start">
-                      <Card className="border-2">
+                      <Card className="border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5 shadow-medium">
                         <CardContent className="p-6 space-y-4">
                           <h3 className="text-lg font-bold text-primary-dark mb-4">Project Summary</h3>
                           
@@ -551,7 +551,7 @@ const GHLPricing = () => {
             {/* Split-screen layout: 70% left controls + 30% right summary */}
             <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 max-w-[1400px] mx-auto">
               {/* LEFT SECTION - Calculator Controls (70%) */}
-              <Card className="shadow-medium">
+              <Card className="shadow-medium border-2 border-border bg-card">
                 <CardHeader>
                   <CardTitle className="text-3xl font-bold">Customize Your Onboarding Package</CardTitle>
                   <CardDescription className="text-base">
@@ -616,7 +616,7 @@ const GHLPricing = () => {
 
               {/* RIGHT SECTION - Sticky Package Summary (30%) */}
               <div className="lg:sticky lg:top-24 lg:self-start h-fit">
-                <Card className="shadow-medium border-2">
+                <Card className="shadow-medium border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5">
                   <CardContent className="p-6 space-y-4">
                     <h3 className="text-xl font-bold text-primary-dark mb-6">Onboarding Summary</h3>
                     
