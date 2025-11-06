@@ -16,6 +16,7 @@ const SMMCalculator = () => {
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["Instagram", "Facebook", "YouTube"]);
   const [includeGMB, setIncludeGMB] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
+  const [formServiceData, setFormServiceData] = useState<ServiceData | null>(null);
 
   const basePrice = 500;
   const basePosts = 2;
@@ -104,6 +105,7 @@ const SMMCalculator = () => {
         includeGMB,
       },
     };
+    setFormServiceData(serviceData);
     setFormOpen(true);
   };
 
@@ -355,16 +357,13 @@ const SMMCalculator = () => {
         </div>
       </div>
       
-      <ServiceForm
-        open={formOpen}
-        onOpenChange={setFormOpen}
-        serviceData={{
-          serviceType: "Social Media Management",
-          basePackage: basePrice,
-          platforms: selectedPlatforms.join(","),
-          monthlyTotal: totalPrice,
-        }}
-      />
+      {formServiceData && (
+        <ServiceForm
+          open={formOpen}
+          onOpenChange={setFormOpen}
+          serviceData={formServiceData}
+        />
+      )}
     </section>
   );
 };
