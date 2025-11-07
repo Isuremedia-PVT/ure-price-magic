@@ -9,10 +9,10 @@ import { ServiceData } from "@/lib/formSubmission";
 
 const PPCCalculator = () => {
   const [adSpend, setAdSpend] = useState<number>(5000);
-  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
-  const [activePlatform, setActivePlatform] = useState<string | null>(null);
+  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["Google Ads"]);
+  const [activePlatform, setActivePlatform] = useState<string | null>("Google Ads");
   const [budgetType, setBudgetType] = useState<"single" | "separate" | "combined">("single");
-  const [platformBudgets, setPlatformBudgets] = useState<{[key: string]: number}>({});
+  const [platformBudgets, setPlatformBudgets] = useState<{[key: string]: number}>({"Google Ads": 5000});
   const [formOpen, setFormOpen] = useState(false);
 
   const setupFee = 350;
@@ -284,7 +284,7 @@ const PPCCalculator = () => {
                 </p>
               </div>
 
-              {selectedPlatforms.length >= 1 && (
+              {selectedPlatforms.length >= 2 && (
                 <div className="border rounded-lg p-4 bg-secondary/20">
                   <Label className="text-base mb-3 block">Budget Configuration</Label>
                   <p className="text-sm text-muted-foreground mb-3">

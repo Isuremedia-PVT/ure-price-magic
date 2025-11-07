@@ -246,32 +246,29 @@ const GHLPricing = () => {
               <span className="font-semibold text-accent text-sm md:text-base">FREE Ticket Support Included | Live Chat Coming Soon</span>
             </div>
 
-            <div className="mt-4 flex items-center justify-center gap-2 max-w-[700px] mx-auto">
-              <p className="text-[#6B7280] text-sm md:text-[15px] lg:text-[18px] leading-relaxed">
-                Ticket-based support system for seamless client communication (Gray Label Support
+            <div className="mt-4 max-w-[800px] mx-auto">
+              <p className="text-[#6B7280] text-sm md:text-base leading-relaxed text-center">
+                Ticket-based support system for seamless client communication (Gray Label Support)
               </p>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Info className="h-4 w-4 text-[#6B7280] flex-shrink-0" />
-                  </TooltipTrigger>
-                  <TooltipContent className="max-w-xs">
-                    <div className="space-y-2">
-                      <p className="font-semibold">📧 Gray Label Support Explained</p>
-                      <p className="text-sm">Your clients will communicate through:</p>
-                      <p className="text-sm font-mono">support@clienthelpdesks.com</p>
-                      <ul className="text-xs space-y-1 mt-2">
-                        <li>✓ Generic, professional support email</li>
-                        <li>✓ No third-party branding visible</li>
-                        <li>✓ White label ticketing system</li>
-                        <li>✓ All support tracked & documented</li>
-                        <li>✓ Your brand, our backend support</li>
-                      </ul>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <span className="text-[#6B7280]">)</span>
+            </div>
+
+            <div className="mt-6 flex flex-wrap justify-center gap-4 md:gap-6">
+              <div className="flex items-center gap-2 text-sm text-[#6B7280] cursor-default">
+                <span>🏆</span>
+                <span>Certified GHL Administrators</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-[#6B7280] cursor-default">
+                <span>📅</span>
+                <span>Month-to-Month (No Commitment)</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-[#6B7280] cursor-default">
+                <span>💰</span>
+                <span>7-Day Money-Back Guarantee</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-[#6B7280] cursor-default">
+                <span>🎁</span>
+                <span>FREE: 40 Sub-Account Support Included</span>
+              </div>
             </div>
           </div>
 
@@ -450,7 +447,7 @@ const GHLPricing = () => {
                 </CardHeader>
                 <CardContent>
                   {/* Split-screen layout for hourly tab */}
-                  <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-[65%_35%] gap-6 md:gap-8 p-4 md:p-6">
                     {/* LEFT: Services and Hour Slider */}
                     <div className="space-y-6">
                       <div className="bg-secondary/30 rounded-lg p-6">
@@ -524,8 +521,8 @@ const GHLPricing = () => {
                     {/* RIGHT: Pricing Summary */}
                     <div className="lg:sticky lg:top-6 lg:self-start">
                       <Card className="border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5 shadow-medium">
-                        <CardContent className="p-6 space-y-4">
-                          <h3 className="text-lg font-bold text-primary-dark mb-4">Project Summary</h3>
+                        <CardContent className="p-6 md:p-8 space-y-4">
+                          <h3 className="text-lg font-bold text-primary-dark mb-6">Project Summary</h3>
                           
                           <div className="space-y-3">
                             <div className="flex justify-between items-center pb-3 border-b">
