@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 const CustomDevelopment = () => {
   const { toast } = useToast();
@@ -27,31 +28,79 @@ const CustomDevelopment = () => {
     references: "",
   });
   const [files, setFiles] = useState<File[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Quote Request Submitted!",
-      description: "Thanks! We'll review your requirements and get back to you within 24 hours.",
-    });
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      website: "",
-      clientType: "",
-      serviceType: "",
-      timeline: "",
-      budget: "",
-      description: "",
-      loomVideo: "",
-      designType: "",
-      videoType: "",
-      deliverables: "",
-      references: "",
-    });
-    setFiles([]);
+    setIsSubmitting(true);
+    
+    try {
+      const timestamp = new Date().toISOString();
+      
+      // Build the payload following the same structure as other forms
+      const payload = {
+        // Form Identification
+        form_name: "Custom Development & Creative Services",
+        form_id: "custom_development",
+        
+        // Service Details
+        service_type: "Custom Development & Creative Services",
+        client_type: formData.clientType,
+        service_category: formData.serviceType,
+        design_type: formData.designType || null,
+        video_type: formData.videoType || null,
+        deliverables_count: formData.deliverables || null,
+        timeline: formData.timeline,
+        budget_range: formData.budget,
+        
+        // Project Details
+        project_description: formData.description,
+        loom_video_url: formData.loomVideo || null,
+        reference_links: formData.references || null,
+        files_uploaded: files.length > 0 ? files.map(f => f.name).join(', ') : null,
+        
+        // Contact Info
+        full_name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        company_name: formData.company || null,
+        website: formData.website || null,
+        
+        // Tracking
+        timestamp: timestamp,
+        page_source: "marketplace.isuremedia.com"
+      };
+
+      // Submit to webhook
+      const response = await fetch('https://n8n.srv871295.hstgr.cloud/webhook/response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        // Redirect to thank you page
+        window.location.href = '/thank-you?service=Custom Development & Creative Services';
+      } else {
+        console.error('Webhook submission failed');
+        toast({
+          title: "Submission Error",
+          description: "Something went wrong. Please try again or contact us at hello@isuremedia.com",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Connection Error",
+        description: "Please check your internet connection and try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -424,8 +473,15 @@ const CustomDevelopment = () => {
                   </div>
                 </div>
 
-                <Button type="submit" variant="hero" size="lg" className="w-full">
-                  Request Custom Quote
+                <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    'Request Custom Quote'
+                  )}
                 </Button>
               </form>
             </CardContent>
