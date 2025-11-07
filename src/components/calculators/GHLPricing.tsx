@@ -164,7 +164,7 @@ const GHLPricing = () => {
       features: [
         "160 hours per month (full-time)",
         "⚠️ Hours DON'T carry over to next month",
-        "🎁 FREE: unlimited sub-account ticket support",
+        "🎁 FREE: Unlimited sub-account ticket support",
         "8 hours daily dedicated VA",
         "5 days per week coverage",
         "Dedicated Project Manager",
@@ -250,25 +250,6 @@ const GHLPricing = () => {
               <p className="text-[#6B7280] text-sm md:text-base leading-relaxed text-center">
                 Ticket-based support system for seamless client communication (Gray Label Support)
               </p>
-            </div>
-
-            <div className="mt-6 flex flex-wrap justify-center gap-4 md:gap-6">
-              <div className="flex items-center gap-2 text-sm text-[#6B7280] cursor-default">
-                <span>🏆</span>
-                <span>Certified GHL Administrators</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-[#6B7280] cursor-default">
-                <span>📅</span>
-                <span>Month-to-Month (No Commitment)</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-[#6B7280] cursor-default">
-                <span>💰</span>
-                <span>7-Day Money-Back Guarantee</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-[#6B7280] cursor-default">
-                <span>🎁</span>
-                <span>FREE: 40 Sub-Account Support Included</span>
-              </div>
             </div>
           </div>
 
