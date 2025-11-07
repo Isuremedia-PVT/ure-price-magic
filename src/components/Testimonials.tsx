@@ -20,12 +20,13 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-20 bg-secondary/30">
+    <section className="py-20 bg-background-alt">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">
             Trusted by Agencies & Businesses Worldwide
           </h2>
+          <div className="w-20 h-1 bg-accent mx-auto mb-6 rounded-full"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             See how we've helped businesses grow
           </p>
@@ -33,9 +34,9 @@ const Testimonials = () => {
 
         {/* Video Testimonial */}
         <div className="max-w-4xl mx-auto mb-16">
-          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+          <div className="relative w-full shadow-strong rounded-lg overflow-hidden" style={{ paddingBottom: "56.25%" }}>
             <iframe
-              className="absolute top-0 left-0 w-full h-full rounded-lg shadow-medium"
+              className="absolute top-0 left-0 w-full h-full"
               src="https://www.youtube.com/embed/ARaEiSO5tXE"
               title="Client Testimonial"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -47,7 +48,7 @@ const Testimonials = () => {
         {/* Client Testimonials */}
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="shadow-medium hover:shadow-lg transition-smooth">
+            <Card key={index} className="shadow-strong border-2 border-border bg-card card-hover">
               <CardContent className="p-8">
                 <div className="flex items-center gap-4 mb-6">
                   <img

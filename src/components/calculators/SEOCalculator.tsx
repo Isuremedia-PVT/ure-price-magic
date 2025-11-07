@@ -21,11 +21,12 @@ const SEOCalculator = () => {
   const totalPrice = basePrice + keywordCost + blogCost;
 
   return (
-    <section id="seo" className="py-20 bg-secondary/30">
+    <section id="seo" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">SEO Services</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">SEO Services</h2>
+            <div className="w-20 h-1 bg-accent mx-auto mb-6 rounded-full"></div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Comprehensive search engine optimization to improve your rankings and drive organic traffic.
             </p>
@@ -34,7 +35,7 @@ const SEOCalculator = () => {
           {/* Split-screen layout: 70% left controls + 30% right summary */}
           <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 max-w-[1400px] mx-auto">
             {/* LEFT SECTION - Calculator Controls (70%) */}
-            <Card className="shadow-medium border-2 border-border bg-card">
+            <Card className="shadow-strong border-2 border-border bg-card card-hover">
               <CardHeader>
                 <CardTitle className="text-3xl font-bold">Customize Your SEO Package</CardTitle>
                 <CardDescription className="text-base">
@@ -94,14 +95,14 @@ const SEOCalculator = () => {
 
             {/* RIGHT SECTION - Sticky Package Summary (30%) */}
             <div className="lg:sticky lg:top-24 lg:self-start h-fit">
-              <Card className="shadow-medium border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5">
+              <Card className="shadow-strong border-l-4 border-l-accent border-2 border-accent/30 bg-background-cream">
                 <CardContent className="p-6 space-y-4">
-                  <h3 className="text-xl font-bold text-primary-dark mb-6">Package Summary</h3>
+                  <h3 className="text-2xl font-bold text-primary mb-6">Package Summary</h3>
                   
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center pb-3 border-b">
-                      <span className="text-sm">Base Package (8 keywords)</span>
-                      <span className="font-semibold text-primary-dark">${basePrice}</span>
+                    <div className="flex justify-between items-center pb-3 border-b border-border">
+                      <span className="text-sm font-medium">Base Package (8 keywords)</span>
+                      <span className="font-bold text-primary">${basePrice}</span>
                     </div>
                     
                     {additionalKeywords > 0 && (
@@ -119,15 +120,15 @@ const SEOCalculator = () => {
                     )}
                   </div>
                   
-                  <div className="border-t-2 pt-4 mt-6">
+                  <div className="border-t-2 border-accent/30 pt-6 mt-6 bg-accent/5 -mx-6 px-6 pb-6 rounded-b-lg">
                     <div className="flex justify-between items-center mb-6">
-                      <span className="text-base font-semibold">Total Monthly:</span>
-                      <span className="text-3xl font-bold text-accent">
+                      <span className="text-lg font-semibold text-primary">Total Monthly:</span>
+                      <span className="text-4xl font-bold text-accent">
                         ${totalPrice.toLocaleString()}/mo
                       </span>
                     </div>
 
-                    <Button variant="hero" size="lg" className="w-full" onClick={() => setFormOpen(true)}>
+                    <Button variant="hero" size="xl" className="w-full shadow-orange" onClick={() => setFormOpen(true)}>
                       Get Started with SEO
                     </Button>
                   </div>

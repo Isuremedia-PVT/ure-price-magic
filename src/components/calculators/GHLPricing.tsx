@@ -234,11 +234,12 @@ const GHLPricing = () => {
   };
 
   return (
-    <section id="ghl" className="py-20 bg-secondary/30">
+    <section id="ghl" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">GoHighLevel Support</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">GoHighLevel Support</h2>
+            <div className="w-20 h-1 bg-accent mx-auto mb-6 rounded-full"></div>
             
             <div className="mt-6 inline-flex items-center gap-2 bg-accent/10 text-accent px-6 py-3 rounded-lg">
               <Check className="h-5 w-5" />
@@ -546,12 +547,13 @@ const GHLPricing = () => {
 
           {/* Client Onboarding Section - Always visible below tabs */}
           <div className="mt-16">
-            <h3 className="text-2xl font-bold text-center mb-8">GHL Client Onboarding Services</h3>
+            <h3 className="text-3xl font-bold text-center mb-8 text-primary">GHL Client Onboarding Services</h3>
+            <div className="w-20 h-1 bg-accent mx-auto mb-8 rounded-full"></div>
             
             {/* Split-screen layout: 70% left controls + 30% right summary */}
             <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 max-w-[1400px] mx-auto">
               {/* LEFT SECTION - Calculator Controls (70%) */}
-              <Card className="shadow-medium border-2 border-border bg-card">
+              <Card className="shadow-strong border-2 border-border bg-card card-hover">
                 <CardHeader>
                   <CardTitle className="text-3xl font-bold">Customize Your Onboarding Package</CardTitle>
                   <CardDescription className="text-base">
@@ -616,14 +618,14 @@ const GHLPricing = () => {
 
               {/* RIGHT SECTION - Sticky Package Summary (30%) */}
               <div className="lg:sticky lg:top-24 lg:self-start h-fit">
-                <Card className="shadow-medium border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5">
+                <Card className="shadow-strong border-l-4 border-l-accent border-2 border-accent/30 bg-background-cream">
                   <CardContent className="p-6 space-y-4">
-                    <h3 className="text-xl font-bold text-primary-dark mb-6">Onboarding Summary</h3>
+                    <h3 className="text-2xl font-bold text-primary mb-6">Onboarding Summary</h3>
                     
                     <div className="space-y-3">
-                      <div className="flex justify-between items-center pb-3 border-b">
-                        <span className="text-sm">Client Onboardings</span>
-                        <span className="font-semibold text-primary-dark">{onboardingPricing.quantity}</span>
+                      <div className="flex justify-between items-center pb-3 border-b border-border">
+                        <span className="text-sm font-medium">Client Onboardings</span>
+                        <span className="font-bold text-primary">{onboardingPricing.quantity}</span>
                       </div>
                       
                       {onboardingPricing.freeOnboardings > 0 && (
@@ -648,10 +650,10 @@ const GHLPricing = () => {
                       )}
                     </div>
                     
-                    <div className="border-t-2 pt-4 mt-6">
+                    <div className="border-t-2 border-accent/30 pt-6 mt-6 bg-accent/5 -mx-6 px-6 pb-6 rounded-b-lg">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-base font-semibold">Total:</span>
-                        <span className="text-3xl font-bold text-accent">
+                        <span className="text-lg font-semibold text-primary">Total:</span>
+                        <span className="text-4xl font-bold text-accent">
                           ${onboardingPricing.total}
                         </span>
                       </div>
@@ -670,7 +672,7 @@ const GHLPricing = () => {
                         </div>
                       )}
 
-                      <Button variant="hero" size="lg" className="w-full" onClick={handleOnboardingSubmit}>
+                      <Button variant="hero" size="xl" className="w-full shadow-orange" onClick={handleOnboardingSubmit}>
                         Get Started
                       </Button>
                     </div>

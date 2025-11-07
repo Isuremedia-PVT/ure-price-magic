@@ -65,17 +65,18 @@ const CustomDevelopment = () => {
   };
 
   return (
-    <section id="custom" className="py-20 bg-secondary/30">
+    <section id="custom" className="py-20 bg-background-alt">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Custom Development & Creative Services</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Custom Development & Creative Services</h2>
+            <div className="w-20 h-1 bg-accent mx-auto mb-6 rounded-full"></div>
             <p className="text-lg text-muted-foreground">
               Need something unique? We provide custom development, graphics design, video editing, and bespoke solutions.
             </p>
           </div>
 
-          <Card className="shadow-medium">
+          <Card className="shadow-strong border-2 border-border bg-card">
             <CardHeader>
               <CardTitle>Request a Custom Quote</CardTitle>
               <CardDescription>
