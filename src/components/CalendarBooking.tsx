@@ -13,11 +13,11 @@ const CalendarBooking = () => {
             </p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,71,0.12)] border-2 border-border p-5 md:p-6 lg:p-10" style={{ minHeight: "650px", height: "auto", maxHeight: "800px", overflowY: "auto" }}>
-            <div className="mx-auto" style={{ maxWidth: "780px" }}>
+          <div className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,71,0.12)] border-2 border-border p-5 md:p-6 lg:p-10">
+            <div className="mx-auto" style={{ maxWidth: "1100px" }}>
               <iframe 
                 src="https://crm.isuremedia.com/widget/booking/NSq50To86cmaAFjyIwrN" 
-                style={{ width: "100%", border: "none", overflow: "visible", minHeight: "650px", height: "auto" }} 
+                style={{ width: "100%", height: "705px", border: "none", overflow: "visible" }} 
                 scrolling="no" 
                 id="NSq50To86cmaAFjyIwrN_1761930562551"
                 title="Schedule a Consultation"
