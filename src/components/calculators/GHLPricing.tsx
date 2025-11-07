@@ -234,26 +234,26 @@ const GHLPricing = () => {
   };
 
   return (
-    <section id="ghl" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="ghl" className="py-20 bg-gradient-to-b from-[#F8F9FC] to-[#F0F4FF]">
+      <div className="container mx-auto px-4 md:px-8 lg:px-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">GoHighLevel Support</h2>
+            <h2 className="text-[32px] md:text-[42px] font-bold mb-4 text-primary leading-tight">GoHighLevel Support</h2>
             <div className="w-20 h-1 bg-accent mx-auto mb-6 rounded-full"></div>
             
-            <div className="mt-6 inline-flex items-center gap-2 bg-accent/10 text-accent px-6 py-3 rounded-lg">
-              <Check className="h-5 w-5" />
-              <span className="font-semibold">FREE Ticket Support Included | Live Chat Coming Soon</span>
+            <div className="mt-6 inline-flex items-center gap-3 bg-gradient-to-r from-[#FFF5EB] to-white border-l-4 border-accent px-6 py-4 rounded-lg shadow-sm">
+              <Check className="h-5 w-5 text-accent flex-shrink-0" />
+              <span className="font-semibold text-accent text-sm md:text-base">FREE Ticket Support Included | Live Chat Coming Soon</span>
             </div>
 
-            <div className="mt-4 flex items-center justify-center gap-2">
-              <p className="text-muted-foreground">
+            <div className="mt-4 flex items-center justify-center gap-2 max-w-[700px] mx-auto">
+              <p className="text-[#6B7280] text-sm md:text-[15px] lg:text-[18px] leading-relaxed">
                 Ticket-based support system for seamless client communication (Gray Label Support
               </p>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Info className="h-4 w-4 text-muted-foreground" />
+                    <Info className="h-4 w-4 text-[#6B7280] flex-shrink-0" />
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
                     <div className="space-y-2">
@@ -271,15 +271,30 @@ const GHLPricing = () => {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-              <span className="text-muted-foreground">)</span>
+              <span className="text-[#6B7280]">)</span>
             </div>
           </div>
 
           <Tabs defaultValue="sub-accounts" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
-              <TabsTrigger value="sub-accounts">Sub-Account Support Only</TabsTrigger>
-              <TabsTrigger value="retainer">Support + Buildouts</TabsTrigger>
-              <TabsTrigger value="hourly">Flexible Hourly Projects</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 gap-3 md:gap-1 mb-8 p-1 bg-white border-2 border-gray-200 rounded-xl h-auto md:h-14">
+              <TabsTrigger 
+                value="sub-accounts"
+                className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-transparent data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-medium min-h-[52px] md:min-h-0"
+              >
+                Sub-Account Support Only
+              </TabsTrigger>
+              <TabsTrigger 
+                value="retainer"
+                className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-transparent data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-medium min-h-[52px] md:min-h-0"
+              >
+                Support + Buildouts
+              </TabsTrigger>
+              <TabsTrigger 
+                value="hourly"
+                className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-transparent data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-medium min-h-[52px] md:min-h-0"
+              >
+                Flexible Hourly Projects
+              </TabsTrigger>
             </TabsList>
 
             {/* Tab 1: Sub-Account Support Only */}
@@ -293,8 +308,8 @@ const GHLPricing = () => {
                 {subAccountPlans.map((plan) => (
                   <Card
                     key={plan.name}
-                    className={`relative ${
-                      plan.name === "Unlimited" ? "border-primary shadow-medium" : "shadow-soft"
+                    className={`relative bg-white border-t-4 border-t-accent rounded-xl shadow-[0_4px_20px_rgba(0,0,71,0.12)] hover:shadow-[0_12px_32px_rgba(0,0,71,0.18)] hover:-translate-y-2 transition-all duration-300 ${
+                      plan.name === "Unlimited" ? "ring-2 ring-accent/30" : ""
                     }`}
                   >
                     {plan.name === "Unlimited" && (
@@ -362,8 +377,8 @@ const GHLPricing = () => {
                 {retainerPlans.map((plan) => (
                   <Card
                     key={plan.name}
-                    className={`relative ${
-                      plan.popular ? "border-accent shadow-medium" : "shadow-soft"
+                    className={`relative bg-white border-t-4 border-t-accent rounded-xl shadow-[0_4px_20px_rgba(0,0,71,0.12)] hover:shadow-[0_12px_32px_rgba(0,0,71,0.18)] hover:-translate-y-2 transition-all duration-300 ${
+                      plan.popular ? "ring-2 ring-accent/30" : ""
                     }`}
                   >
                     {plan.popular && (
@@ -423,7 +438,7 @@ const GHLPricing = () => {
                 <p className="text-muted-foreground">Perfect for one-time projects or testing our services</p>
               </div>
 
-              <Card className="max-w-full">
+              <Card className="max-w-full bg-white border-t-4 border-t-accent rounded-xl shadow-[0_4px_20px_rgba(0,0,71,0.12)]">
                 <CardHeader>
                   <CardTitle>⚡ Flexible Hourly Rate</CardTitle>
                   <CardDescription>
