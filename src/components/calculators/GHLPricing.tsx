@@ -528,35 +528,34 @@ const GHLPricing = () => {
 
                     {/* RIGHT: Pricing Summary */}
                     <div className="lg:sticky lg:top-6 lg:self-start">
-                      <Card className="border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5 shadow-medium overflow-hidden">
-                        <div className="bg-background p-6 pb-4 border-b border-border/20">
-                          <h3 className="text-xl font-bold text-primary mb-0">📦 Package Summary</h3>
+                      <Card className="border-2 border-orange-500 bg-white shadow-xl overflow-hidden rounded-lg">
+                        <div className="bg-white p-6 pb-4 border-b border-border/20">
+                          <h3 className="text-xl font-bold text-[#0A1F44] mb-0 flex items-center gap-2">📦 Package Summary</h3>
                         </div>
-                        <CardContent className="p-6 md:p-8 pt-4 space-y-4 pb-0">
-
-                          <div className="space-y-3">
+                        <div className="bg-white p-6 pt-4 pb-0">
+                          <div className="space-y-3 mb-4">
                             <div className="flex justify-between items-center pb-3 border-b">
-                              <span className="text-sm">Hourly Rate</span>
-                              <span className="font-semibold text-primary-dark">$35/hr</span>
+                              <span className="text-gray-600">Hourly Rate</span>
+                              <span className="font-semibold text-[#0A1F44]">$35/hr</span>
                             </div>
 
                             <div className="flex justify-between items-center pb-3 border-b">
-                              <span className="text-sm">Selected Hours</span>
-                              <span className="font-semibold text-primary-dark">{buildoutHours} hrs</span>
+                              <span className="text-gray-600">Selected Hours</span>
+                              <span className="font-semibold text-[#0A1F44]">{buildoutHours} hrs</span>
                             </div>
                           </div>
+                        </div>
 
-                          <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 md:-mx-8 px-6 md:px-8 pb-6 rounded-b-lg">
-                            <div className="flex justify-between items-center mb-6">
-                              <span className="text-white text-lg font-semibold flex items-center gap-2">💰 Total Cost:</span>
-                              <span className="text-white text-3xl font-bold">${buildoutCost.toLocaleString()}</span>
-                            </div>
-
-                            <button className="w-full bg-white text-[#0A1F44] font-bold text-lg py-4 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2" onClick={handleHourlySubmit}>
-                              Get Started →
-                            </button>
+                        <div className="bg-orange-500 p-6">
+                          <div className="flex items-center justify-between mb-6">
+                            <span className="text-white text-xl font-semibold flex items-center gap-2">💰 Total Cost:</span>
+                            <span className="text-white text-4xl font-bold">${buildoutCost.toLocaleString()}</span>
                           </div>
-                        </CardContent>
+
+                          <button className="w-full bg-white text-[#0A1F44] font-bold text-lg py-4 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2" onClick={handleHourlySubmit}>
+                            Get Started →
+                          </button>
+                        </div>
                       </Card>
                     </div>
                   </div>
