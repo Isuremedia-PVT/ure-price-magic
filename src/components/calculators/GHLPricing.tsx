@@ -552,9 +552,9 @@ const GHLPricing = () => {
                               <span className="text-white text-3xl font-bold">${buildoutCost.toLocaleString()}</span>
                             </div>
 
-                            <Button variant="hero" size="lg" className="w-full bg-white text-orange-600 hover:bg-gray-50 font-bold" onClick={handleHourlySubmit}>
+                            <button className="w-full bg-white text-[#0A1F44] font-bold text-lg py-4 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2" onClick={handleHourlySubmit}>
                               Get Started →
-                            </Button>
+                            </button>
                           </div>
                         </CardContent>
                       </Card>
@@ -692,14 +692,12 @@ const GHLPricing = () => {
                         </div>
                       )}
 
-                      <Button
-                        variant="hero"
-                        size="xl"
-                        className="w-full shadow-orange mb-0 bg-white text-orange-600 hover:bg-gray-50 font-bold"
+                      <button
+                        className="w-full bg-white text-[#0A1F44] font-bold text-lg py-4 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                         onClick={handleOnboardingSubmit}
                       >
-                        Get Started with Onboarding →
-                      </Button>
+                        Get Started →
+                      </button>
                     </div>
                   </CardContent>
                 </Card>

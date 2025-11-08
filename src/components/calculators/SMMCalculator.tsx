@@ -286,8 +286,7 @@ const SMMCalculator = () => {
 
             {/* RIGHT SECTION - Sticky Package Summary (30%) */}
             <div className="lg:sticky lg:top-24 lg:self-start h-fit">
-              <h3 className="text-xl md:text-2xl font-bold text-primary mb-4">📊 Your Pricing Breakdown</h3>
-              <Card className="shadow-strong border-l-4 border-l-accent border-2 border-accent/30 bg-background-cream overflow-hidden">
+              <Card className="shadow-xl border-2 border-orange-500 bg-white overflow-hidden rounded-lg">
                 <div className="bg-background p-6 pb-4 border-b border-border/20">
                   <h3 className="text-xl font-bold text-primary mb-0">📦 Package Summary</h3>
                 </div>
@@ -350,9 +349,9 @@ const SMMCalculator = () => {
                       </span>
                     </div>
 
-                    <Button variant="hero" size="xl" className="w-full shadow-orange mb-0 bg-white text-orange-600 hover:bg-gray-50 font-bold" onClick={handleGetStarted}>
-                      Get Started with Social Media →
-                    </Button>
+                    <button className="w-full bg-white text-[#0A1F44] font-bold text-lg py-4 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2" onClick={handleGetStarted}>
+                      Get Started →
+                    </button>
                   </div>
                 </CardContent>
               </Card>

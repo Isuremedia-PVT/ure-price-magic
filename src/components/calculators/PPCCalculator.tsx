@@ -236,8 +236,7 @@ const PPCCalculator = () => {
 
             {/* RIGHT SECTION - Sticky Package Summary (30%) */}
             <div className="lg:sticky lg:top-24 lg:self-start h-fit">
-              <h3 className="text-xl md:text-2xl font-bold text-primary mb-4">📊 Your Pricing Breakdown</h3>
-              <Card className="shadow-xl border-2 border-accent/30 bg-gradient-card overflow-hidden">
+              <Card className="shadow-xl border-2 border-orange-500 bg-white overflow-hidden rounded-lg">
                 <div className="bg-background p-6 pb-4">
                   <h3 className="text-xl font-bold text-primary mb-0">📦 Package Summary</h3>
                 </div>
@@ -309,15 +308,12 @@ const PPCCalculator = () => {
                           </div>
                         )}
 
-                         <Button 
-                          variant="default" 
-                          size="xl" 
-                          className="w-full mb-0 shadow-xl bg-white text-orange-600 hover:bg-gray-50 border-2 border-white font-bold text-lg group" 
+                         <button 
+                          className="w-full bg-white text-[#0A1F44] font-bold text-lg py-4 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                           onClick={handleGetStarted}
                         >
-                          Get Started with Ads
-                          <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
-                        </Button>
+                          Get Started →
+                        </button>
                       </div>
                     </>
                   )}
