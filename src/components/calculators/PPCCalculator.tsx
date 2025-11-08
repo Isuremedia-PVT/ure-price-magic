@@ -314,7 +314,7 @@ const PPCCalculator = () => {
                           className="w-full shadow-orange" 
                           onClick={handleGetStarted}
                         >
-                          Get Started with Advertisement
+                          Get Started with Ads
                         </Button>
                       </div>
                     </>
