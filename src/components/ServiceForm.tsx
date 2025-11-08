@@ -140,8 +140,8 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[1200px] h-[100vh] md:h-auto md:max-h-[90vh] overflow-hidden p-0">
-        <div className="flex flex-col md:flex-row h-full md:max-h-[90vh]">
+      <DialogContent className="sm:max-w-[1200px] h-[90vh] overflow-hidden p-0">
+        <div className="flex flex-col md:flex-row h-full">
           {/* LEFT SECTION: Package Summary (40% width on desktop) */}
           {(serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown) || 
            (serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown) ||
