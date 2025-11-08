@@ -344,14 +344,14 @@ const SMMCalculator = () => {
                   
                   <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 px-6 pb-6 rounded-b-lg">
                     <div className="flex justify-between items-center mb-6">
-                      <span className="text-lg font-semibold text-primary">Total Monthly:</span>
-                      <span className="text-4xl font-bold text-accent">
+                      <span className="text-white text-lg font-semibold flex items-center gap-2">💰 Total Monthly:</span>
+                      <span className="text-white text-4xl font-bold">
                         ${totalPrice.toLocaleString()}/mo
                       </span>
                     </div>
 
-                    <Button variant="hero" size="xl" className="w-full shadow-orange mb-0" onClick={handleGetStarted}>
-                      Get Started with Social Media
+                    <Button variant="hero" size="xl" className="w-full shadow-orange mb-0 bg-white text-orange-600 hover:bg-gray-50 font-bold" onClick={handleGetStarted}>
+                      Get Started with Social Media →
                     </Button>
                   </div>
                 </CardContent>

@@ -548,12 +548,12 @@ const GHLPricing = () => {
 
                           <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 md:-mx-8 px-6 md:px-8 pb-6 rounded-b-lg">
                             <div className="flex justify-between items-center mb-6">
-                              <span className="text-base font-semibold">Total Cost:</span>
-                              <span className="text-3xl font-bold text-accent">${buildoutCost.toLocaleString()}</span>
+                              <span className="text-white text-lg font-semibold flex items-center gap-2">💰 Total Cost:</span>
+                              <span className="text-white text-3xl font-bold">${buildoutCost.toLocaleString()}</span>
                             </div>
 
-                            <Button variant="hero" size="lg" className="w-full" onClick={handleHourlySubmit}>
-                              Get Started
+                            <Button variant="hero" size="lg" className="w-full bg-white text-orange-600 hover:bg-gray-50 font-bold" onClick={handleHourlySubmit}>
+                              Get Started →
                             </Button>
                           </div>
                         </CardContent>
@@ -672,22 +672,22 @@ const GHLPricing = () => {
 
                     <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 px-6 pb-6 rounded-b-lg">
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-lg font-semibold text-primary">Total:</span>
-                        <span className="text-4xl font-bold text-accent">${onboardingPricing.total}</span>
+                        <span className="text-white text-lg font-semibold flex items-center gap-2">💰 Total:</span>
+                        <span className="text-white text-4xl font-bold">${onboardingPricing.total}</span>
                       </div>
                       {onboardingPricing.savings > 0 && (
                         <div className="text-right mb-4">
-                          <span className="line-through text-muted-foreground text-sm">
+                          <span className="line-through text-white/70 text-sm">
                             ${onboardingPricing.regularPrice}
                           </span>
-                          <span className="text-accent ml-2 text-sm font-semibold">
+                          <span className="text-white ml-2 text-sm font-semibold">
                             Save ${onboardingPricing.savings}
                           </span>
                         </div>
                       )}
 
                       {onboardingPricing.upsellMessage && (
-                        <div className="bg-accent/10 text-accent px-3 py-2 rounded text-xs font-medium text-center mb-4">
+                        <div className="bg-white/20 backdrop-blur-sm text-white px-4 py-3 rounded-lg text-sm font-medium text-center mb-4 border border-white/30">
                           {onboardingPricing.upsellMessage}
                         </div>
                       )}
@@ -695,10 +695,10 @@ const GHLPricing = () => {
                       <Button
                         variant="hero"
                         size="xl"
-                        className="w-full shadow-orange"
+                        className="w-full shadow-orange mb-0 bg-white text-orange-600 hover:bg-gray-50 font-bold"
                         onClick={handleOnboardingSubmit}
                       >
-                        Get Started
+                        Get Started with Onboarding →
                       </Button>
                     </div>
                   </CardContent>

@@ -286,14 +286,14 @@ const PPCCalculator = () => {
                       
                       <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 px-6 pb-6 rounded-b-lg space-y-5">
                         <div className="flex justify-between items-center">
-                          <span className="text-base font-bold text-accent-foreground">💰 First Month:</span>
-                          <span className="text-3xl font-bold text-accent-foreground">
+                          <span className="text-white text-lg font-semibold flex items-center gap-2">💰 First Month:</span>
+                          <span className="text-white text-3xl font-bold">
                             ${(totalSetupFee + totalMonthlyFee).toLocaleString()}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-base font-bold text-accent-foreground">💰 Monthly Ongoing:</span>
-                          <span className="text-4xl font-bold text-accent-foreground">
+                          <span className="text-white text-lg font-semibold flex items-center gap-2">💰 Monthly Ongoing:</span>
+                          <span className="text-white text-4xl font-bold">
                             ${totalMonthlyFee.toLocaleString()}/mo
                           </span>
                         </div>
@@ -312,7 +312,7 @@ const PPCCalculator = () => {
                          <Button 
                           variant="default" 
                           size="xl" 
-                          className="w-full mb-0 shadow-xl bg-background text-primary hover:bg-background/90 border-2 border-background font-bold text-lg group" 
+                          className="w-full mb-0 shadow-xl bg-white text-orange-600 hover:bg-gray-50 border-2 border-white font-bold text-lg group" 
                           onClick={handleGetStarted}
                         >
                           Get Started with Ads
