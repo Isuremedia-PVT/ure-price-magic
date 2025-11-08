@@ -910,14 +910,23 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
           ) : null}
 
           {/* RIGHT SECTION: Form Fields (60% or full width on desktop) */}
-          <div className={`${(serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown) || 
+          <div 
+            className={`${(serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown) || 
                               (serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown) ||
                               serviceData.serviceType === "SEO Services" ||
                               serviceData.serviceType === "GHL Client Onboarding" ||
                               serviceData.serviceType === "GHL Hourly Buildout" ||
                               serviceData.serviceType === "GHL Sub-Account Support" ||
                               serviceData.serviceType === "GHL Monthly Retainer"
-                              ? "md:w-[60%]" : "w-full"} bg-white flex-1 overflow-y-auto overflow-x-hidden p-6 min-h-0`}>
+                              ? "md:w-[60%]" : "w-full"} bg-white p-6`}
+            style={{ 
+              flex: 1, 
+              overflowY: 'auto', 
+              overflowX: 'hidden',
+              minHeight: 0,
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
             <DialogHeader className="mb-6">
               <DialogTitle>Complete Your Package Details</DialogTitle>
               <DialogDescription>
