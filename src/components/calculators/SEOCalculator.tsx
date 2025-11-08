@@ -96,9 +96,12 @@ const SEOCalculator = () => {
             {/* RIGHT SECTION - Sticky Package Summary (30%) */}
             <div className="lg:sticky lg:top-24 lg:self-start h-fit">
               <h3 className="text-xl md:text-2xl font-bold text-primary mb-4">📊 Your Pricing Breakdown</h3>
-              <Card className="shadow-strong border-l-4 border-l-accent border-2 border-accent/30 bg-background-cream">
-                <CardContent className="p-6 space-y-4">
-                  <h3 className="text-lg font-bold text-primary mb-6">Package Summary</h3>
+              <Card className="shadow-strong border-l-4 border-l-accent border-2 border-accent/30 bg-background-cream overflow-hidden">
+                <div className="bg-background p-6 pb-4 border-b border-border/20">
+                  <h3 className="text-xl font-bold text-primary mb-0">📦 Package Summary</h3>
+                </div>
+                <CardContent className="p-6 pt-4 space-y-4 pb-0">
+                  
                   
                   <div className="space-y-3">
                     <div className="flex justify-between items-center pb-3 border-b border-border">
@@ -121,7 +124,7 @@ const SEOCalculator = () => {
                     )}
                   </div>
                   
-                  <div className="border-t-2 border-accent/30 pt-6 mt-6 bg-accent/5 -mx-6 px-6 pb-6 rounded-b-lg">
+                  <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 px-6 pb-6 rounded-b-lg">
                     <div className="flex justify-between items-center mb-6">
                       <span className="text-lg font-semibold text-primary">Total Monthly:</span>
                       <span className="text-4xl font-bold text-accent">

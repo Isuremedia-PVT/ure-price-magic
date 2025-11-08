@@ -238,10 +238,10 @@ const PPCCalculator = () => {
             <div className="lg:sticky lg:top-24 lg:self-start h-fit">
               <h3 className="text-xl md:text-2xl font-bold text-primary mb-4">📊 Your Pricing Breakdown</h3>
               <Card className="shadow-xl border-2 border-accent/30 bg-gradient-card overflow-hidden">
-                <div className="bg-gradient-accent p-6">
-                  <h3 className="text-lg font-bold text-accent-foreground">Package Summary</h3>
+                <div className="bg-background p-6 pb-4">
+                  <h3 className="text-xl font-bold text-primary mb-0">📦 Package Summary</h3>
                 </div>
-                <CardContent className="p-6 space-y-4">
+                <CardContent className="p-6 pt-4 space-y-4 pb-0">
                   {selectedPlatforms.length === 0 ? (
                     <div className="text-center py-12">
                       <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
@@ -284,7 +284,7 @@ const PPCCalculator = () => {
                         )}
                       </div>
                       
-                      <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 px-6 pb-6 rounded-b-2xl space-y-5">
+                      <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 px-6 pb-6 rounded-b-lg space-y-5">
                         <div className="flex justify-between items-center">
                           <span className="text-base font-bold text-accent-foreground">💰 First Month:</span>
                           <span className="text-3xl font-bold text-accent-foreground">

@@ -528,9 +528,11 @@ const GHLPricing = () => {
 
                     {/* RIGHT: Pricing Summary */}
                     <div className="lg:sticky lg:top-6 lg:self-start">
-                      <Card className="border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5 shadow-medium">
-                        <CardContent className="p-6 md:p-8 space-y-4">
-                          <h3 className="text-lg font-bold text-primary-dark mb-6">Project Summary</h3>
+                      <Card className="border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5 shadow-medium overflow-hidden">
+                        <div className="bg-background p-6 pb-4 border-b border-border/20">
+                          <h3 className="text-xl font-bold text-primary mb-0">📦 Package Summary</h3>
+                        </div>
+                        <CardContent className="p-6 md:p-8 pt-4 space-y-4 pb-0">
 
                           <div className="space-y-3">
                             <div className="flex justify-between items-center pb-3 border-b">
@@ -544,7 +546,7 @@ const GHLPricing = () => {
                             </div>
                           </div>
 
-                          <div className="border-t-2 pt-4 mt-6">
+                          <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 md:-mx-8 px-6 md:px-8 pb-6 rounded-b-lg">
                             <div className="flex justify-between items-center mb-6">
                               <span className="text-base font-semibold">Total Cost:</span>
                               <span className="text-3xl font-bold text-accent">${buildoutCost.toLocaleString()}</span>
@@ -634,9 +636,11 @@ const GHLPricing = () => {
 
               {/* RIGHT SECTION - Sticky Package Summary (30%) */}
               <div className="lg:sticky lg:top-24 lg:self-start h-fit">
-                <Card className="shadow-strong border-l-4 border-l-accent border-2 border-accent/30 bg-background-cream">
-                  <CardContent className="p-6 space-y-4">
-                    <h3 className="text-2xl font-bold text-primary mb-6">Onboarding Summary</h3>
+                <Card className="shadow-strong border-l-4 border-l-accent border-2 border-accent/30 bg-background-cream overflow-hidden">
+                  <div className="bg-background p-6 pb-4 border-b border-border/20">
+                    <h3 className="text-xl font-bold text-primary mb-0">📦 Package Summary</h3>
+                  </div>
+                  <CardContent className="p-6 pt-4 space-y-4 pb-0">
 
                     <div className="space-y-3">
                       <div className="flex justify-between items-center pb-3 border-b border-border">
@@ -666,7 +670,7 @@ const GHLPricing = () => {
                       )}
                     </div>
 
-                    <div className="border-t-2 border-accent/30 pt-6 mt-6 bg-accent/5 -mx-6 px-6 pb-6 rounded-b-lg">
+                    <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 px-6 pb-6 rounded-b-lg">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-lg font-semibold text-primary">Total:</span>
                         <span className="text-4xl font-bold text-accent">${onboardingPricing.total}</span>
