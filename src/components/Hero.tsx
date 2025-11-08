@@ -30,7 +30,7 @@ const Hero = () => {
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           
           {/* Badge/Pill with Animation */}
-          <div className="mb-6 md:mb-8 fade-in-up">
+          <div className="mt-8 md:mt-0 mb-8 md:mb-8 fade-in-up">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
               <span className="text-sm font-medium text-primary-foreground">Trusted by 500+ Agencies</span>
