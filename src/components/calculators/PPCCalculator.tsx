@@ -299,11 +299,11 @@ const PPCCalculator = () => {
                         </div>
 
                         {multiPlatformDiscount > 0 && (
-                          <div className="glass-card border-2 border-accent-foreground/30 rounded-xl p-4">
-                            <p className="text-sm font-bold text-accent-foreground">
+                          <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 mb-0 border border-white/30">
+                            <p className="text-white font-semibold text-sm leading-relaxed">
                               🎉 Multi-Platform Discount Applied!
                             </p>
-                            <p className="text-sm text-accent-foreground/80 mt-1">
+                            <p className="text-white text-sm mt-1">
                               Save $50/mo per additional platform
                             </p>
                           </div>
