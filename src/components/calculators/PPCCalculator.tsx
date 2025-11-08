@@ -170,14 +170,14 @@ const PPCCalculator = () => {
               <CardContent className="space-y-8">
                 <div>
                 <Label className="text-lg font-semibold mb-4 block text-primary">Choose Your Advertising Platform(s)</Label>
-                <div className="flex flex-wrap gap-3">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                   {platforms.map((platform) => {
                     const isSelected = selectedPlatforms.includes(platform);
                     
                     return (
                       <button
                         key={platform}
-                        className={`relative cursor-pointer px-5 py-3 text-sm font-semibold transition-spring rounded-xl border-2 ${
+                        className={`relative cursor-pointer px-6 md:px-5 py-4 md:py-3 text-base md:text-sm font-semibold transition-spring rounded-xl border-2 min-h-[48px] ${
                           isSelected 
                             ? 'bg-primary text-primary-foreground border-primary shadow-soft hover:shadow-medium scale-105' 
                             : 'bg-background text-primary border-accent/40 hover:border-accent hover:bg-accent/5 hover:scale-105'

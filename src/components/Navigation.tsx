@@ -84,7 +84,7 @@ const Navigation = () => {
                 <Menu className="h-8 w-8" style={{ color: isScrolled ? "#1A2E54" : "#ffffff" }} />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full h-full z-50" style={{ background: 'hsl(217 91% 20%)', backdropFilter: 'blur(16px)' }}>
+            <SheetContent side="right" className="w-full h-full bg-[#0A1F44] z-50" style={{ backdropFilter: 'blur(16px)' }}>
               <div className="flex flex-col gap-6 mt-8">
                 {navItems.map((item) => (
                   <button
