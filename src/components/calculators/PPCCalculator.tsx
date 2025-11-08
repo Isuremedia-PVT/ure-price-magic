@@ -8,10 +8,7 @@ import ServiceForm from "@/components/ServiceForm";
 import { ServiceData } from "@/lib/formSubmission";
 
 const PPCCalculator = () => {
-  const [adSpend, setAdSpend] = useState<number>(5000);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["Google Ads"]);
-  const [activePlatform, setActivePlatform] = useState<string | null>("Google Ads");
-  const [budgetType, setBudgetType] = useState<"single" | "separate" | "combined">("single");
   const [platformBudgets, setPlatformBudgets] = useState<{[key: string]: number}>({"Google Ads": 5000});
   const [formOpen, setFormOpen] = useState(false);
 
@@ -69,23 +66,12 @@ const PPCCalculator = () => {
   ];
 
   const togglePlatform = (platform: string) => {
-    if (selectedPlatforms.includes(platform)) {
-      // Clicking on a selected platform - make it active
-      setActivePlatform(platform);
-    } else {
+    if (!selectedPlatforms.includes(platform)) {
       // Adding a new platform
       const newPlatforms = [...selectedPlatforms, platform];
       setSelectedPlatforms(newPlatforms);
       // Initialize budget for new platform
       setPlatformBudgets({...platformBudgets, [platform]: 5000});
-      // Set this as the active platform
-      setActivePlatform(platform);
-      // Set default budget type when first platform is selected
-      if (newPlatforms.length === 1) {
-        setBudgetType("combined");
-      } else if (newPlatforms.length >= 2 && budgetType === "single") {
-        setBudgetType("separate");
-      }
     }
   };
 
@@ -98,23 +84,13 @@ const PPCCalculator = () => {
     const newBudgets = {...platformBudgets};
     delete newBudgets[platform];
     setPlatformBudgets(newBudgets);
-    
-    // If we removed the active platform, set another as active or null
-    if (activePlatform === platform) {
-      setActivePlatform(newPlatforms.length > 0 ? newPlatforms[0] : null);
-    }
-    
-    // If only one platform left, switch to single mode
-    if (newPlatforms.length <= 1) {
-      setBudgetType("single");
-    }
   };
 
   const setPlatformBudget = (platform: string, budget: number) => {
     setPlatformBudgets({...platformBudgets, [platform]: budget});
   };
 
-  // Calculate pricing based on budget type
+  // Calculate pricing - always use separate budgets per platform
   const calculateTotalPricing = () => {
     if (selectedPlatforms.length === 0) return {
       totalMonthlyFee: 0,
@@ -124,62 +100,26 @@ const PPCCalculator = () => {
       platformBreakdown: []
     };
 
-    if (selectedPlatforms.length === 1 || budgetType === "single") {
-      const singleFee = calculatePPCFee(adSpend);
+    const breakdown = selectedPlatforms.map(platform => {
+      const budget = platformBudgets[platform] || 5000;
+      const fee = calculatePPCFee(budget);
       return {
-        totalMonthlyFee: singleFee.managementFee,
-        totalSetupFee: setupFee,
-        baseManagementFee: singleFee.managementFee,
-        multiPlatformDiscount: 0,
-        platformBreakdown: [{
-          platform: selectedPlatforms[0],
-          adSpend: adSpend,
-          managementFee: singleFee.managementFee,
-          percentage: singleFee.percentage
-        }]
+        platform,
+        adSpend: budget,
+        managementFee: fee.managementFee,
+        percentage: fee.percentage
       };
-    }
-
-    if (budgetType === "separate") {
-      const breakdown = selectedPlatforms.map(platform => {
-        const budget = platformBudgets[platform] || 5000;
-        const fee = calculatePPCFee(budget);
-        return {
-          platform,
-          adSpend: budget,
-          managementFee: fee.managementFee,
-          percentage: fee.percentage
-        };
-      });
-      const baseTotal = breakdown.reduce((sum, p) => sum + p.managementFee, 0);
-      const discount = (selectedPlatforms.length - 1) * 50;
-      return {
-        totalMonthlyFee: baseTotal - discount,
-        totalSetupFee: setupFee * selectedPlatforms.length,
-        baseManagementFee: baseTotal,
-        multiPlatformDiscount: discount,
-        platformBreakdown: breakdown
-      };
-    }
-
-    // Combined budget
-    const totalBudget = adSpend;
-    const baseFee = calculatePPCFee(totalBudget);
-    const discount = (selectedPlatforms.length - 1) * 50;
-    const perPlatformBudget = Math.floor(totalBudget / selectedPlatforms.length);
-    const breakdown = selectedPlatforms.map(platform => ({
-      platform,
-      suggestedSpend: perPlatformBudget,
-      adSpend: totalBudget
-    }));
+    });
+    
+    const baseTotal = breakdown.reduce((sum, p) => sum + p.managementFee, 0);
+    const discount = selectedPlatforms.length > 1 ? (selectedPlatforms.length - 1) * 50 : 0;
     
     return {
-      totalMonthlyFee: baseFee.managementFee - discount,
+      totalMonthlyFee: baseTotal - discount,
       totalSetupFee: setupFee * selectedPlatforms.length,
-      baseManagementFee: baseFee.managementFee,
+      baseManagementFee: baseTotal,
       multiPlatformDiscount: discount,
-      platformBreakdown: breakdown,
-      percentage: baseFee.percentage
+      platformBreakdown: breakdown
     };
   };
 
@@ -187,20 +127,10 @@ const PPCCalculator = () => {
   const { totalMonthlyFee, totalSetupFee, baseManagementFee, multiPlatformDiscount } = pricing;
 
   const handleGetStarted = () => {
-    const serviceData: ServiceData = {
-      serviceType: "PPC Management",
-      platforms: selectedPlatforms.join(","),
-      platformCount: selectedPlatforms.length,
-      adSpend: adSpend,
-      setupFee: totalSetupFee,
-      monthlyTotal: totalMonthlyFee,
-      baseManagementFee: baseManagementFee,
-      multiPlatformDiscount: multiPlatformDiscount,
-      managementPercentage: pricing.percentage || calculatePPCFee(adSpend).percentage,
-      budgetType: budgetType,
-      platformBudgets: budgetType === "separate" ? JSON.stringify(platformBudgets) : undefined,
-      platformBreakdown: JSON.stringify(pricing.platformBreakdown)
-    };
+    const totalAdSpend = selectedPlatforms.reduce((sum, platform) => 
+      sum + (platformBudgets[platform] || 5000), 0
+    );
+    
     setFormOpen(true);
   };
 
@@ -232,18 +162,10 @@ const PPCCalculator = () => {
                 <div className="flex flex-wrap gap-2">
                   {platforms.map((platform) => {
                     const isSelected = selectedPlatforms.includes(platform);
-                    const isActive = platform === activePlatform;
                     
                     let buttonStyle = {};
-                    if (isActive) {
-                      // Currently active - orange
-                      buttonStyle = { 
-                        backgroundColor: '#faa033', 
-                        color: '#ffffff',
-                        borderColor: '#faa033'
-                      };
-                    } else if (isSelected) {
-                      // Previously selected - dark blue
+                    if (isSelected) {
+                      // Selected - navy blue
                       buttonStyle = { 
                         backgroundColor: '#000047', 
                         color: '#ffffff',
@@ -269,7 +191,7 @@ const PPCCalculator = () => {
                         {isSelected && (
                           <span
                             className="ml-2 inline-flex items-center justify-center w-4 h-4 rounded-full hover:opacity-80"
-                            style={{ backgroundColor: isActive ? '#ffffff' : '#faa033', color: isActive ? '#faa033' : '#ffffff' }}
+                            style={{ backgroundColor: '#faa033', color: '#ffffff' }}
                             onClick={(e) => removePlatform(platform, e)}
                           >
                             ×
@@ -280,120 +202,37 @@ const PPCCalculator = () => {
                   })}
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  Click to select platforms. Click again to view/edit budget for that platform.
+                  Click to select platforms. Each platform will have its own budget configuration.
                 </p>
               </div>
 
-              {selectedPlatforms.length >= 2 && (
-                <div className="border rounded-lg p-4 bg-secondary/20">
-                  <Label className="text-base mb-3 block">Budget Configuration</Label>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    Do you have separate budgets for each platform, or one combined budget?
-                  </p>
-                  <div className="flex gap-3">
-                    <Button
-                      type="button"
-                      variant={budgetType === "separate" ? "default" : "outline"}
-                      className="flex-1"
-                      onClick={() => setBudgetType("separate")}
-                    >
-                      Separate Budgets
-                    </Button>
-                    <Button
-                      type="button"
-                      variant={budgetType === "combined" ? "default" : "outline"}
-                      className="flex-1"
-                      onClick={() => setBudgetType("combined")}
-                    >
-                      Combined Budget
-                    </Button>
-                  </div>
-                </div>
-              )}
-
-              {/* Budget Configuration - Always show when there's an active platform */}
-              {activePlatform && (
-                <div className="border rounded-lg p-4 bg-secondary/20">
-                  <Label className="text-base mb-3 block">Budget Configuration for {activePlatform}</Label>
-                  {budgetType === "combined" && selectedPlatforms.length >= 2 ? (
-                    <div>
+              {/* Budget Configuration - Show for each selected platform */}
+              {selectedPlatforms.length > 0 && (
+                <div className="space-y-4">
+                  {selectedPlatforms.map((platform) => (
+                    <div key={platform} className="border rounded-lg p-4 bg-secondary/20">
+                      <Label className="text-base mb-3 block">Budget Configuration for {platform}</Label>
                       <div className="flex justify-between items-center mb-3">
-                        <Label htmlFor="ad-spend" className="text-base">
-                          Total Monthly Ad Spend Budget
-                        </Label>
+                        <Label className="font-medium">{platform}</Label>
                         <span className="text-sm font-semibold">
-                          ${adSpend.toLocaleString()}/month
+                          ${(platformBudgets[platform] || 5000).toLocaleString()}/month
                         </span>
                       </div>
                       <Slider
-                        id="ad-spend"
                         min={1000}
                         max={150000}
                         step={1000}
-                        value={[adSpend]}
-                        onValueChange={(value) => setAdSpend(value[0])}
+                        value={[platformBudgets[platform] || 5000]}
+                        onValueChange={(value) => setPlatformBudget(platform, value[0])}
                         className="w-full"
                       />
-                      <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                      <div className="flex justify-between items-center text-xs text-muted-foreground mt-2">
                         <span>$1K</span>
-                        <span>$150K+</span>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-2">
-                        We'll optimize allocation across {selectedPlatforms.length} platforms based on performance
-                      </p>
-                    </div>
-                  ) : budgetType === "separate" && selectedPlatforms.length >= 2 ? (
-                    <div className="space-y-4">
-                      <div className="border rounded-lg p-4 bg-secondary/10">
-                        <div className="flex justify-between items-center mb-3">
-                          <Label className="font-medium">{activePlatform}</Label>
-                          <span className="text-sm font-semibold">
-                            ${(platformBudgets[activePlatform] || 5000).toLocaleString()}/month
-                          </span>
-                        </div>
-                        <Slider
-                          min={1000}
-                          max={150000}
-                          step={1000}
-                          value={[platformBudgets[activePlatform] || 5000]}
-                          onValueChange={(value) => setPlatformBudget(activePlatform, value[0])}
-                          className="w-full"
-                        />
-                        <div className="flex justify-between items-center text-xs text-muted-foreground mt-2">
-                          <span>$1K</span>
-                          <span>Management: ${calculatePPCFee(platformBudgets[activePlatform] || 5000).managementFee}/month</span>
-                          <span>$150K+</span>
-                        </div>
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Click on other platform buttons above to configure their budgets
-                      </p>
-                    </div>
-                  ) : (
-                    <div>
-                      <div className="flex justify-between items-center mb-3">
-                        <Label htmlFor="ad-spend" className="text-base">
-                          What's Your Monthly Ad Spend Budget?
-                        </Label>
-                        <span className="text-sm font-semibold">
-                          ${adSpend.toLocaleString()}/month
-                        </span>
-                      </div>
-                      <Slider
-                        id="ad-spend"
-                        min={1000}
-                        max={150000}
-                        step={1000}
-                        value={[adSpend]}
-                        onValueChange={(value) => setAdSpend(value[0])}
-                        className="w-full"
-                      />
-                      <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                        <span>$1K</span>
+                        <span>Management: ${calculatePPCFee(platformBudgets[platform] || 5000).managementFee}/month</span>
                         <span>$150K+</span>
                       </div>
                     </div>
-                  )}
+                  ))}
                 </div>
               )}
               </CardContent>
@@ -417,28 +256,19 @@ const PPCCalculator = () => {
                           <span className="font-semibold text-primary-dark text-xs">{selectedPlatforms.join(", ")}</span>
                         </div>
                         
-                        {budgetType === "separate" && selectedPlatforms.length >= 2 ? (
-                          <>
-                            {pricing.platformBreakdown.map((p: any) => (
-                              <div key={p.platform} className="pb-3 border-b">
-                                <div className="font-medium text-sm mb-2">{p.platform}</div>
-                                <div className="flex justify-between text-xs text-muted-foreground ml-3">
-                                  <span>Ad Spend:</span>
-                                  <span>${p.adSpend.toLocaleString()}/mo</span>
-                                </div>
-                                <div className="flex justify-between text-xs text-muted-foreground ml-3">
-                                  <span>Management:</span>
-                                  <span>${p.managementFee}/mo</span>
-                                </div>
-                              </div>
-                            ))}
-                          </>
-                        ) : (
-                          <div className="flex justify-between items-center pb-3 border-b">
-                            <span className="text-sm">Monthly Ad Spend</span>
-                            <span className="font-semibold text-primary-dark">${adSpend.toLocaleString()}</span>
+                        {pricing.platformBreakdown.map((p: any) => (
+                          <div key={p.platform} className="pb-3 border-b">
+                            <div className="font-medium text-sm mb-2">{p.platform}</div>
+                            <div className="flex justify-between text-xs text-muted-foreground ml-3">
+                              <span>Ad Spend:</span>
+                              <span>${p.adSpend.toLocaleString()}/mo</span>
+                            </div>
+                            <div className="flex justify-between text-xs text-muted-foreground ml-3">
+                              <span>Management:</span>
+                              <span>${p.managementFee}/mo</span>
+                            </div>
                           </div>
-                        )}
+                        ))}
                         
                         <div className="flex justify-between items-center pb-3 border-b">
                           <span className="text-sm">Setup Fee (one-time)</span>
@@ -466,11 +296,6 @@ const PPCCalculator = () => {
                             ${totalMonthlyFee.toLocaleString()}/mo
                           </span>
                         </div>
-                        {pricing.percentage && (
-                          <p className="text-xs text-muted-foreground">
-                            Management rate: {pricing.percentage}
-                          </p>
-                        )}
 
                         {multiPlatformDiscount > 0 && (
                           <div className="bg-accent/10 border border-accent/20 rounded-lg p-3">
@@ -489,7 +314,7 @@ const PPCCalculator = () => {
                           className="w-full shadow-orange" 
                           onClick={handleGetStarted}
                         >
-                          Get Started with PPC
+                          Get Started with Advertisement
                         </Button>
                       </div>
                     </>
@@ -508,13 +333,13 @@ const PPCCalculator = () => {
           serviceType: "PPC Management",
           platforms: selectedPlatforms.join(","),
           platformCount: selectedPlatforms.length,
-          adSpend: adSpend,
+          adSpend: selectedPlatforms.reduce((sum, platform) => sum + (platformBudgets[platform] || 5000), 0),
           setupFee: totalSetupFee,
           monthlyTotal: totalMonthlyFee,
           baseManagementFee: baseManagementFee,
           multiPlatformDiscount: multiPlatformDiscount,
-          managementPercentage: pricing.percentage || calculatePPCFee(adSpend).percentage,
-          budgetType: budgetType,
+          managementPercentage: pricing.platformBreakdown[0]?.percentage || "",
+          platformBudgets: JSON.stringify(platformBudgets),
           platformBreakdown: JSON.stringify(pricing.platformBreakdown)
         }}
       />
