@@ -135,63 +135,59 @@ const PPCCalculator = () => {
   };
 
   return (
-    <section id="ppc" className="py-20 bg-background-alt">
-      <div className="container mx-auto px-4">
+    <section id="ppc" className="py-24 gradient-subtle relative overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px]"></div>
+      <div className="absolute bottom-20 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]"></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-primary">Calculate Your Advertisement Investment</h2>
-            <div className="w-20 h-1 bg-accent mx-auto mb-6 rounded-full"></div>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Select your monthly ad spend budget and platforms to see your pricing
+          <div className="text-center mb-16 fade-in-up">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent/10 border border-accent/20 mb-6">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+              <span className="text-sm font-semibold text-primary uppercase tracking-wide">PPC Management</span>
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-primary">
+              Calculate Your <span className="text-gradient">Advertisement</span> Investment
+            </h2>
+            <div className="w-24 h-1.5 bg-gradient-accent mx-auto mb-8 rounded-full"></div>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Select your monthly ad spend budget and platforms to see transparent, competitive pricing
             </p>
           </div>
 
           {/* Split-screen layout: 70% left controls + 30% right summary */}
-          <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 max-w-[1400px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 max-w-[1400px] mx-auto fade-in-up" style={{ animationDelay: '0.2s' }}>
             {/* LEFT SECTION - Calculator Controls (70%) */}
-            <Card className="shadow-strong border-2 border-border bg-card card-hover">
-              <CardHeader>
-                <CardTitle className="text-3xl font-bold">Calculate Your Advertisement Investment</CardTitle>
-                <CardDescription className="text-base">
+            <Card className="shadow-medium hover:shadow-xl border-2 border-border/50 hover:border-primary/20 bg-gradient-card card-hover">
+              <CardHeader className="pb-6">
+                <CardTitle className="text-3xl font-bold text-primary">Build Your Package</CardTitle>
+                <CardDescription className="text-base text-muted-foreground">
                   Select your monthly ad spend budget and platforms to see your pricing
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-6">
+              <CardContent className="space-y-8">
                 <div>
-                <Label className="text-base mb-3 block">Choose Your Advertising Platform(s)</Label>
-                <div className="flex flex-wrap gap-2">
+                <Label className="text-lg font-semibold mb-4 block text-primary">Choose Your Advertising Platform(s)</Label>
+                <div className="flex flex-wrap gap-3">
                   {platforms.map((platform) => {
                     const isSelected = selectedPlatforms.includes(platform);
-                    
-                    let buttonStyle = {};
-                    if (isSelected) {
-                      // Selected - navy blue
-                      buttonStyle = { 
-                        backgroundColor: '#000047', 
-                        color: '#ffffff',
-                        borderColor: '#000047'
-                      };
-                    } else {
-                      // Unselected - white with orange border
-                      buttonStyle = { 
-                        backgroundColor: '#ffffff', 
-                        color: '#000047',
-                        borderColor: '#faa033'
-                      };
-                    }
                     
                     return (
                       <button
                         key={platform}
-                        className="relative cursor-pointer px-4 py-2 text-sm transition-all hover:scale-105 rounded-full border-2 font-medium"
-                        style={buttonStyle}
+                        className={`relative cursor-pointer px-5 py-3 text-sm font-semibold transition-spring rounded-xl border-2 ${
+                          isSelected 
+                            ? 'bg-primary text-primary-foreground border-primary shadow-soft hover:shadow-medium scale-105' 
+                            : 'bg-background text-primary border-accent/40 hover:border-accent hover:bg-accent/5 hover:scale-105'
+                        }`}
                         onClick={() => togglePlatform(platform)}
                       >
                         {platform}
                         {isSelected && (
                           <span
-                            className="ml-2 inline-flex items-center justify-center w-4 h-4 rounded-full hover:opacity-80"
-                            style={{ backgroundColor: '#faa033', color: '#ffffff' }}
+                            className="ml-2 inline-flex items-center justify-center w-5 h-5 rounded-full bg-accent text-accent-foreground hover:opacity-80 transition-smooth font-bold"
                             onClick={(e) => removePlatform(platform, e)}
                           >
                             ×
@@ -208,13 +204,13 @@ const PPCCalculator = () => {
 
               {/* Budget Configuration - Show for each selected platform */}
               {selectedPlatforms.length > 0 && (
-                <div className="space-y-4">
+                <div className="space-y-5">
+                  <Label className="text-lg font-semibold text-primary">Budget Configuration</Label>
                   {selectedPlatforms.map((platform) => (
-                    <div key={platform} className="border rounded-lg p-4 bg-secondary/20">
-                      <Label className="text-base mb-3 block">Budget Configuration for {platform}</Label>
-                      <div className="flex justify-between items-center mb-3">
-                        <Label className="font-medium">{platform}</Label>
-                        <span className="text-sm font-semibold">
+                    <div key={platform} className="glass-card rounded-2xl p-6 border-2 border-border/30 hover:border-primary/30 transition-smooth">
+                      <div className="flex justify-between items-center mb-4">
+                        <Label className="font-bold text-primary">{platform}</Label>
+                        <span className="text-lg font-bold text-accent">
                           ${(platformBudgets[platform] || 5000).toLocaleString()}/month
                         </span>
                       </div>
@@ -224,12 +220,12 @@ const PPCCalculator = () => {
                         step={1000}
                         value={[platformBudgets[platform] || 5000]}
                         onValueChange={(value) => setPlatformBudget(platform, value[0])}
-                        className="w-full"
+                        className="w-full mb-3"
                       />
-                      <div className="flex justify-between items-center text-xs text-muted-foreground mt-2">
-                        <span>$1K</span>
-                        <span>Management: ${calculatePPCFee(platformBudgets[platform] || 5000).managementFee}/month</span>
-                        <span>$150K+</span>
+                      <div className="flex justify-between items-center text-sm text-muted-foreground mt-3">
+                        <span className="font-medium">$1K</span>
+                        <span className="font-semibold text-primary">Management: ${calculatePPCFee(platformBudgets[platform] || 5000).managementFee}/mo</span>
+                        <span className="font-medium">$150K+</span>
                       </div>
                     </div>
                   ))}
@@ -240,81 +236,86 @@ const PPCCalculator = () => {
 
             {/* RIGHT SECTION - Sticky Package Summary (30%) */}
             <div className="lg:sticky lg:top-24 lg:self-start h-fit">
-              <Card className="shadow-strong border-l-4 border-l-accent border-2 border-accent/30 bg-background-cream">
+              <Card className="shadow-xl border-2 border-accent/30 bg-gradient-card overflow-hidden">
+                <div className="bg-gradient-accent p-6">
+                  <h3 className="text-2xl font-bold text-accent-foreground">📊 Your Pricing Breakdown</h3>
+                </div>
                 <CardContent className="p-6 space-y-4">
-                  <h3 className="text-2xl font-bold text-primary mb-6">📊 Your Pricing Breakdown</h3>
-                  
                   {selectedPlatforms.length === 0 ? (
-                    <div className="text-center py-8">
-                      <p className="text-sm text-muted-foreground">Please select a platform to see pricing</p>
+                    <div className="text-center py-12">
+                      <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
+                        <span className="text-3xl">💡</span>
+                      </div>
+                      <p className="text-base text-muted-foreground font-medium">Please select a platform to see pricing</p>
                     </div>
                   ) : (
                     <>
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center pb-3 border-b">
-                          <span className="text-sm">Selected Platform(s)</span>
-                          <span className="font-semibold text-primary-dark text-xs">{selectedPlatforms.join(", ")}</span>
+                      <div className="space-y-4">
+                        <div className="flex justify-between items-center pb-4 border-b-2 border-border">
+                          <span className="text-base font-semibold text-primary">Selected Platform(s)</span>
+                          <span className="font-bold text-primary text-sm">{selectedPlatforms.join(", ")}</span>
                         </div>
                         
                         {pricing.platformBreakdown.map((p: any) => (
-                          <div key={p.platform} className="pb-3 border-b">
-                            <div className="font-medium text-sm mb-2">{p.platform}</div>
-                            <div className="flex justify-between text-xs text-muted-foreground ml-3">
+                          <div key={p.platform} className="pb-4 border-b border-border/50">
+                            <div className="font-bold text-base mb-3 text-primary">{p.platform}</div>
+                            <div className="flex justify-between text-sm text-muted-foreground ml-4 mb-2">
                               <span>Ad Spend:</span>
-                              <span>${p.adSpend.toLocaleString()}/mo</span>
+                              <span className="font-semibold">${p.adSpend.toLocaleString()}/mo</span>
                             </div>
-                            <div className="flex justify-between text-xs text-muted-foreground ml-3">
+                            <div className="flex justify-between text-sm text-muted-foreground ml-4">
                               <span>Management:</span>
-                              <span>${p.managementFee}/mo</span>
+                              <span className="font-semibold text-primary">${p.managementFee}/mo</span>
                             </div>
                           </div>
                         ))}
                         
-                        <div className="flex justify-between items-center pb-3 border-b">
-                          <span className="text-sm">Setup Fee (one-time)</span>
-                          <span className="font-semibold text-accent">+${totalSetupFee.toLocaleString()}</span>
+                        <div className="flex justify-between items-center pb-4 border-b border-border/50">
+                          <span className="text-base font-semibold text-primary">Setup Fee (one-time)</span>
+                          <span className="font-bold text-accent text-lg">+${totalSetupFee.toLocaleString()}</span>
                         </div>
                         
                         {multiPlatformDiscount > 0 && (
-                          <div className="flex justify-between items-center pb-3 border-b">
-                            <span className="text-sm">Multi-Platform Discount</span>
-                            <span className="font-semibold text-green-600">-${multiPlatformDiscount}/mo</span>
+                          <div className="flex justify-between items-center pb-4 border-b border-border/50">
+                            <span className="text-base font-semibold text-primary">Multi-Platform Discount</span>
+                            <span className="font-bold text-green-600 text-lg">-${multiPlatformDiscount}/mo</span>
                           </div>
                         )}
                       </div>
                       
-                      <div className="border-t-2 border-accent/30 pt-6 mt-6 bg-accent/5 -mx-6 px-6 pb-6 rounded-b-lg space-y-4">
+                      <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 px-6 pb-6 rounded-b-2xl space-y-5">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-semibold text-primary">💰 First Month:</span>
-                          <span className="text-2xl font-bold text-accent">
+                          <span className="text-base font-bold text-accent-foreground">💰 First Month:</span>
+                          <span className="text-3xl font-bold text-accent-foreground">
                             ${(totalSetupFee + totalMonthlyFee).toLocaleString()}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-semibold text-primary">💰 Monthly Ongoing:</span>
-                          <span className="text-3xl font-bold text-accent">
+                          <span className="text-base font-bold text-accent-foreground">💰 Monthly Ongoing:</span>
+                          <span className="text-4xl font-bold text-accent-foreground">
                             ${totalMonthlyFee.toLocaleString()}/mo
                           </span>
                         </div>
 
                         {multiPlatformDiscount > 0 && (
-                          <div className="bg-accent/10 border border-accent/20 rounded-lg p-3">
-                            <p className="text-xs font-semibold text-accent">
+                          <div className="glass-card border-2 border-accent-foreground/30 rounded-xl p-4">
+                            <p className="text-sm font-bold text-accent-foreground">
                               🎉 Multi-Platform Discount Applied!
                             </p>
-                            <p className="text-xs text-muted-foreground mt-1">
+                            <p className="text-sm text-accent-foreground/80 mt-1">
                               Save $50/mo per additional platform
                             </p>
                           </div>
                         )}
 
                         <Button 
-                          variant="hero" 
+                          variant="default" 
                           size="xl" 
-                          className="w-full shadow-orange" 
+                          className="w-full shadow-xl bg-background text-primary hover:bg-background/90 border-2 border-background font-bold text-lg group" 
                           onClick={handleGetStarted}
                         >
                           Get Started with Ads
+                          <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
                         </Button>
                       </div>
                     </>

@@ -33,40 +33,42 @@ const Navigation = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-[1000] transition-smooth ${
         isScrolled
-          ? "bg-white shadow-[0_2px_8px_rgba(0,0,0,0.1)] border-b border-border"
+          ? "glass-card shadow-medium backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <a href="/" className="cursor-pointer">
+          <a href="/" className="cursor-pointer transition-spring hover:scale-105">
             <img
               src={
                 isScrolled
                   ? "https://storage.googleapis.com/msgsndr/jnLK3WXibjhfqnyON1Ru/media/6909d04aaa138d222aa92e78.webp"
                   : "https://storage.googleapis.com/msgsndr/jnLK3WXibjhfqnyON1Ru/media/6909c977119a8222889c10da.png"
               }
-              alt="iSure Media"
-              className="h-10 md:h-12"
+              alt="iSure Media - B2B Digital Marketing Agency"
+              className="h-12 md:h-14"
             />
           </a>
           
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-sm font-medium hover:text-accent transition-smooth"
-                style={{ color: isScrolled ? "#000047" : "#ffffff" }}
+                className="text-sm font-semibold hover:text-accent transition-spring relative group"
+                style={{ color: isScrolled ? "#1A2E54" : "#ffffff" }}
               >
                 {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
               </button>
             ))}
             
             <Button
               onClick={() => scrollToSection("booking")}
               variant="hero"
-              size="sm"
+              size="default"
+              className="shadow-orange hover:scale-105 transition-spring"
             >
               Get Started
             </Button>
@@ -74,17 +76,21 @@ const Navigation = () => {
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="h-10 w-10" style={{ color: isScrolled ? "#000047" : "#ffffff" }} />
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="hover:scale-110 transition-spring"
+              >
+                <Menu className="h-8 w-8" style={{ color: isScrolled ? "#1A2E54" : "#ffffff" }} />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
+            <SheetContent side="right" className="w-[300px] bg-gradient-subtle">
               <div className="flex flex-col gap-6 mt-8">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="text-lg font-medium text-left hover:text-accent transition-smooth"
+                    className="text-lg font-semibold text-left hover:text-accent transition-spring hover:translate-x-2"
                   >
                     {item.label}
                   </button>
@@ -92,7 +98,7 @@ const Navigation = () => {
                 <Button
                   onClick={() => scrollToSection("booking")}
                   variant="hero"
-                  className="w-full"
+                  className="w-full mt-4"
                 >
                   Get Started
                 </Button>
