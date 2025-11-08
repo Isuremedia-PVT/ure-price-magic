@@ -26,32 +26,32 @@ const GHLPricing = () => {
   const calculateOnboardingPrice = (quantity: number) => {
     const freeOnboardings = Math.floor(quantity / 6);
     const paidOnboardings = quantity - freeOnboardings;
-    
+
     let subtotal = paidOnboardings * onboardingBaseRate;
     let discount = 0;
-    
+
     if (paidOnboardings >= 2) {
       discount = flatDiscount;
     }
-    
+
     const total = subtotal - discount;
     const regularPrice = quantity * onboardingBaseRate;
     const savings = regularPrice - total;
-    
-    let upsellMessage = '';
+
+    let upsellMessage = "";
     if (quantity === 1) {
-      upsellMessage = '💡 Add 1 more onboarding and save $10!';
+      upsellMessage = "💡 Add 1 more onboarding and save $10!";
     } else if (quantity >= 2 && quantity <= 4) {
       const needMore = 6 - quantity;
       upsellMessage = `💡 Add ${needMore} more to get your 6th onboarding FREE!`;
     } else if (quantity === 5) {
-      upsellMessage = '💡 Add just 1 more and get it completely FREE!';
+      upsellMessage = "💡 Add just 1 more and get it completely FREE!";
     } else if (quantity === 6) {
-      upsellMessage = '🎉 Amazing! You got 1 onboarding FREE + $10 discount!';
+      upsellMessage = "🎉 Amazing! You got 1 onboarding FREE + $10 discount!";
     } else if (quantity > 6) {
-      upsellMessage = `🎉 You're getting ${freeOnboardings} onboarding${freeOnboardings > 1 ? 's' : ''} FREE!`;
+      upsellMessage = `🎉 You're getting ${freeOnboardings} onboarding${freeOnboardings > 1 ? "s" : ""} FREE!`;
     }
-    
+
     return {
       quantity,
       paidOnboardings,
@@ -61,7 +61,7 @@ const GHLPricing = () => {
       total,
       regularPrice,
       savings,
-      upsellMessage
+      upsellMessage,
     };
   };
 
@@ -75,7 +75,7 @@ const GHLPricing = () => {
       regularPrice: 299,
       specialPrice: 99,
       savings: 200,
-      value: "starter"
+      value: "starter",
     },
     {
       name: "Growth",
@@ -84,7 +84,7 @@ const GHLPricing = () => {
       specialPrice: 199,
       savings: 200,
       popular: true,
-      value: "growth"
+      value: "growth",
     },
     {
       name: "Scale",
@@ -92,7 +92,7 @@ const GHLPricing = () => {
       regularPrice: 599,
       specialPrice: 399,
       savings: 200,
-      value: "scale"
+      value: "scale",
     },
     {
       name: "Unlimited",
@@ -100,7 +100,7 @@ const GHLPricing = () => {
       regularPrice: 999,
       specialPrice: 599,
       savings: 400,
-      value: "unlimited"
+      value: "unlimited",
     },
   ];
 
@@ -115,7 +115,7 @@ const GHLPricing = () => {
       features: [
         "20 hours for GHL tasks per month",
         "⚠️ Hours DON'T carry over to next month",
-        "🎁 FREE: 40 sub-account ticket support",
+        "🎁 FREE: 10 sub-account ticket support",
         "White label support & onboarding",
         "GHL technical support",
         "Email, Zoom, Slack, MS Teams",
@@ -127,8 +127,8 @@ const GHLPricing = () => {
         "AI Chatbot & Voice AI setup",
         "ClickUp task tracking",
         "Month-to-month, cancel anytime",
-        "7-day money-back guarantee"
-      ]
+        "7-day money-back guarantee",
+      ],
     },
     {
       name: "Growing",
@@ -151,8 +151,8 @@ const GHLPricing = () => {
         "3rd party API integrations",
         "Priority response times (12 hours)",
         "Direct PM access",
-        "Weekly strategy calls"
-      ]
+        "Weekly strategy calls",
+      ],
     },
     {
       name: "Enterprise",
@@ -176,25 +176,25 @@ const GHLPricing = () => {
         "Multi-platform support (Kajabi, ClickFunnels, Kartra)",
         "Course/membership migrations",
         "Priority response time (6 hours)",
-        "Complete white label support"
-      ]
+        "Complete white label support",
+      ],
     },
   ];
 
-  const handleSubAccountSelect = (plan: typeof subAccountPlans[0]) => {
+  const handleSubAccountSelect = (plan: (typeof subAccountPlans)[0]) => {
     const serviceData: ServiceData = {
       serviceType: "GHL Sub-Account Support",
       planName: `${plan.name} (${plan.subAccounts} Sub-Accounts)`,
       monthlyTotal: plan.specialPrice,
       regularPrice: plan.regularPrice,
       savings: plan.savings,
-      subAccountCount: plan.subAccounts
+      subAccountCount: plan.subAccounts,
     };
     setCurrentServiceData(serviceData);
     setFormOpen(true);
   };
 
-  const handleRetainerSelect = (plan: typeof retainerPlans[0]) => {
+  const handleRetainerSelect = (plan: (typeof retainerPlans)[0]) => {
     const serviceData: ServiceData = {
       serviceType: "GHL Monthly Retainer",
       planName: plan.name,
@@ -202,7 +202,7 @@ const GHLPricing = () => {
       hoursIncluded: plan.hours,
       hourlyRate: plan.hourlyEquiv,
       regularPrice: plan.hourlyComparison,
-      savings: plan.savings
+      savings: plan.savings,
     };
     setCurrentServiceData(serviceData);
     setFormOpen(true);
@@ -216,7 +216,7 @@ const GHLPricing = () => {
       regularPrice: onboardingPricing.regularPrice,
       savings: onboardingPricing.savings,
       paidOnboardings: onboardingPricing.paidOnboardings,
-      freeOnboardings: onboardingPricing.freeOnboardings
+      freeOnboardings: onboardingPricing.freeOnboardings,
     };
     setCurrentServiceData(serviceData);
     setFormOpen(true);
@@ -227,7 +227,7 @@ const GHLPricing = () => {
       serviceType: "GHL Hourly Buildout",
       hours: buildoutHours,
       hourlyRate: hourlyRate,
-      monthlyTotal: buildoutCost
+      monthlyTotal: buildoutCost,
     };
     setCurrentServiceData(serviceData);
     setFormOpen(true);
@@ -238,12 +238,16 @@ const GHLPricing = () => {
       <div className="container mx-auto px-4 md:px-8 lg:px-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-[32px] md:text-[42px] font-bold mb-4 text-primary leading-tight">GoHighLevel Support</h2>
+            <h2 className="text-[32px] md:text-[42px] font-bold mb-4 text-primary leading-tight">
+              GoHighLevel Support
+            </h2>
             <div className="w-20 h-1 bg-accent mx-auto mb-6 rounded-full"></div>
-            
+
             <div className="mt-6 inline-flex items-center gap-3 bg-gradient-to-r from-[#FFF5EB] to-white border-l-4 border-accent px-6 py-4 rounded-lg shadow-sm">
               <Check className="h-5 w-5 text-accent flex-shrink-0" />
-              <span className="font-semibold text-accent text-sm md:text-base">FREE Ticket Support Included | Live Chat Coming Soon</span>
+              <span className="font-semibold text-accent text-sm md:text-base">
+                FREE Ticket Support Included | Live Chat Coming Soon
+              </span>
             </div>
 
             <div className="mt-4 max-w-[800px] mx-auto">
@@ -255,19 +259,19 @@ const GHLPricing = () => {
 
           <Tabs defaultValue="sub-accounts" className="w-full">
             <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 gap-3 md:gap-1 mb-8 p-1 bg-white border-2 border-gray-200 rounded-xl h-auto md:h-14">
-              <TabsTrigger 
+              <TabsTrigger
                 value="sub-accounts"
                 className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-transparent data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-medium min-h-[52px] md:min-h-0"
               >
                 Sub-Account Support Only
               </TabsTrigger>
-              <TabsTrigger 
+              <TabsTrigger
                 value="retainer"
                 className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-transparent data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-medium min-h-[52px] md:min-h-0"
               >
                 Support + Buildouts
               </TabsTrigger>
-              <TabsTrigger 
+              <TabsTrigger
                 value="hourly"
                 className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-transparent data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-medium min-h-[52px] md:min-h-0"
               >
@@ -292,9 +296,7 @@ const GHLPricing = () => {
                   >
                     {plan.name === "Unlimited" && (
                       <div className="absolute -top-4 left-0 right-0 flex justify-center">
-                        <Badge variant="default">
-                          🔥 BEST VALUE
-                        </Badge>
+                        <Badge variant="default">🔥 BEST VALUE</Badge>
                       </div>
                     )}
                     <CardHeader>
@@ -302,16 +304,32 @@ const GHLPricing = () => {
                       <div className="space-y-1">
                         <p className="text-3xl font-bold">${plan.specialPrice}</p>
                         <p className="text-sm text-muted-foreground line-through">~~${plan.regularPrice}~~</p>
-                        <Badge variant="secondary" className="text-xs">SAVE ${plan.savings}</Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          SAVE ${plan.savings}
+                        </Badge>
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div>
-                        <p className="font-semibold mb-2">{plan.subAccounts} Sub-Account{plan.subAccounts !== "∞" && "s"}</p>
+                        <p className="font-semibold mb-2">
+                          {plan.subAccounts} Sub-Account{plan.subAccounts !== "∞" && "s"}
+                        </p>
                         <ul className="text-sm space-y-2 text-muted-foreground">
                           <li>✅ Gray Label Support</li>
-                          <li>✅ {plan.name === "Scale" || plan.name === "Unlimited" ? `Priority ${plan.name === "Unlimited" ? "6hr" : "12hr"} response` : "24hr response"}</li>
-                          <li>✅ {plan.name === "Unlimited" ? "Email + Phone + Slack" : plan.name === "Scale" ? "Email + Phone" : "Email ticketing"}</li>
+                          <li>
+                            ✅{" "}
+                            {plan.name === "Scale" || plan.name === "Unlimited"
+                              ? `Priority ${plan.name === "Unlimited" ? "6hr" : "12hr"} response`
+                              : "24hr response"}
+                          </li>
+                          <li>
+                            ✅{" "}
+                            {plan.name === "Unlimited"
+                              ? "Email + Phone + Slack"
+                              : plan.name === "Scale"
+                                ? "Email + Phone"
+                                : "Email ticketing"}
+                          </li>
                           <li>✅ Month-to-month</li>
                         </ul>
                       </div>
@@ -344,10 +362,18 @@ const GHLPricing = () => {
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold mb-4">Monthly Retainer & VA Support</h3>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Badge variant="secondary" className="px-4 py-2">🏆 Certified GHL Administrators</Badge>
-                  <Badge variant="secondary" className="px-4 py-2">📅 Month-to-Month (No Commitment)</Badge>
-                  <Badge variant="secondary" className="px-4 py-2">💰 7-Day Money-Back Guarantee</Badge>
-                  <Badge variant="default" className="px-4 py-2">🎁 FREE: 40 Sub-Account Support Included</Badge>
+                  <Badge variant="secondary" className="px-4 py-2">
+                    🏆 Certified GHL Administrators
+                  </Badge>
+                  <Badge variant="secondary" className="px-4 py-2">
+                    📅 Month-to-Month (No Commitment)
+                  </Badge>
+                  <Badge variant="secondary" className="px-4 py-2">
+                    💰 7-Day Money-Back Guarantee
+                  </Badge>
+                  <Badge variant="default" className="px-4 py-2">
+                    🎁 FREE: 40 Sub-Account Support Included
+                  </Badge>
                 </div>
               </div>
 
@@ -367,14 +393,13 @@ const GHLPricing = () => {
                       </div>
                     )}
                     <CardHeader>
-                      <CardTitle>{plan.popular ? "🚀 " : "💼 "}{plan.name}</CardTitle>
+                      <CardTitle>
+                        {plan.popular ? "🚀 " : "💼 "}
+                        {plan.name}
+                      </CardTitle>
                       <div className="space-y-2">
-                        <div className="text-3xl font-bold text-accent">
-                          ${plan.price.toLocaleString()}/mo
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          ${plan.hourlyEquiv}/hour equivalent
-                        </div>
+                        <div className="text-3xl font-bold text-accent">${plan.price.toLocaleString()}/mo</div>
+                        <div className="text-sm text-muted-foreground">${plan.hourlyEquiv}/hour equivalent</div>
                         <div className="text-xs bg-accent/10 text-accent px-3 py-2 rounded">
                           Compare: ${plan.hourlyComparison.toLocaleString()} at $35/hr
                           <br />
@@ -389,7 +414,11 @@ const GHLPricing = () => {
                           {plan.features.map((feature, idx) => (
                             <li key={idx} className="flex items-start">
                               <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
-                              <span className={feature.includes("PLUS") || feature.includes("Everything") ? "font-semibold" : ""}>
+                              <span
+                                className={
+                                  feature.includes("PLUS") || feature.includes("Everything") ? "font-semibold" : ""
+                                }
+                              >
                                 {feature}
                               </span>
                             </li>
@@ -445,7 +474,7 @@ const GHLPricing = () => {
                             "Email Templates",
                             "Custom GHL Integrations",
                             "N8N Workflow Automation",
-                            "Make.com & Zapier Integrations"
+                            "Make.com & Zapier Integrations",
                           ].map((service) => (
                             <div key={service} className="flex items-start">
                               <Check className="h-4 w-4 text-accent mr-2 mt-0.5 flex-shrink-0" />
@@ -471,9 +500,7 @@ const GHLPricing = () => {
                           onValueChange={(value) => setBuildoutHours(value[0])}
                           className="w-full"
                         />
-                        <p className="text-xs text-muted-foreground mt-2">
-                          Minimum 10 hours • 5-hour increments
-                        </p>
+                        <p className="text-xs text-muted-foreground mt-2">Minimum 10 hours • 5-hour increments</p>
                       </div>
 
                       <div className="bg-accent/5 rounded-lg p-4">
@@ -504,25 +531,23 @@ const GHLPricing = () => {
                       <Card className="border-2 border-accent/20 bg-gradient-to-br from-card to-accent/5 shadow-medium">
                         <CardContent className="p-6 md:p-8 space-y-4">
                           <h3 className="text-lg font-bold text-primary-dark mb-6">Project Summary</h3>
-                          
+
                           <div className="space-y-3">
                             <div className="flex justify-between items-center pb-3 border-b">
                               <span className="text-sm">Hourly Rate</span>
                               <span className="font-semibold text-primary-dark">$35/hr</span>
                             </div>
-                            
+
                             <div className="flex justify-between items-center pb-3 border-b">
                               <span className="text-sm">Selected Hours</span>
                               <span className="font-semibold text-primary-dark">{buildoutHours} hrs</span>
                             </div>
                           </div>
-                          
+
                           <div className="border-t-2 pt-4 mt-6">
                             <div className="flex justify-between items-center mb-6">
                               <span className="text-base font-semibold">Total Cost:</span>
-                              <span className="text-3xl font-bold text-accent">
-                                ${buildoutCost.toLocaleString()}
-                              </span>
+                              <span className="text-3xl font-bold text-accent">${buildoutCost.toLocaleString()}</span>
                             </div>
 
                             <Button variant="hero" size="lg" className="w-full" onClick={handleHourlySubmit}>
@@ -542,16 +567,14 @@ const GHLPricing = () => {
           <div className="mt-16">
             <h3 className="text-3xl font-bold text-center mb-8 text-primary">GHL Client Onboarding Services</h3>
             <div className="w-20 h-1 bg-accent mx-auto mb-8 rounded-full"></div>
-            
+
             {/* Split-screen layout: 70% left controls + 30% right summary */}
             <div className="grid grid-cols-1 lg:grid-cols-[70%_30%] gap-8 max-w-[1400px] mx-auto">
               {/* LEFT SECTION - Calculator Controls (70%) */}
               <Card className="shadow-strong border-2 border-border bg-card card-hover">
                 <CardHeader>
                   <CardTitle className="text-3xl font-bold">Customize Your Onboarding Package</CardTitle>
-                  <CardDescription className="text-base">
-                    Starting at $50 per client onboarding
-                  </CardDescription>
+                  <CardDescription className="text-base">Starting at $50 per client onboarding</CardDescription>
                   <div className="p-6 bg-secondary/20 rounded-lg mt-6">
                     <div className="text-base font-semibold mb-3">What's Included:</div>
                     <ul className="text-sm space-y-2">
@@ -593,7 +616,7 @@ const GHLPricing = () => {
                         Number of Client Onboardings
                       </Label>
                       <span className="text-sm font-semibold">
-                        {onboardingSessions} Client Onboarding{onboardingSessions > 1 ? 's' : ''}
+                        {onboardingSessions} Client Onboarding{onboardingSessions > 1 ? "s" : ""}
                       </span>
                     </div>
                     <Slider
@@ -614,27 +637,27 @@ const GHLPricing = () => {
                 <Card className="shadow-strong border-l-4 border-l-accent border-2 border-accent/30 bg-background-cream">
                   <CardContent className="p-6 space-y-4">
                     <h3 className="text-2xl font-bold text-primary mb-6">Onboarding Summary</h3>
-                    
+
                     <div className="space-y-3">
                       <div className="flex justify-between items-center pb-3 border-b border-border">
                         <span className="text-sm font-medium">Client Onboardings</span>
                         <span className="font-bold text-primary">{onboardingPricing.quantity}</span>
                       </div>
-                      
+
                       {onboardingPricing.freeOnboardings > 0 && (
                         <div className="flex justify-between items-center pb-3 border-b">
                           <span className="text-sm">Free Onboardings</span>
                           <span className="font-semibold text-green-600">{onboardingPricing.freeOnboardings}</span>
                         </div>
                       )}
-                      
+
                       <div className="flex justify-between items-center pb-3 border-b">
                         <span className="text-sm">Pricing</span>
                         <span className="font-semibold text-primary-dark">
                           {onboardingPricing.paidOnboardings} × $50
                         </span>
                       </div>
-                      
+
                       {onboardingPricing.discount > 0 && (
                         <div className="flex justify-between items-center pb-3 border-b">
                           <span className="text-sm">Volume Discount</span>
@@ -642,30 +665,35 @@ const GHLPricing = () => {
                         </div>
                       )}
                     </div>
-                    
+
                     <div className="border-t-2 border-accent/30 pt-6 mt-6 bg-accent/5 -mx-6 px-6 pb-6 rounded-b-lg">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-lg font-semibold text-primary">Total:</span>
-                        <span className="text-4xl font-bold text-accent">
-                          ${onboardingPricing.total}
-                        </span>
+                        <span className="text-4xl font-bold text-accent">${onboardingPricing.total}</span>
                       </div>
                       {onboardingPricing.savings > 0 && (
                         <div className="text-right mb-4">
                           <span className="line-through text-muted-foreground text-sm">
                             ${onboardingPricing.regularPrice}
                           </span>
-                          <span className="text-accent ml-2 text-sm font-semibold">Save ${onboardingPricing.savings}</span>
+                          <span className="text-accent ml-2 text-sm font-semibold">
+                            Save ${onboardingPricing.savings}
+                          </span>
                         </div>
                       )}
-                      
+
                       {onboardingPricing.upsellMessage && (
                         <div className="bg-accent/10 text-accent px-3 py-2 rounded text-xs font-medium text-center mb-4">
                           {onboardingPricing.upsellMessage}
                         </div>
                       )}
 
-                      <Button variant="hero" size="xl" className="w-full shadow-orange" onClick={handleOnboardingSubmit}>
+                      <Button
+                        variant="hero"
+                        size="xl"
+                        className="w-full shadow-orange"
+                        onClick={handleOnboardingSubmit}
+                      >
                         Get Started
                       </Button>
                     </div>
@@ -678,11 +706,7 @@ const GHLPricing = () => {
       </div>
 
       {currentServiceData && (
-        <ServiceForm
-          open={formOpen}
-          onOpenChange={setFormOpen}
-          serviceData={currentServiceData}
-        />
+        <ServiceForm open={formOpen} onOpenChange={setFormOpen} serviceData={currentServiceData} />
       )}
     </section>
   );
