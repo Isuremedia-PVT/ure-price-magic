@@ -1,9 +1,10 @@
 const CertificationBadges = () => {
   return (
-    <div className="flex flex-col items-center gap-4 md:gap-6 py-4 md:py-6 px-8 rounded-3xl glass-card shadow-soft">
+    <div className="flex flex-col items-center gap-4 md:gap-6 py-4 md:py-6 px-8 rounded-3xl border border-white/20 shadow-soft" 
+         style={{ background: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(10px)' }}>
       <div className="flex items-center gap-2">
         <div className="w-3 h-3 rounded-full bg-accent animate-pulse"></div>
-        <p className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-wider text-primary-foreground">
+        <p className="text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-wider text-white">
           Certified & Trusted
         </p>
         <div className="w-3 h-3 rounded-full bg-accent animate-pulse" style={{ animationDelay: '0.5s' }}></div>

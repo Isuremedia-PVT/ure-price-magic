@@ -25,16 +25,16 @@ const Footer = () => {
       
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="grid md:grid-cols-4 gap-12 mb-16">
-          <div className="md:col-span-1">
+          <div className="md:col-span-1 text-center md:text-left flex flex-col items-center md:items-start">
             <img
               src="https://isuremedia.com/wp-content/uploads/2022/07/Isuremedia-logo.webp"
               alt="iSure Media - Digital Marketing Agency"
-              className="h-14 mb-6 brightness-0 invert"
+              className="h-14 mb-6 brightness-0 invert mx-auto md:mx-0"
             />
             <p className="text-base text-primary-foreground/80 leading-relaxed mb-6">
               Transparent pricing for exceptional digital marketing and technical services.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center md:justify-start">
               <a
                 href="https://facebook.com/isuremedia"
                 target="_blank"
@@ -65,9 +65,9 @@ const Footer = () => {
             </div>
           </div>
 
-          <div>
+          <div className="text-center md:text-left">
             <h4 className="font-bold text-lg mb-6">Services</h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3 flex flex-col items-center md:items-start">
               <li>
                 <button
                   onClick={() => scrollToSection("ppc")}
@@ -111,9 +111,9 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="text-center md:text-left">
             <h4 className="font-bold text-lg mb-6">Company</h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3 flex flex-col items-center md:items-start">
               <li>
                 <a href="#" className="hover:text-accent transition-spring hover:translate-x-1 inline-block">
                   About Us
@@ -137,7 +137,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
+          <div className="text-center md:text-left flex flex-col items-center md:items-start">
             <h4 className="font-bold text-lg mb-6">Get Started</h4>
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">
               Ready to transform your digital presence?

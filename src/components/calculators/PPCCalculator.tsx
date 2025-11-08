@@ -236,9 +236,10 @@ const PPCCalculator = () => {
 
             {/* RIGHT SECTION - Sticky Package Summary (30%) */}
             <div className="lg:sticky lg:top-24 lg:self-start h-fit">
+              <h3 className="text-xl md:text-2xl font-bold text-primary mb-4">📊 Your Pricing Breakdown</h3>
               <Card className="shadow-xl border-2 border-accent/30 bg-gradient-card overflow-hidden">
                 <div className="bg-gradient-accent p-6">
-                  <h3 className="text-2xl font-bold text-accent-foreground">📊 Your Pricing Breakdown</h3>
+                  <h3 className="text-lg font-bold text-accent-foreground">Package Summary</h3>
                 </div>
                 <CardContent className="p-6 space-y-4">
                   {selectedPlatforms.length === 0 ? (
@@ -308,10 +309,10 @@ const PPCCalculator = () => {
                           </div>
                         )}
 
-                        <Button 
+                         <Button 
                           variant="default" 
                           size="xl" 
-                          className="w-full shadow-xl bg-background text-primary hover:bg-background/90 border-2 border-background font-bold text-lg group" 
+                          className="w-full mb-0 shadow-xl bg-background text-primary hover:bg-background/90 border-2 border-background font-bold text-lg group" 
                           onClick={handleGetStarted}
                         >
                           Get Started with Ads

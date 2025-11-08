@@ -258,22 +258,22 @@ const GHLPricing = () => {
           </div>
 
           <Tabs defaultValue="sub-accounts" className="w-full">
-            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 gap-3 md:gap-1 mb-8 p-1 bg-white border-2 border-gray-200 rounded-xl h-auto md:h-14">
+            <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 gap-3 md:gap-1 mb-8 p-1 bg-white border-2 border-primary/20 rounded-xl h-auto md:h-14">
               <TabsTrigger
                 value="sub-accounts"
-                className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-transparent data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-medium min-h-[52px] md:min-h-0"
+                className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-white data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] data-[state=inactive]:border-2 data-[state=inactive]:border-primary/30 rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-semibold min-h-[52px] md:min-h-0 z-10"
               >
                 Sub-Account Support Only
               </TabsTrigger>
               <TabsTrigger
                 value="retainer"
-                className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-transparent data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-medium min-h-[52px] md:min-h-0"
+                className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-white data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] data-[state=inactive]:border-2 data-[state=inactive]:border-primary/30 rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-semibold min-h-[52px] md:min-h-0 z-10"
               >
                 Support + Buildouts
               </TabsTrigger>
               <TabsTrigger
                 value="hourly"
-                className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-transparent data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-medium min-h-[52px] md:min-h-0"
+                className="data-[state=active]:bg-accent data-[state=active]:text-white data-[state=active]:shadow-[0_2px_8px_rgba(250,160,51,0.3)] data-[state=inactive]:bg-white data-[state=inactive]:text-primary data-[state=inactive]:hover:bg-[#FFF3E6] data-[state=inactive]:border-2 data-[state=inactive]:border-primary/30 rounded-lg py-4 md:py-2 px-6 transition-all duration-300 text-sm md:text-base font-semibold min-h-[52px] md:min-h-0 z-10"
               >
                 Flexible Hourly Projects
               </TabsTrigger>
