@@ -9,13 +9,13 @@ const Footer = () => {
 
   return (
     <footer className="bg-primary text-primary-foreground py-16">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 text-center">
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           <div>
             <img
               src="https://isuremedia.com/wp-content/uploads/2022/07/Isuremedia-logo.webp"
               alt="iSure Media"
-              className="h-12 mb-4 brightness-0 invert"
+              className="h-12 mb-4 brightness-0 invert mx-auto"
             />
             <p className="text-sm text-primary-foreground/80">
               Transparent pricing for exceptional digital marketing and technical services.
@@ -102,7 +102,7 @@ const Footer = () => {
             <Button
               variant="accent"
               onClick={() => scrollToSection("booking")}
-              className="w-full mb-6"
+              className="w-full mx-auto max-w-xs mb-6"
             >
               Schedule Consultation
             </Button>
@@ -140,7 +140,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/20 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
+          <div className="flex flex-col items-center gap-4 text-sm text-primary-foreground/60">
             <p>© 2025 iSure Media. All rights reserved.</p>
             <div className="flex gap-6">
               <a href="#" className="hover:text-accent transition-smooth">
