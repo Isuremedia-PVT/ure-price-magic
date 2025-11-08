@@ -140,8 +140,8 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[1200px] max-h-[90vh] overflow-hidden p-0">
-        <div className="flex flex-col md:flex-row max-h-[90vh]">
+      <DialogContent className="sm:max-w-[1200px] h-[100vh] md:max-h-[90vh] overflow-hidden p-0">
+        <div className="flex flex-col md:flex-row h-full">
           {/* LEFT SECTION: Package Summary (40% width on desktop) */}
           {(serviceData.serviceType === "PPC Management" && serviceData.platformBreakdown) || 
            (serviceData.serviceType === "Social Media Management" && serviceData.smmBreakdown) ||
@@ -150,7 +150,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
            serviceData.serviceType === "GHL Hourly Buildout" ||
            serviceData.serviceType === "GHL Sub-Account Support" ||
            serviceData.serviceType === "GHL Monthly Retainer" ? (
-             <div className="md:w-[40%] bg-[#FFF9F0] border-r border-border overflow-y-auto p-4 md:p-6">
+             <div className="md:w-[40%] bg-[#FFF9F0] border-r border-border flex-shrink-0 overflow-visible md:overflow-y-auto p-4 md:p-6 border-b md:border-b-0">
               <h3 className="text-lg md:text-xl font-bold mb-4" style={{ color: '#000047' }}>
                 📊 YOUR {serviceData.serviceType.toUpperCase()} BREAKDOWN
               </h3>
@@ -917,7 +917,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                               serviceData.serviceType === "GHL Hourly Buildout" ||
                               serviceData.serviceType === "GHL Sub-Account Support" ||
                               serviceData.serviceType === "GHL Monthly Retainer"
-                              ? "md:w-[60%]" : "w-full"} bg-white overflow-y-auto p-6`}>
+                              ? "md:w-[60%]" : "w-full"} bg-white flex-1 overflow-y-auto p-6`}>
             <DialogHeader className="mb-6">
               <DialogTitle>Complete Your Package Details</DialogTitle>
               <DialogDescription>
