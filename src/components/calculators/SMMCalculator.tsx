@@ -141,7 +141,7 @@ const SMMCalculator = () => {
                       <span className="mr-2">✓</span>1 Reel/Carousel per week
                     </li>
                     <li className="flex items-start">
-                      <span className="mr-2">✓</span>1 Stories per week
+                      <span className="mr-2">✓</span>1 Story (Image) per week
                     </li>
                     <li className="flex items-start">
                       <span className="mr-2">✓</span>Content creation and scheduling
