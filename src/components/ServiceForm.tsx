@@ -1022,18 +1022,32 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
               <div>
                 <Label htmlFor="startDate">Preferred Start Date</Label>
                 <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-between text-left font-normal",
-                        !selectedDate && "text-muted-foreground"
-                      )}
-                    >
-                      {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
-                      <CalendarIcon className="h-4 w-4 opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
+                  <div className="relative">
+                    <Input
+                      id="startDate"
+                      name="startDate"
+                      type="text"
+                      placeholder="dd-mm-yyyy"
+                      value={formData.startDate}
+                      onChange={handleChange}
+                      onClick={() => {
+                        if (!formData.startDate) {
+                          document.getElementById('calendar-trigger')?.click();
+                        }
+                      }}
+                      className="pr-10"
+                    />
+                    <PopoverTrigger asChild>
+                      <Button
+                        id="calendar-trigger"
+                        type="button"
+                        variant="ghost"
+                        className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                      >
+                        <CalendarIcon className="h-4 w-4 text-muted-foreground" />
+                      </Button>
+                    </PopoverTrigger>
+                  </div>
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
@@ -1042,7 +1056,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                         setSelectedDate(date);
                         setFormData({
                           ...formData,
-                          startDate: date ? format(date, "yyyy-MM-dd") : "",
+                          startDate: date ? format(date, "dd-MM-yyyy") : "",
                         });
                       }}
                       initialFocus
