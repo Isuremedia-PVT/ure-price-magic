@@ -19,8 +19,8 @@ const ThankYou = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navigation />
-      
+      {/* <Navigation /> */}
+
       <main className="flex-1 py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
@@ -32,11 +32,9 @@ const ThankYou = () => {
                   </div>
                 </div>
                 <CardTitle className="text-3xl md:text-4xl">✅ Thank You!</CardTitle>
-                <CardDescription className="text-lg">
-                  We've Received Your Request
-                </CardDescription>
+                <CardDescription className="text-lg">We've Received Your Request</CardDescription>
               </CardHeader>
-              
+
               <CardContent className="space-y-8">
                 {serviceType && (
                   <div className="bg-secondary/30 rounded-lg p-6 text-center">
@@ -47,7 +45,7 @@ const ThankYou = () => {
 
                 <div className="space-y-6">
                   <h3 className="font-bold text-xl">📧 What Happens Next:</h3>
-                  
+
                   <div className="space-y-4">
                     <div className="flex items-start gap-4 p-4 bg-accent/5 rounded-lg">
                       <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center font-bold">
@@ -69,9 +67,7 @@ const ThankYou = () => {
                       </div>
                       <div>
                         <h4 className="font-semibold mb-1">Review & Pay Invoice</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Secure Stripe payment link included in email
-                        </p>
+                        <p className="text-sm text-muted-foreground">Secure Stripe payment link included in email</p>
                       </div>
                     </div>
 
@@ -94,8 +90,8 @@ const ThankYou = () => {
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 p-4 bg-secondary/30 rounded-lg">
                       <Mail className="h-5 w-5 text-accent" />
-                      <a 
-                        href="mailto:hello@isuremedia.com" 
+                      <a
+                        href="mailto:hello@isuremedia.com"
                         className="text-sm font-medium hover:text-accent transition-colors"
                       >
                         hello@isuremedia.com
@@ -122,7 +118,7 @@ const ThankYou = () => {
         </div>
       </main>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
