@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { redirectToCheckout, FormData, ServiceData } from "@/lib/formSubmission";
-import { Loader2 } from "lucide-react";
+import { Loader2, CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 interface ServiceFormProps {
   open: boolean;
@@ -24,6 +28,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
     startDate: "",
     notes: "",
   });
+  const [selectedDate, setSelectedDate] = useState<Date>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -1016,13 +1021,35 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
               {/* Preferred Start Date - Full Width */}
               <div>
                 <Label htmlFor="startDate">Preferred Start Date</Label>
-                <Input
-                  id="startDate"
-                  name="startDate"
-                  type="date"
-                  value={formData.startDate}
-                  onChange={handleChange}
-                />
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-between text-left font-normal",
+                        !selectedDate && "text-muted-foreground"
+                      )}
+                    >
+                      {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
+                      <CalendarIcon className="h-4 w-4 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={(date) => {
+                        setSelectedDate(date);
+                        setFormData({
+                          ...formData,
+                          startDate: date ? format(date, "yyyy-MM-dd") : "",
+                        });
+                      }}
+                      initialFocus
+                      className="pointer-events-auto"
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
 
               {/* Additional Notes - Full Width */}
