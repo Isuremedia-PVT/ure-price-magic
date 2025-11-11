@@ -25,17 +25,17 @@ const SMMCalculator = () => {
   const additionalPlatformPrice = 100;
   const gmbPrice = 100;
   const longVideoPrice = 75;
-  
+
   const getPostsCost = () => {
     const extraPosts = Math.max(0, postsPerWeek - basePosts);
     return extraPosts * 40;
   };
-  
+
   const getCarouselsCost = () => {
     const extraCarousels = Math.max(0, carouselsPerWeek - baseCarousels);
     return extraCarousels * 60;
   };
-  
+
   const getStoriesCost = () => {
     const extraStories = Math.max(0, storiesPerWeek - baseStories);
     return extraStories * 20;
@@ -61,16 +61,16 @@ const SMMCalculator = () => {
       return; // Can't remove included platforms
     }
     if (selectedPlatforms.includes(platformId)) {
-      setSelectedPlatforms(selectedPlatforms.filter(p => p !== platformId));
+      setSelectedPlatforms(selectedPlatforms.filter((p) => p !== platformId));
     } else {
       setSelectedPlatforms([...selectedPlatforms, platformId]);
     }
   };
 
   const additionalPlatforms = selectedPlatforms.filter(
-    p => !platforms.find(pl => pl.id === p && pl.included)
+    (p) => !platforms.find((pl) => pl.id === p && pl.included),
   ).length;
-  
+
   const contentAddOns = getPostsCost() + getCarouselsCost() + getStoriesCost();
   const platformAddOns = additionalPlatforms * additionalPlatformPrice;
   const longVideosAddOn = getLongVideosCost();
@@ -127,19 +127,31 @@ const SMMCalculator = () => {
             <Card className="shadow-strong border-2 border-border bg-card card-hover">
               <CardHeader>
                 <CardTitle className="text-3xl font-bold">Customize Your SMM Package</CardTitle>
-                <CardDescription className="text-base">
-                  Starting at $500/month
-                </CardDescription>
+                <CardDescription className="text-base">Starting at $500/month</CardDescription>
                 <div className="p-6 bg-secondary/20 rounded-lg mt-6">
                   <div className="text-base font-semibold mb-3">Base Package Includes:</div>
                   <ul className="text-sm grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
-                    <li className="flex items-start"><span className="mr-2">✓</span>3 Platforms (Instagram, Facebook, YouTube)</li>
-                    <li className="flex items-start"><span className="mr-2">✓</span>2 Posts per week</li>
-                    <li className="flex items-start"><span className="mr-2">✓</span>1 Carousel/Reel per week</li>
-                    <li className="flex items-start"><span className="mr-2">✓</span>2 Stories per week</li>
-                    <li className="flex items-start"><span className="mr-2">✓</span>Content creation and scheduling</li>
-                    <li className="flex items-start"><span className="mr-2">✓</span>Community management</li>
-                    <li className="flex items-start"><span className="mr-2">✓</span>Monthly performance reports</li>
+                    <li className="flex items-start">
+                      <span className="mr-2">✓</span>3 Platforms (Instagram, Facebook, YouTube)
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">✓</span>2 Posts per week
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">✓</span>1 Reel/Carousel per week
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">✓</span>1 Stories per week
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">✓</span>Content creation and scheduling
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">✓</span>Community management
+                    </li>
+                    <li className="flex items-start">
+                      <span className="mr-2">✓</span>Monthly performance reports
+                    </li>
                   </ul>
                 </div>
               </CardHeader>
@@ -149,12 +161,14 @@ const SMMCalculator = () => {
                     <Label className="text-base mb-4 block font-semibold">Select Platforms</Label>
                     <div className="grid grid-cols-2 gap-3">
                       {platforms.map((platform) => (
-                        <label 
-                          key={platform.id} 
+                        <label
+                          key={platform.id}
                           htmlFor={platform.id}
                           className={`flex items-center space-x-2 p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                            selectedPlatforms.includes(platform.id) ? 'bg-secondary/30 border-accent' : 'hover:bg-secondary/10'
-                          } ${platform.included ? 'cursor-not-allowed opacity-70' : ''}`}
+                            selectedPlatforms.includes(platform.id)
+                              ? "bg-secondary/30 border-accent"
+                              : "hover:bg-secondary/10"
+                          } ${platform.included ? "cursor-not-allowed opacity-70" : ""}`}
                         >
                           <Checkbox
                             id={platform.id}
@@ -193,7 +207,8 @@ const SMMCalculator = () => {
                           </Badge>
                         </div>
                         <p className="text-sm text-muted-foreground mt-2">
-                          Complete GMB profile optimization, reputation management, review responses, and monthly reporting
+                          Complete GMB profile optimization, reputation management, review responses, and monthly
+                          reporting
                         </p>
                       </div>
                     </label>
@@ -201,9 +216,12 @@ const SMMCalculator = () => {
 
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <Label htmlFor="posts" className="text-base font-semibold">Posts per Week</Label>
+                      <Label htmlFor="posts" className="text-base font-semibold">
+                        Posts per Week
+                      </Label>
                       <span className="text-sm font-semibold">
-                        {postsPerWeek} {postsPerWeek > basePosts && <span className="text-accent">(+{postsPerWeek - basePosts})</span>}
+                        {postsPerWeek}{" "}
+                        {postsPerWeek > basePosts && <span className="text-accent">(+{postsPerWeek - basePosts})</span>}
                       </span>
                     </div>
                     <Slider
@@ -222,9 +240,14 @@ const SMMCalculator = () => {
 
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <Label htmlFor="carousels" className="text-base font-semibold">Carousel/Reels per Week</Label>
+                      <Label htmlFor="carousels" className="text-base font-semibold">
+                        Carousel/Reels per Week
+                      </Label>
                       <span className="text-sm font-semibold">
-                        {carouselsPerWeek} {carouselsPerWeek > baseCarousels && <span className="text-accent">(+{carouselsPerWeek - baseCarousels})</span>}
+                        {carouselsPerWeek}{" "}
+                        {carouselsPerWeek > baseCarousels && (
+                          <span className="text-accent">(+{carouselsPerWeek - baseCarousels})</span>
+                        )}
                       </span>
                     </div>
                     <Slider
@@ -243,9 +266,14 @@ const SMMCalculator = () => {
 
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <Label htmlFor="stories" className="text-base font-semibold">Stories per Week</Label>
+                      <Label htmlFor="stories" className="text-base font-semibold">
+                        Stories per Week
+                      </Label>
                       <span className="text-sm font-semibold">
-                        {storiesPerWeek} {storiesPerWeek > baseStories && <span className="text-accent">(+{storiesPerWeek - baseStories})</span>}
+                        {storiesPerWeek}{" "}
+                        {storiesPerWeek > baseStories && (
+                          <span className="text-accent">(+{storiesPerWeek - baseStories})</span>
+                        )}
                       </span>
                     </div>
                     <Slider
@@ -264,7 +292,9 @@ const SMMCalculator = () => {
 
                   <div>
                     <div className="flex justify-between items-center mb-3">
-                      <Label htmlFor="longVideos" className="text-base font-semibold">YouTube Long Videos (up to 3 min)</Label>
+                      <Label htmlFor="longVideos" className="text-base font-semibold">
+                        YouTube Long Videos (up to 3 min)
+                      </Label>
                       <span className="text-sm font-semibold">{longVideos} videos</span>
                     </div>
                     <Slider
@@ -291,48 +321,47 @@ const SMMCalculator = () => {
                   <h3 className="text-xl font-bold text-primary mb-0">📦 Package Summary</h3>
                 </div>
                 <CardContent className="p-6 pt-4 space-y-4 pb-0">
-                  
                   <div className="space-y-3">
                     <div className="flex justify-between items-center pb-3 border-b border-border">
                       <span className="text-sm font-medium">Base Package</span>
                       <span className="font-bold text-primary">${basePrice}</span>
                     </div>
-                    
+
                     {platformAddOns > 0 && (
                       <div className="flex justify-between items-center pb-3 border-b">
                         <span className="text-sm">Additional Platforms ({additionalPlatforms})</span>
                         <span className="font-semibold text-accent">+${platformAddOns}</span>
                       </div>
                     )}
-                    
+
                     {getPostsCost() > 0 && (
                       <div className="flex justify-between items-center pb-3 border-b">
                         <span className="text-sm">Extra Posts</span>
                         <span className="font-semibold text-accent">+${getPostsCost()}</span>
                       </div>
                     )}
-                    
+
                     {getCarouselsCost() > 0 && (
                       <div className="flex justify-between items-center pb-3 border-b">
                         <span className="text-sm">Extra Reels/Carousels</span>
                         <span className="font-semibold text-accent">+${getCarouselsCost()}</span>
                       </div>
                     )}
-                    
+
                     {getStoriesCost() > 0 && (
                       <div className="flex justify-between items-center pb-3 border-b">
                         <span className="text-sm">Extra Stories</span>
                         <span className="font-semibold text-accent">+${getStoriesCost()}</span>
                       </div>
                     )}
-                    
+
                     {longVideosAddOn > 0 && (
                       <div className="flex justify-between items-center pb-3 border-b">
                         <span className="text-sm">Long-Form Videos ({longVideos})</span>
                         <span className="font-semibold text-accent">+${longVideosAddOn}</span>
                       </div>
                     )}
-                    
+
                     {gmbAddOn > 0 && (
                       <div className="flex justify-between items-center pb-3 border-b">
                         <span className="text-sm">GMB Optimization</span>
@@ -340,16 +369,19 @@ const SMMCalculator = () => {
                       </div>
                     )}
                   </div>
-                  
+
                   <div className="border-t-2 border-accent/30 pt-6 mt-6 gradient-accent-glow -mx-6 px-6 pb-6 rounded-b-lg">
                     <div className="flex justify-between items-center mb-6">
-                      <span className="text-white text-lg font-semibold flex items-center gap-2">💰 Total Monthly:</span>
-                      <span className="text-white text-4xl font-bold">
-                        ${totalPrice.toLocaleString()}/mo
+                      <span className="text-white text-lg font-semibold flex items-center gap-2">
+                        💰 Total Monthly:
                       </span>
+                      <span className="text-white text-4xl font-bold">${totalPrice.toLocaleString()}/mo</span>
                     </div>
 
-                    <button className="w-full bg-white text-[#0A1F44] font-bold text-lg py-4 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2" onClick={handleGetStarted}>
+                    <button
+                      className="w-full bg-white text-[#0A1F44] font-bold text-lg py-4 px-6 rounded-lg hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                      onClick={handleGetStarted}
+                    >
                       Get Started →
                     </button>
                   </div>
@@ -359,14 +391,8 @@ const SMMCalculator = () => {
           </div>
         </div>
       </div>
-      
-      {formServiceData && (
-        <ServiceForm
-          open={formOpen}
-          onOpenChange={setFormOpen}
-          serviceData={formServiceData}
-        />
-      )}
+
+      {formServiceData && <ServiceForm open={formOpen} onOpenChange={setFormOpen} serviceData={formServiceData} />}
     </section>
   );
 };
