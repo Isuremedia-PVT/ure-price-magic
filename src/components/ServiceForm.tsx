@@ -29,6 +29,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
     notes: "",
   });
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const [calendarOpen, setCalendarOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -1021,7 +1022,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
               {/* Preferred Start Date - Full Width */}
               <div>
                 <Label htmlFor="startDate">Preferred Start Date</Label>
-                <Popover>
+                <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
                   <div className="relative">
                     <Input
                       id="startDate"
@@ -1032,17 +1033,18 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                       onChange={handleChange}
                       onClick={() => {
                         if (!formData.startDate) {
-                          document.getElementById('calendar-trigger')?.click();
+                          setCalendarOpen(true);
                         }
                       }}
                       className="pr-10"
+                      maxLength={10}
                     />
                     <PopoverTrigger asChild>
                       <Button
-                        id="calendar-trigger"
                         type="button"
                         variant="ghost"
                         className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                        onClick={() => setCalendarOpen(true)}
                       >
                         <CalendarIcon className="h-4 w-4 text-muted-foreground" />
                       </Button>
@@ -1058,6 +1060,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
                           ...formData,
                           startDate: date ? format(date, "dd-MM-yyyy") : "",
                         });
+                        setCalendarOpen(false);
                       }}
                       initialFocus
                       className="pointer-events-auto"
