@@ -91,15 +91,20 @@ const ThankYou = () => {
                     <div className="flex items-center gap-3 p-4 bg-secondary/30 rounded-lg">
                       <Mail className="h-5 w-5 text-accent" />
                       <a
-                        href="mailto:hello@isuremedia.com"
+                        href="mailto:support@isuremedia.com"
                         className="text-sm font-medium hover:text-accent transition-colors"
                       >
-                        hello@isuremedia.com
+                        support@isuremedia.com
                       </a>
                     </div>
                     <div className="flex items-center gap-3 p-4 bg-secondary/30 rounded-lg">
                       <Phone className="h-5 w-5 text-accent" />
-                      <span className="text-sm font-medium">Contact us for support</span>
+                      <a
+                        href="tel:+16465881430"
+                        className="text-sm font-medium hover:text-accent transition-colors"
+                      >
+                        +1 646-588-1430
+                      </a>
                     </div>
                   </div>
                 </div>

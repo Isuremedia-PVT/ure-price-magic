@@ -15,8 +15,7 @@ interface ServiceFormProps {
 
 const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
   const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
+    fullName: "",
     email: "",
     phone: "",
     company: "",
@@ -90,8 +89,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
         } : null,
         
         // Contact Info
-        first_name: formData.firstName,
-        last_name: formData.lastName,
+        full_name: formData.fullName,
         email: formData.email,
         phone: formData.phone,
         company_name: formData.company || null,
@@ -119,7 +117,7 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
         window.location.href = `/thank-you?service=${encodeURIComponent(serviceData.serviceType)}`;
       } else {
         console.error('Webhook submission failed');
-        alert('Something went wrong. Please try again or contact us at hello@isuremedia.com');
+        alert('Something went wrong. Please try again or contact us at support@isuremedia.com');
         setIsSubmitting(false);
       }
     } catch (error) {
@@ -937,28 +935,17 @@ const ServiceForm = ({ open, onOpenChange, serviceData }: ServiceFormProps) => {
             </DialogHeader>
             
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* First Name & Last Name - Side by Side */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="firstName">First Name *</Label>
-                  <Input
-                    id="firstName"
-                    name="firstName"
-                    required
-                    value={formData.firstName}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="lastName">Last Name *</Label>
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    required
-                    value={formData.lastName}
-                    onChange={handleChange}
-                  />
-                </div>
+              {/* Full Name - Full Width */}
+              <div>
+                <Label htmlFor="fullName">Full Name *</Label>
+                <Input
+                  id="fullName"
+                  name="fullName"
+                  required
+                  placeholder="Enter your full name"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                />
               </div>
 
               {/* Email & Phone - Side by Side */}

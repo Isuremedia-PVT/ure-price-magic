@@ -1,6 +1,5 @@
 export interface FormData {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   phone: string;
   company?: string;
@@ -49,8 +48,7 @@ export const buildCheckoutUrl = (
   const params = new URLSearchParams();
   
   // Add form data
-  params.append("firstName", formData.firstName);
-  params.append("lastName", formData.lastName);
+  params.append("fullName", formData.fullName);
   params.append("email", formData.email);
   params.append("phone", formData.phone);
   if (formData.company) params.append("company", formData.company);

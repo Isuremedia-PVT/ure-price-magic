@@ -87,7 +87,7 @@ const CustomDevelopment = () => {
         console.error('Webhook submission failed');
         toast({
           title: "Submission Error",
-          description: "Something went wrong. Please try again or contact us at hello@isuremedia.com",
+          description: "Something went wrong. Please try again or contact us at support@isuremedia.com",
           variant: "destructive",
         });
         setIsSubmitting(false);
