@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import ServiceForm from "@/components/ServiceForm";
 import { ServiceData } from "@/lib/formSubmission";
+import TestimonialSection from "@/components/TestimonialSection";
 
 const SMMCalculator = () => {
   const [postsPerWeek, setPostsPerWeek] = useState(2);
@@ -393,6 +394,8 @@ const SMMCalculator = () => {
       </div>
 
       {formServiceData && <ServiceForm open={formOpen} onOpenChange={setFormOpen} serviceData={formServiceData} />}
+      
+      <TestimonialSection serviceType="Social Media Management" />
     </section>
   );
 };

@@ -5,6 +5,7 @@ import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import ServiceForm from "@/components/ServiceForm";
 import { ServiceData } from "@/lib/formSubmission";
+import TestimonialSection from "@/components/TestimonialSection";
 
 const SEOCalculator = () => {
   const [keywords, setKeywords] = useState(8);
@@ -153,6 +154,8 @@ const SEOCalculator = () => {
           monthlyTotal: totalPrice,
         }}
       />
+      
+      <TestimonialSection serviceType="SEO Services" />
     </section>
   );
 };

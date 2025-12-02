@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import TestimonialSection from "@/components/TestimonialSection";
 
 const CustomDevelopment = () => {
   const { toast } = useToast();
@@ -488,6 +489,8 @@ const CustomDevelopment = () => {
           </Card>
         </div>
       </div>
+      
+      <TestimonialSection serviceType="Custom Development" />
     </section>
   );
 };
