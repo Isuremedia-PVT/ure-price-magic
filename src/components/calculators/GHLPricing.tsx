@@ -23,48 +23,52 @@ const GHLPricing = () => {
   const onboardingBaseRate = 50;
   const flatDiscount = 10;
 
-  // Calculate onboarding pricing with volume discounts
+  // Calculate onboarding pricing with cumulative volume discount + every 6th free
   const calculateOnboardingPrice = (quantity: number) => {
-    // Calculate free onboardings (1 free for every 6 purchased)
-    const freeOnboardings = Math.floor(quantity / 6);
-    const paidOnboardings = quantity - freeOnboardings;
-
-    // Volume discount: Price per client decreases by $10 for each additional client
-    // Starting at $50, down to minimum of $10
-    // Formula: pricePerClient = max(10, 50 - (quantity - 1) * 10)
-    const pricePerClient = Math.max(10, onboardingBaseRate - (quantity - 1) * 10);
+    // Pricing pattern per 6-client cycle: $50, $40, $40, $40, $40, $0 (FREE) = $210 per cycle
+    // Pattern: 1st client costs $50, clients 2-5 cost $40 each, 6th is FREE
     
-    // Calculate subtotal based on volume-discounted price per client
-    const subtotal = pricePerClient * paidOnboardings;
+    const completeCycles = Math.floor(quantity / 6);
+    const remainingClients = quantity % 6;
+    const costPerCompleteCycle = 210; // $50 + $40 + $40 + $40 + $40 + $0
     
-    // No flat discount needed - volume discount is built into price per client
-    const discount = 0;
-
-    const total = subtotal;
+    // Calculate cost for complete 6-client cycles
+    let total = completeCycles * costPerCompleteCycle;
+    
+    // Calculate cost for remaining clients (1-5)
+    if (remainingClients > 0) {
+      if (remainingClients === 1) {
+        total += 50; // First client of new cycle
+      } else {
+        total += 50 + ((remainingClients - 1) * 40); // First at $50, rest at $40 each
+      }
+    }
+    
+    const freeOnboardings = completeCycles; // 1 free per complete cycle
     const regularPrice = quantity * onboardingBaseRate;
     const savings = regularPrice - total;
+    
+    // Calculate average price per client for display
+    const avgPricePerClient = quantity > 0 ? Math.round(total / quantity) : 0;
 
     let upsellMessage = "";
     if (quantity === 1) {
-      upsellMessage = "💡 Add 1 more onboarding to get $40/client pricing!";
+      upsellMessage = "💡 Add 1 more to save $10 total!";
     } else if (quantity >= 2 && quantity <= 4) {
       const needMore = 6 - quantity;
       upsellMessage = `💡 Add ${needMore} more to get your 6th onboarding FREE!`;
     } else if (quantity === 5) {
       upsellMessage = "💡 Add just 1 more and get it completely FREE!";
     } else if (quantity === 6) {
-      upsellMessage = "🎉 Amazing! You got 1 onboarding FREE with volume discount!";
-    } else if (quantity > 6) {
-      upsellMessage = `🎉 You're getting ${freeOnboardings} onboarding${freeOnboardings > 1 ? "s" : ""} FREE!`;
+      upsellMessage = "🎉 You got 1 onboarding FREE!";
+    } else if (freeOnboardings > 0) {
+      upsellMessage = `🎉 ${freeOnboardings} FREE onboarding${freeOnboardings > 1 ? "s" : ""} included!`;
     }
 
     return {
       quantity,
-      paidOnboardings,
       freeOnboardings,
-      pricePerClient,
-      subtotal,
-      discount,
+      avgPricePerClient,
       total,
       regularPrice,
       savings,
@@ -222,7 +226,6 @@ const GHLPricing = () => {
       monthlyTotal: onboardingPricing.total,
       regularPrice: onboardingPricing.regularPrice,
       savings: onboardingPricing.savings,
-      paidOnboardings: onboardingPricing.paidOnboardings,
       freeOnboardings: onboardingPricing.freeOnboardings,
     };
     setCurrentServiceData(serviceData);
@@ -613,12 +616,14 @@ const GHLPricing = () => {
                   <div className="bg-accent/5 border border-accent/20 rounded-lg p-4">
                     <p className="font-semibold mb-2">💰 Volume Discount Structure:</p>
                     <ul className="space-y-1 text-sm">
-                      <li>1 client: $50/client</li>
-                      <li>2 clients: $40/client (save $20 total)</li>
-                      <li>3 clients: $30/client (save $60 total)</li>
-                      <li>4 clients: $20/client (save $120 total)</li>
-                      <li>5+ clients: $10/client minimum</li>
-                      <li>🎁 Every 6th onboarding is FREE!</li>
+                      <li>1 client: $50 total</li>
+                      <li>2 clients: $90 total (save $10!)</li>
+                      <li>3 clients: $130 total (save $20!)</li>
+                      <li>4 clients: $170 total (save $30!)</li>
+                      <li>5 clients: $210 total (save $40!)</li>
+                      <li className="font-bold text-accent">🎁 Every 6th onboarding is FREE!</li>
+                      <li>6 clients: $210 total (1 FREE!)</li>
+                      <li>12 clients: $420 total (2 FREE!)</li>
                     </ul>
                   </div>
 
@@ -657,11 +662,11 @@ const GHLPricing = () => {
                         <span className="text-sm font-medium">Onboarding ({onboardingPricing.quantity} client{onboardingPricing.quantity > 1 ? 's' : ''})</span>
                         <div className="text-right">
                           <div className="font-semibold text-primary">
-                            ${onboardingPricing.pricePerClient}/client × {onboardingPricing.quantity}
+                            ${onboardingPricing.avgPricePerClient}/client avg × {onboardingPricing.quantity}
                           </div>
-                          {onboardingPricing.quantity > 1 && (
-                            <div className="text-xs text-muted-foreground">
-                              Volume pricing applied
+                          {onboardingPricing.savings > 0 && (
+                            <div className="text-xs text-green-600 font-semibold">
+                              Save ${onboardingPricing.savings}!
                             </div>
                           )}
                         </div>
