@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ServiceForm from "@/components/ServiceForm";
 import { ServiceData } from "@/lib/formSubmission";
+import TestimonialSection from "@/components/TestimonialSection";
 
 const GHLPricing = () => {
   const [buildoutHours, setBuildoutHours] = useState(10);
@@ -22,32 +23,37 @@ const GHLPricing = () => {
   const onboardingBaseRate = 50;
   const flatDiscount = 10;
 
-  // Calculate onboarding pricing with discounts
+  // Calculate onboarding pricing with volume discounts
   const calculateOnboardingPrice = (quantity: number) => {
+    // Calculate free onboardings (1 free for every 6 purchased)
     const freeOnboardings = Math.floor(quantity / 6);
     const paidOnboardings = quantity - freeOnboardings;
 
-    let subtotal = paidOnboardings * onboardingBaseRate;
-    let discount = 0;
+    // Volume discount: Price per client decreases by $10 for each additional client
+    // Starting at $50, down to minimum of $10
+    // Formula: pricePerClient = max(10, 50 - (quantity - 1) * 10)
+    const pricePerClient = Math.max(10, onboardingBaseRate - (quantity - 1) * 10);
+    
+    // Calculate subtotal based on volume-discounted price per client
+    const subtotal = pricePerClient * paidOnboardings;
+    
+    // No flat discount needed - volume discount is built into price per client
+    const discount = 0;
 
-    if (paidOnboardings >= 2) {
-      discount = flatDiscount;
-    }
-
-    const total = subtotal - discount;
+    const total = subtotal;
     const regularPrice = quantity * onboardingBaseRate;
     const savings = regularPrice - total;
 
     let upsellMessage = "";
     if (quantity === 1) {
-      upsellMessage = "💡 Add 1 more onboarding and save $10!";
+      upsellMessage = "💡 Add 1 more onboarding to get $40/client pricing!";
     } else if (quantity >= 2 && quantity <= 4) {
       const needMore = 6 - quantity;
       upsellMessage = `💡 Add ${needMore} more to get your 6th onboarding FREE!`;
     } else if (quantity === 5) {
       upsellMessage = "💡 Add just 1 more and get it completely FREE!";
     } else if (quantity === 6) {
-      upsellMessage = "🎉 Amazing! You got 1 onboarding FREE + $10 discount!";
+      upsellMessage = "🎉 Amazing! You got 1 onboarding FREE with volume discount!";
     } else if (quantity > 6) {
       upsellMessage = `🎉 You're getting ${freeOnboardings} onboarding${freeOnboardings > 1 ? "s" : ""} FREE!`;
     }
@@ -56,6 +62,7 @@ const GHLPricing = () => {
       quantity,
       paidOnboardings,
       freeOnboardings,
+      pricePerClient,
       subtotal,
       discount,
       total,
@@ -604,10 +611,14 @@ const GHLPricing = () => {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="bg-accent/5 border border-accent/20 rounded-lg p-4">
-                    <p className="font-semibold mb-2">💰 Volume Discount:</p>
+                    <p className="font-semibold mb-2">💰 Volume Discount Structure:</p>
                     <ul className="space-y-1 text-sm">
-                      <li>💰 Book 2+ Onboardings: Save $10 total</li>
-                      <li>🎁 Book 5 Onboardings: Get the 6th FREE!</li>
+                      <li>1 client: $50/client</li>
+                      <li>2 clients: $40/client (save $20 total)</li>
+                      <li>3 clients: $30/client (save $60 total)</li>
+                      <li>4 clients: $20/client (save $120 total)</li>
+                      <li>5+ clients: $10/client minimum</li>
+                      <li>🎁 Every 6th onboarding is FREE!</li>
                     </ul>
                   </div>
 
@@ -643,28 +654,23 @@ const GHLPricing = () => {
 
                     <div className="space-y-3">
                       <div className="flex justify-between items-center pb-3 border-b border-border">
-                        <span className="text-sm font-medium">Client Onboardings</span>
-                        <span className="font-bold text-primary">{onboardingPricing.quantity}</span>
+                        <span className="text-sm font-medium">Onboarding ({onboardingPricing.quantity} client{onboardingPricing.quantity > 1 ? 's' : ''})</span>
+                        <div className="text-right">
+                          <div className="font-semibold text-primary">
+                            ${onboardingPricing.pricePerClient}/client × {onboardingPricing.quantity}
+                          </div>
+                          {onboardingPricing.quantity > 1 && (
+                            <div className="text-xs text-muted-foreground">
+                              Volume pricing applied
+                            </div>
+                          )}
+                        </div>
                       </div>
 
                       {onboardingPricing.freeOnboardings > 0 && (
                         <div className="flex justify-between items-center pb-3 border-b">
                           <span className="text-sm">Free Onboardings</span>
                           <span className="font-semibold text-green-600">{onboardingPricing.freeOnboardings}</span>
-                        </div>
-                      )}
-
-                      <div className="flex justify-between items-center pb-3 border-b">
-                        <span className="text-sm">Pricing</span>
-                        <span className="font-semibold text-primary-dark">
-                          {onboardingPricing.paidOnboardings} × $50
-                        </span>
-                      </div>
-
-                      {onboardingPricing.discount > 0 && (
-                        <div className="flex justify-between items-center pb-3 border-b">
-                          <span className="text-sm">Volume Discount</span>
-                          <span className="font-semibold text-green-600">-${onboardingPricing.discount}</span>
                         </div>
                       )}
                     </div>
@@ -709,6 +715,8 @@ const GHLPricing = () => {
       {currentServiceData && (
         <ServiceForm open={formOpen} onOpenChange={setFormOpen} serviceData={currentServiceData} />
       )}
+      
+      <TestimonialSection serviceType="GoHighLevel Support" />
     </section>
   );
 };

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ServiceForm from "@/components/ServiceForm";
 import { ServiceData } from "@/lib/formSubmission";
+import TestimonialSection from "@/components/TestimonialSection";
 
 const PPCCalculator = () => {
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["Google Ads"]);
@@ -287,7 +288,7 @@ const PPCCalculator = () => {
                         <div className="flex justify-between items-center">
                           <span className="text-white text-lg font-semibold flex items-center gap-2">💰 First Month:</span>
                           <span className="text-white text-3xl font-bold">
-                            ${(totalSetupFee + totalMonthlyFee).toLocaleString()}
+                            ${Math.round(totalSetupFee + totalMonthlyFee).toLocaleString()}
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
@@ -341,6 +342,8 @@ const PPCCalculator = () => {
           platformBreakdown: JSON.stringify(pricing.platformBreakdown)
         }}
       />
+      
+      <TestimonialSection serviceType="Advertisement Management" />
     </section>
   );
 };
