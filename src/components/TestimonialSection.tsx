@@ -5,6 +5,7 @@ interface TestimonialSectionProps {
   serviceType?: string;
 }
 
+const TestimonialSection: React.FC<TestimonialSectionProps> = ({ serviceType }) => {
   const scrollToTestimonials = () => {
     const testimonialsSection = document.querySelector("#testimonials-main");
     if (testimonialsSection) {
