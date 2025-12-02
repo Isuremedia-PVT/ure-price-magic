@@ -5,7 +5,6 @@ interface TestimonialSectionProps {
   serviceType?: string;
 }
 
-const TestimonialSection = ({ serviceType = "This Service" }: TestimonialSectionProps) => {
   const scrollToTestimonials = () => {
     const testimonialsSection = document.querySelector("#testimonials-main");
     if (testimonialsSection) {
