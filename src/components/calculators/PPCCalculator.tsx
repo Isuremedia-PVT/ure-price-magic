@@ -221,7 +221,7 @@ const PPCCalculator = () => {
                         </div>
                         <Slider
                           min={1000}
-                          max={150000}
+                          max={100000}
                           step={1000}
                           value={[platformBudgets[platform] || 5000]}
                           onValueChange={(value) => setPlatformBudget(platform, value[0])}
