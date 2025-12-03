@@ -16,43 +16,37 @@ const PPCCalculator = () => {
   const setupFee = 350;
 
   const calculatePPCFee = (spend: number) => {
-    let managementFee: number;
-    let percentage: string;
+    let managementFee = 0;
+    let percentage = "";
 
     if (spend <= 2000) {
       managementFee = 250;
-      percentage = "~12.5%";
-    } else if (spend <= 5000) {
-      managementFee = 400;
-      percentage = "~8%";
+      percentage = "12.5%";
     } else if (spend <= 10000) {
       managementFee = 400;
-      percentage = "~4-8%";
+      percentage = "8%";
     } else if (spend <= 15000) {
-      managementFee = Math.max(600, spend * 0.06);
-      percentage = "6%";
+      managementFee = 600;
+      percentage = "4%";
     } else if (spend <= 20000) {
-      managementFee = Math.max(750, spend * 0.05);
-      percentage = "5%";
+      managementFee = 800;
+      percentage = "4%";
     } else if (spend <= 50000) {
-      managementFee = spend * 0.04;
-      percentage = "4%";
+      managementFee = 1500;
+      percentage = "3%";
     } else if (spend <= 75000) {
-      managementFee = spend * 0.03;
-      percentage = "4%";
+      managementFee = 2250;
+      percentage = "3%";
     } else if (spend <= 100000) {
-      managementFee = Math.max(2250, spend * 0.02);
-      percentage = "4%";
-    } else {
-      managementFee = Math.max(2250, spend * 0.01);
-      percentage = "4%";
+      managementFee = 3000;
+      percentage = "3%";
     }
 
     return {
-      managementFee: Math.round(managementFee),
-      percentage: percentage,
+      managementFee,
+      percentage,
       setupFee: 350,
-      firstMonthTotal: Math.round(managementFee) + 350,
+      firstMonthTotal: managementFee + 350,
     };
   };
 
