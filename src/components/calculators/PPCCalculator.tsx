@@ -232,7 +232,7 @@ const PPCCalculator = () => {
                           <span className="font-semibold text-primary">
                             Management: ${calculatePPCFee(platformBudgets[platform] || 5000).managementFee}/mo
                           </span>
-                          <span className="font-medium">$150K+</span>
+                          <span className="font-medium">$100K+</span>
                         </div>
                       </div>
                     ))}
