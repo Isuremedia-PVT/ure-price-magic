@@ -40,6 +40,9 @@ const PPCCalculator = () => {
     } else if (spend <= 100000) {
       managementFee = 3000;
       percentage = "3%";
+    } else {
+      managementFee = 5000;
+      percentage = "4%";
     }
 
     return {
