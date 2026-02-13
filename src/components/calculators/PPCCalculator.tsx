@@ -15,34 +15,56 @@ const PPCCalculator = () => {
 
   const setupFee = 350;
 
-  const calculatePPCFee = (spend: number) => {
+  const calculatePPCFee = (spend: number, platform: string) => {
     let managementFee = 0;
     let percentage = "";
 
-    if (spend <= 2000) {
-      managementFee = 250;
-      percentage = "12.5%";
-    } else if (spend <= 10000) {
-      managementFee = 400;
-      percentage = "8%";
-    } else if (spend <= 15000) {
-      managementFee = 600;
-      percentage = "4%";
-    } else if (spend <= 20000) {
-      managementFee = 800;
-      percentage = "4%";
-    } else if (spend <= 50000) {
-      managementFee = 1500;
-      percentage = "3%";
-    } else if (spend <= 75000) {
-      managementFee = 2250;
-      percentage = "3%";
-    } else if (spend <= 100000) {
-      managementFee = 3000;
-      percentage = "3%";
+    const isMetaOrGoogle = platform === "Meta Ads" || platform === "Google Ads";
+    const isEcommerce = platform === "E-commerce Ads";
+
+    if (isEcommerce) {
+      // E-commerce Ads: $550 base at $1K, +$50 per additional $1K
+      const extraIncrements = Math.max(0, Math.floor((spend - 1000) / 1000));
+      managementFee = 550 + extraIncrements * 50;
+      percentage = `${((managementFee / spend) * 100).toFixed(1)}%`;
+    } else if (isMetaOrGoogle) {
+      // Meta & Google Ads: $350 at $1.5K, $400 at $2K, +$50 per additional $1K after $2K
+      if (spend <= 1500) {
+        managementFee = 350;
+      } else if (spend <= 2000) {
+        managementFee = 400;
+      } else {
+        const extraIncrements = Math.floor((spend - 2000) / 1000);
+        managementFee = 400 + extraIncrements * 50;
+      }
+      percentage = `${((managementFee / spend) * 100).toFixed(1)}%`;
     } else {
-      managementFee = 5000;
-      percentage = "4%";
+      // All other platforms: original tiered pricing
+      if (spend <= 2000) {
+        managementFee = 250;
+        percentage = "12.5%";
+      } else if (spend <= 10000) {
+        managementFee = 400;
+        percentage = "8%";
+      } else if (spend <= 15000) {
+        managementFee = 600;
+        percentage = "4%";
+      } else if (spend <= 20000) {
+        managementFee = 800;
+        percentage = "4%";
+      } else if (spend <= 50000) {
+        managementFee = 1500;
+        percentage = "3%";
+      } else if (spend <= 75000) {
+        managementFee = 2250;
+        percentage = "3%";
+      } else if (spend <= 100000) {
+        managementFee = 3000;
+        percentage = "3%";
+      } else {
+        managementFee = 5000;
+        percentage = "4%";
+      }
     }
 
     return {
@@ -61,6 +83,7 @@ const PPCCalculator = () => {
     "Snapchat Ads",
     "TikTok Ads",
     "LinkedIn Ads",
+    "E-commerce Ads",
   ];
 
   const togglePlatform = (platform: string) => {
@@ -101,7 +124,7 @@ const PPCCalculator = () => {
 
     const breakdown = selectedPlatforms.map((platform) => {
       const budget = platformBudgets[platform] || 5000;
-      const fee = calculatePPCFee(budget);
+      const fee = calculatePPCFee(budget, platform);
       return {
         platform,
         adSpend: budget,
@@ -230,7 +253,7 @@ const PPCCalculator = () => {
                         <div className="flex justify-between items-center text-sm text-muted-foreground mt-3">
                           <span className="font-medium">$1K</span>
                           <span className="font-semibold text-primary">
-                            Management: ${calculatePPCFee(platformBudgets[platform] || 5000).managementFee}/mo
+                            Management: ${calculatePPCFee(platformBudgets[platform] || 5000, platform).managementFee}/mo
                           </span>
                           <span className="font-medium">$100K+</span>
                         </div>
