@@ -155,7 +155,7 @@ const Footer = () => {
 
         <div className="border-t border-primary-foreground/20 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-primary-foreground/70">
-            <p>© 2025 iSure Media. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} iSure Media. All rights reserved.</p>
             <div className="flex gap-6">
               <a href="#" className="hover:text-accent transition-spring">
                 Privacy Policy
