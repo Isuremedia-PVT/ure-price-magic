@@ -51,7 +51,8 @@ const Navigation = () => {
             />
           </a>
           
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop nav (1024px+) */}
+          <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -74,6 +75,50 @@ const Navigation = () => {
             </Button>
           </div>
 
+          {/* Tablet nav (768–1024px): CTA + hamburger */}
+          <div className="hidden md:flex lg:hidden items-center gap-4">
+            <Button
+              onClick={() => scrollToSection("booking")}
+              variant="hero"
+              size="sm"
+              className="shadow-orange hover:scale-105 transition-spring text-xs px-4"
+            >
+              Get Started
+            </Button>
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="hover:scale-110 transition-spring"
+                >
+                  <Menu className="h-7 w-7" style={{ color: isScrolled ? "#1A2E54" : "#ffffff" }} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-80 h-full bg-[#0A1F44] z-[1100] shadow-2xl border-0">
+                <div className="flex flex-col gap-6 mt-8">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className="text-lg font-semibold text-left text-white hover:text-orange-500 transition-all hover:translate-x-2"
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                  <Button
+                    onClick={() => scrollToSection("booking")}
+                    variant="hero"
+                    className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                  >
+                    Get Started
+                  </Button>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+
+          {/* Mobile nav (<768px) */}
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button 
